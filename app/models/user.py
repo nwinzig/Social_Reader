@@ -19,8 +19,8 @@ class User(db.Model, UserMixin):
 
     #relationships
 
-    user_bookclub = db.relationship('User_BookClub', back_populates='user')
-    user_book = db.relationship('User_Book', back_populates='user')
+    user_bookclub = db.relationship('User_BookClub', back_populates='user', cascade='all, delete-orphan')
+    user_book = db.relationship('User_Book', back_populates='user', cascade='all, delete-orphan')
 
     # books = db.relationship('Book', secondary='user_books', back_populates='users')
 
