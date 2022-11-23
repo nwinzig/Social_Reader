@@ -1,0 +1,38 @@
+.splashWrapper{
+    margin-top: 100px;
+    /* width: 100%; */
+    overflow: auto;
+}
+
+.introWrapper{
+    display: flex;
+    height: 300px;
+    flex-direction: row;
+    /* justify-content: space-between; */
+    /* width: 100%; */
+    margin-left: 20%;
+    margin-right: 20%;
+    justify-content: center;
+    overflow: auto;
+
+}
+
+.contentWrapper{
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    overflow: hidden;
+}
+
+.splashImage{
+    height: 200px;
+    width: 200px;
+}
+
+.splashIntrotext{
+    padding: 10px;
+    max-width: 225px;
+}
