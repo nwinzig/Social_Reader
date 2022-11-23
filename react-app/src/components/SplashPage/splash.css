@@ -1,5 +1,5 @@
 .splashWrapper{
-    margin-top: 100px;
+    margin-top: 25px;
     /* width: 100%; */
     overflow: auto;
 }
@@ -35,4 +35,21 @@
 .splashIntrotext{
     padding: 10px;
     max-width: 225px;
+}
+
+
+.getStartedWrapper{
+    /* background-size: contain; */
+    /* background-color: #F8F0EB; */
+    background: linear-gradient(.25turn,white, 30%,#F8F0EB )
+
+}
+.getStartedImage{
+    margin-left: 5%;
+    background-image: url("https://res.cloudinary.com/dydhvazpw/image/upload/v1669242906/capstone/banner_home_mobile2x_wftsa5.webp") ;
+    background-repeat: no-repeat;
+    height: 400px;
+    width: 400px;
+    background-size: 100% 100%;
+    background-position: center;
 }

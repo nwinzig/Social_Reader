@@ -9,6 +9,7 @@ import { getAllClubs } from '../../store/bookclub'
 function SplashPage(){
 
     const dispatch = useDispatch()
+    const session = useSelector((state) => state.session.user)
     const bookClubs = useSelector((state) => state.bookclubs.BookClubs)
     console.log(bookClubs)
 
@@ -16,7 +17,9 @@ function SplashPage(){
         dispatch(getAllClubs())
     }, [dispatch])
 
+    if(session){
 
+    }
     return (
         <div className='splashWrapper'>
             <div className='introWrapper'>
@@ -49,7 +52,12 @@ function SplashPage(){
                 </div>
             </div>
             <div className='getStartedWrapper'>
+                <div className='getStartedImage'>
 
+                </div>
+                <div>
+
+                </div>
             </div>
         </div>
     )
