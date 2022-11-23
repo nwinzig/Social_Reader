@@ -28,8 +28,8 @@ class BookClub(db.Model):
 
 
 
-    user_bookclub = db.relationship('User_BookClub', back_populates='bookclub')
-    bookclub_book = db.relationship('BookClub_Book', back_populates='book_club')
+    user_bookclub = db.relationship('User_BookClub', back_populates='bookclub', cascade='all, delete-orphan')
+    bookclub_book = db.relationship('BookClub_Book', back_populates='book_club', cascade='all, delete-orphan')
 
     # books = db.relationship('Book', secondary='bookClub_books', back_populates='book_clubs')
 
