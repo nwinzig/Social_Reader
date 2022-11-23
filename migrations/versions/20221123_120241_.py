@@ -8,8 +8,8 @@ Create Date: 2022-11-23 12:02:41.106545
 from alembic import op
 import sqlalchemy as sa
 import os
-environment = os.getenv("FLASK_ENV")
-SCHEMA = os.environ.get("SCHEMA")
+# environment = os.getenv("FLASK_ENV")
+# SCHEMA = os.environ.get("SCHEMA")
 
 # revision identifiers, used by Alembic.
 revision = '369469e48270'
@@ -28,8 +28,6 @@ def upgrade():
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('name')
     )
-    if environment == "production":
-        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
 
     op.create_table('books',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -42,8 +40,6 @@ def upgrade():
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('name')
     )
-    if environment == "production":
-        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
 
     op.create_table('users',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -57,8 +53,6 @@ def upgrade():
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username')
     )
-    if environment == "production":
-        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
 
     op.create_table('bookclub_books',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -69,8 +63,6 @@ def upgrade():
     sa.ForeignKeyConstraint(['bookclub_id'], ['book_clubs.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
-    if environment == "production":
-        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
 
     op.create_table('user_bookclubs',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -81,8 +73,6 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
-    if environment == "production":
-        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
 
     op.create_table('user_books',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -94,8 +84,6 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
-    if environment == "production":
-        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
 
     # ### end Alembic commands ###
 
