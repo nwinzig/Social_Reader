@@ -1,0 +1,93 @@
+.splashWrapper{
+    margin-top: 25px;
+    /* width: 100%; */
+    overflow: auto;
+}
+
+.introWrapper{
+    display: flex;
+    height: 300px;
+    flex-direction: row;
+    /* justify-content: space-between; */
+    /* width: 100%; */
+    margin-left: 20%;
+    margin-right: 20%;
+    justify-content: center;
+    overflow: auto;
+
+}
+
+.contentWrapper{
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    overflow: hidden;
+}
+
+.splashImage{
+    height: 200px;
+    width: 200px;
+}
+
+.splashIntrotext{
+    padding: 10px;
+    max-width: 225px;
+}
+
+
+.getStartedWrapper{
+    /* background-size: contain; */
+    /* background-color: #F8F0EB; */
+    background: linear-gradient(.25turn,white, 30%,#F8F0EB );
+    display: flex;
+    flex-direction: row;
+
+}
+.getStartedImage{
+    margin-left: 5%;
+    background-image: url("https://res.cloudinary.com/dydhvazpw/image/upload/v1669242906/capstone/banner_home_mobile2x_wftsa5.webp") ;
+    background-repeat: no-repeat;
+    height: 400px;
+    width: 400px;
+    background-size: 100% 100%;
+    background-position: center;
+    margin-right: 5%;
+}
+.getStartedContent{
+    margin-top: 5%;
+    margin-right: 5%;
+    margin-left: 5%;
+    width: 400px;
+}
+.splashSignUpButton{
+    width: 200px;
+    /* border: 1px black solid; */
+
+    box-shadow: 0 0 2px 2px lightgray;
+    border: none;
+    background-color: #CD4418;
+    color: white;
+    height: 50px;
+    font-size: 16px;
+    border-radius: 25px;
+}
+.splashSignUpButton:hover{
+    cursor: pointer;
+}
+.getStartedContentWrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.quoteContent{
+    margin-top: 5px;
+    margin-bottom: 0px;
+}
+.quoteAuthor{
+    margin-top: 5px;
+    margin-left: 25px;
+}

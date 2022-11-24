@@ -6,7 +6,7 @@ from app.forms import CreateClubForm, UpdateClubForm
 
 
 bookClub_routes = Blueprint('bookClub', __name__)
-
+#/api/bookclub
 
 #get all book clubs
 @bookClub_routes.route('/', methods=['GET'])
