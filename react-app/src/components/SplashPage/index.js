@@ -55,7 +55,7 @@ function SplashPage(){
                     </img>
                     <div>
                         <p className='splashIntrotext'>
-                            Join or create a book club to read with old or new friends.
+                            Join or create a book club to read with old and new friends.
                         </p>
                     </div>
                 </div>

@@ -1,0 +1,64 @@
+.navWrapper{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    height: 70px;
+    /* background-color: aqua; */
+    background: linear-gradient(-.25turn,white, 30%,#F8F0EB );
+    align-items: center;
+    position: fixed;
+    top: 0;
+    box-shadow: 0 1px lightgray;
+}
+.leftNavWrapper{
+    margin-left: 5%;
+    display: flex;
+    flex-direction: row;
+    width: 30%;
+    justify-content: space-between;
+    align-items: center;
+}
+.logo{
+    color:black;
+    text-decoration: none;
+    font-size: 26px;
+}
+.joinAClub{
+    color: black;
+    text-decoration: none;
+    font-size: 18px;
+}
+.findABook{
+    color: black;
+    text-decoration: none;
+    font-size: 18px;
+}
+.rightNavWrapper{
+    margin-right: 5%;
+    display: flex;
+    height: 100%;
+    flex-direction: row;
+    width: 15%;
+    /* background-color: bisque; */
+    /* justify-content: space-between; */
+    align-items: center;
+}
+.signInButton{
+    margin-left: 5%;
+    text-decoration: none;
+    color: black;
+    margin-right: 25px;
+}
+.signUpButton{
+    text-decoration: none;
+    background-color: #CD4418;
+    color: white;
+    width: 100px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 25px;
+    box-shadow: 0 0 2px 2px lightgray;
+}
