@@ -7,7 +7,7 @@ import { getAllClubs } from '../../store/bookclub'
 
 
 function SplashPage(){
-
+    const history = useHistory()
     const dispatch = useDispatch()
     const session = useSelector((state) => state.session.user)
     const bookClubs = useSelector((state) => state.bookclubs.BookClubs)
@@ -17,8 +17,35 @@ function SplashPage(){
         dispatch(getAllClubs())
     }, [dispatch])
 
-    if(session){
+    let getStartedButton
 
+
+    const directToSignUp = function (){
+        history.push('/sign-up')
+    }
+
+    if(session){
+        getStartedButton = (
+            <div>
+                <h2 className='quoteContent'>
+                    "So many books, so little time."
+                </h2>
+                <h2 className='quoteAuthor'>
+                    - Frank Zappa
+                </h2>
+            </div>
+        )
+    } else {
+        getStartedButton = (
+            <div className='getStartedContentWrapper'>
+                <h3>
+                    Get Started Today
+                </h3>
+                <button className='splashSignUpButton' onClick={directToSignUp}>
+                    Sign up now
+                </button>
+            </div>
+        )
     }
     return (
         <div className='splashWrapper'>
@@ -55,8 +82,14 @@ function SplashPage(){
                 <div className='getStartedImage'>
 
                 </div>
-                <div>
-
+                <div className='getStartedContent'>
+                    <h2 className='quoteContent'>
+                        "A book is a dream that you hold in your hand."
+                    </h2>
+                    <h2 className='quoteAuthor'>
+                        - Neil Gaiman
+                    </h2>
+                    {getStartedButton}
                 </div>
             </div>
         </div>

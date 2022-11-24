@@ -41,7 +41,9 @@
 .getStartedWrapper{
     /* background-size: contain; */
     /* background-color: #F8F0EB; */
-    background: linear-gradient(.25turn,white, 30%,#F8F0EB )
+    background: linear-gradient(.25turn,white, 30%,#F8F0EB );
+    display: flex;
+    flex-direction: row;
 
 }
 .getStartedImage{
@@ -52,4 +54,40 @@
     width: 400px;
     background-size: 100% 100%;
     background-position: center;
+    margin-right: 5%;
+}
+.getStartedContent{
+    margin-top: 5%;
+    margin-right: 5%;
+    margin-left: 5%;
+    width: 400px;
+}
+.splashSignUpButton{
+    width: 200px;
+    /* border: 1px black solid; */
+
+    box-shadow: 0 0 2px 2px lightgray;
+    border: none;
+    background-color: #CD4418;
+    color: white;
+    height: 50px;
+    font-size: 16px;
+    border-radius: 25px;
+}
+.splashSignUpButton:hover{
+    cursor: pointer;
+}
+.getStartedContentWrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.quoteContent{
+    margin-top: 5px;
+    margin-bottom: 0px;
+}
+.quoteAuthor{
+    margin-top: 5px;
+    margin-left: 25px;
 }
