@@ -40,7 +40,7 @@ const NavBar = () => {
           </NavLink>
         </div>
         <div>
-          <NavLink className='joinAClub' to='/' exact={true} activeClassName='active'>
+          <NavLink className='joinAClub' to='/findAClub' exact={true} activeClassName='active'>
             Join A book Club
           </NavLink>
         </div>

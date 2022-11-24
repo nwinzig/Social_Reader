@@ -9,7 +9,7 @@ import UsersList from './components/UsersList';
 import User from './components/User';
 import { authenticate } from './store/session';
 import SplashPage from './components/SplashPage';
-
+import FindAClub from './components/BookClub/FindBookClub';
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
@@ -40,6 +40,9 @@ function App() {
         </ProtectedRoute>
         <Route path='/' exact={true} >
           <SplashPage />
+        </Route>
+        <Route path='/findAClub'>
+          <FindAClub />
         </Route>
       </Switch>
     </BrowserRouter>

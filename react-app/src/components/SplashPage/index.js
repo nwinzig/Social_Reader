@@ -11,7 +11,6 @@ function SplashPage(){
     const dispatch = useDispatch()
     const session = useSelector((state) => state.session.user)
     const bookClubs = useSelector((state) => state.bookclubs.BookClubs)
-    console.log(bookClubs)
 
     useEffect(() => {
         dispatch(getAllClubs())
