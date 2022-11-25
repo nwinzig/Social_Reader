@@ -16,7 +16,7 @@ function FindAClub(){
 
     // console.log('all bookclubs', bookClubs[0])
     return (
-        <div>
+        <div className='findAClubBody'>
             <div className='findAClubWrapper'>
                 <div className='findBackgroundImageWrapper'>
                     <div className='findClubImage'>
@@ -35,18 +35,21 @@ function FindAClub(){
 
                 </div>
             </div>
+            <h2 className='browseClubsTitle'>
+                Browse current clubs
+            </h2>
             <div className='clubResultsWrapper'>
                 {bookClubs?.map(club =>(
                     <div className='clubCardWrapper' key={club?.id}>
                         <div>
-                            Image placeHolder
+                            <img className='clubImage' src={club?.clubImage}></img>
                         </div>
-                        <div>
-                        {club?.name}
-                        </div>
-                        <div>
-                        {club?.description}
-                        </div>
+                        <h3>
+                            {club?.name}
+                        </h3>
+                        {/* <div>
+                            {club?.description}
+                        </div> */}
                         <button className='viewClubButton'>
                             View Club
                         </button>

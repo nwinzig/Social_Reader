@@ -40,5 +40,6 @@ class BookClub(db.Model):
             'id': self.id,
             'name': self.name,
             'description': self.description,
+            'clubImage': self.clubImage,
             'private': self.private
         }

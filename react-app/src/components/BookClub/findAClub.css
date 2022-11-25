@@ -1,3 +1,6 @@
+.findAClubBody{
+    margin-bottom: 50px;
+}
 .findAClubWrapper{
     display: flex;
     flex-direction: column;
@@ -39,12 +42,15 @@
 .findClubContentH{
     font-size: 28px;
 }
-
+.browseClubsTitle{
+    margin-top: 25px;
+    margin-left: 15%;
+}
 .clubResultsWrapper{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    margin-top: 100px;
+    margin-top: 25px;
     margin-left: 10%;
     margin-right: 10%;
     justify-content: center;
@@ -66,6 +72,12 @@
     align-items: center;
 }
 
+.clubImage{
+    margin-top: 25px;
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+}
 
 .viewClubButton{
     border: none;
