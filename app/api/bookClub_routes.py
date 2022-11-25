@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, session, request, redirect
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import db, BookClub, User_BookClub
+from app.models import db, BookClub, User_BookClub, BookClub_Book
 from app.forms import CreateClubForm, UpdateClubForm
 
 
@@ -67,12 +67,23 @@ def getOneClub(id):
 ## getting number of members for a club
 @bookClub_routes.route('/numMembers/<int:id>')
 def findNumMembers(id):
+    """This route is only used incase the number of members for a group is needed """
 
     members = User_BookClub.query.filter(User_BookClub.bookclub_id == id).all()
-    # print('can I take length of members', len(members))
-    # print('should be members of the club', members)
-    # print('what happens with members', members)
+
     return {'Members': len(members)}
+
+#getting books for the club
+@bookClub_routes.route('/<int:id>/books')
+def findclubBooks(id):
+    """This route will only be used to find a clubs books """
+
+    books = BookClub_Book.query.filter(BookClub_Book.bookclub_id == id).all()
+    allBooks = []
+    allBooks.extend([i.to_dict() for i in books])
+
+    # print('what is books after query', allBooks)
+    return {'books': allBooks}
 
 
 #create a club

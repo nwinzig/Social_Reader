@@ -9,9 +9,9 @@ function ClubDetails(){
     const dispatch = useDispatch()
     const session = useSelector((state) => state.session.user)
     const bookClub = useSelector((state) => state.bookclubs.BookClub)
-    console.log('testing bookclub state', bookClub)
+
     const {clubId} = useParams()
-    console.log('should be id in url', clubId)
+
 
     useEffect(() => {
         dispatch(getOneClub(clubId))
@@ -19,6 +19,7 @@ function ClubDetails(){
 
 
     const [numMembers, setNumMembers] = useState(1)
+    const [books, setBooks] = useState([])
     useEffect(() => {
 
         async function fetchNumMembers(){
@@ -28,16 +29,39 @@ function ClubDetails(){
             // console.log('what do I get from the new fetch', newRequest.Members)
             setNumMembers(newRequest.Members)
         }
-        fetchNumMembers()
-    }, [])
+        async function fetchClubBooks(){
+            const request = await fetch(`/api/bookclub/${clubId}/books`)
+            const newRequest = await request.json()
 
-    // bookClub.numMembers = numMembers
-    console.log('this should be the number of members', bookClub)
+            setBooks(newRequest.books)
+        }
+        fetchClubBooks()
+        fetchNumMembers()
+    }, [dispatch])
+
+    console.log('testing books', books)
+    let completedBooks = []
+    let readingBooks = []
+    let planningBooks = []
+    for(let i=0; i<books.length; i++){
+
+        if(books[i].status == 'completed'){
+            completedBooks.push(books[i])
+        }
+        else if(books[i].status == 'reading'){
+            readingBooks.push(books[i])
+        } else if(books[i].status == 'planning'){
+            planningBooks.push(books[i])
+        }
+    }
+    console.log('do we get completed books list', completedBooks)
+    console.log('do we get planning list', planningBooks)
+    console.log('do we get reading list', readingBooks)
     return (
         <div className='ClubDetailsBody'>
             <div className='ClubDetailsHeader'>
                 <div className='clubDetailImageWrapper'>
-                    <img src={bookClub?.clubImage}>
+                    <img className='detailsImage' src={bookClub?.clubImage}>
                     </img>
                 </div>
                 <div className='clubDetailHeaderContent'>
@@ -49,13 +73,28 @@ function ClubDetails(){
                             Current Members: {numMembers}
                         </p>
                     </div>
-                    <button>
+                    <button className='joinClubButton'>
                         Join Club
                     </button>
                 </div>
             </div>
-            <div>
+            <div className='clubInformation'>
+                <div className='currentlyReadingWrapper'>
+                    <div>
+                        Currently Reading
+                    </div>
+                    <div>
 
+                    </div>
+                </div>
+                <div className='clubInformationContent'>
+                    <h3>
+                        About: {bookClub?.name}
+                    </h3>
+                    <p>
+                        {bookClub?.description}
+                    </p>
+                </div>
             </div>
             <div>
 

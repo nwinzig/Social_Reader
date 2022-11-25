@@ -50,7 +50,7 @@ function FindAClub(){
                         {/* <div>
                             {club?.description}
                         </div> */}
-                        <button className='viewClubButton'>
+                        <button className='viewClubButton' onClick={() => history.push(`/findAClub/${club?.id}`)}>
                             View Club
                         </button>
                     </div>

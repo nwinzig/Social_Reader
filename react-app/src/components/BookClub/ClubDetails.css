@@ -1,11 +1,65 @@
 .ClubDetailsBody{
     margin-top: 70px;
+    background: linear-gradient(.25turn,white, 30%,#F8F0EB );
 }
 
 .ClubDetailsHeader{
-    margin-left: 10%;
-    margin-right: 10%;
+    margin-left: 20%;
+    margin-right: 20%;
     display: flex;
     flex-direction: row;
-    height: 400px;
+    height: 300px;
+    justify-content: space-between;
+}
+.detailsImage{
+    margin-top: 25px;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+.clubDetailHeaderContent{
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 10%;
+    align-items: center;
+}
+.clubDetailHeaderContent h2{
+    font-size: 36px;
+}
+.clubDetailHeaderContent p{
+    font-size: 24px;
+}
+.joinClubButton{
+    border: none;
+    font-size: 24px;
+    text-decoration: none;
+    background-color: #CD4418;
+    color: white;
+    width: 160px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    box-shadow: 0 0 2px 2px lightgray;
+}
+.joinClubButton:hover{
+    cursor: pointer;
+}
+.clubInformation{
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: row;
+}
+.currentlyReadingWrapper{
+    display: flex;
+    flex-direction: column;
+}
+.clubInformationContent{
+    display: flex;
+    flex-direction: column;
 }
