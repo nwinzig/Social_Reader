@@ -64,6 +64,15 @@ def getOneClub(id):
 
     return {'BookClub': wantedClub}
 
+## getting number of members for a club
+@bookClub_routes.route('/numMembers/<int:id>')
+def findNumMembers(id):
+
+    members = User_BookClub.query.filter(User_BookClub.bookclub_id == id).all()
+    # print('can I take length of members', len(members))
+    # print('should be members of the club', members)
+    # print('what happens with members', members)
+    return {'Members': len(members)}
 
 
 #create a club

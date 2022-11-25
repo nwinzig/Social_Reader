@@ -10,6 +10,10 @@ import User from './components/User';
 import { authenticate } from './store/session';
 import SplashPage from './components/SplashPage';
 import FindAClub from './components/BookClub/FindBookClub';
+import ClubDetails from './components/BookClub/ClubDetails';
+
+
+
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
@@ -41,8 +45,11 @@ function App() {
         <Route path='/' exact={true} >
           <SplashPage />
         </Route>
-        <Route path='/findAClub'>
+        <Route exact path='/findAClub'>
           <FindAClub />
+        </Route>
+        <Route exact path='/findAClub/:clubId'>
+          <ClubDetails />
         </Route>
       </Switch>
     </BrowserRouter>

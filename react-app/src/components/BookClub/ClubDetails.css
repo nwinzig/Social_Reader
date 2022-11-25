@@ -1,0 +1,11 @@
+.ClubDetailsBody{
+    margin-top: 70px;
+}
+
+.ClubDetailsHeader{
+    margin-left: 10%;
+    margin-right: 10%;
+    display: flex;
+    flex-direction: row;
+    height: 400px;
+}
