@@ -3,13 +3,13 @@ from app.models import db, User, environment, SCHEMA, BookClub
 
 def seed_bookclubs():
     club1 = BookClub(
-        name='Club1', description='This is the first seeder club.', private=False
+        name='Club1', description='This is the first seeder club.',clubImage='https://res.cloudinary.com/dydhvazpw/image/upload/v1669398116/capstone/istockphoto-1260329669-612x612_h3d8na.jpg', private=False
         )
     club2 = BookClub(
-        name='Club2', description='This is the second seeder club.', private=False
+        name='Club2', description='This is the second seeder club.',clubImage='https://res.cloudinary.com/dydhvazpw/image/upload/v1669398116/capstone/istockphoto-1260329669-612x612_h3d8na.jpg', private=False
         )
     club3 = BookClub(
-        name='Club3', description='This is the third seeder club.', private=False
+        name='Club3', description='This is the third seeder club.', clubImage='https://res.cloudinary.com/dydhvazpw/image/upload/v1669398116/capstone/istockphoto-1260329669-612x612_h3d8na.jpg',private=False
         )
 
     db.session.add(club1)
