@@ -1,44 +1,58 @@
 .ClubDetailsBody{
-    margin-top: 70px;
-    background: linear-gradient(.25turn,white, 30%,#F8F0EB );
+    margin-top: 100px;
+    /* background: linear-gradient(.25turn,white, 30%,#F8F0EB ); */
 }
 
 .ClubDetailsHeader{
-    margin-left: 20%;
-    margin-right: 20%;
+    border-bottom: 1px solid #E66752;
+    /* margin-top: 100px; */
+    margin-left: 22%;
+    margin-right: 22%;
     display: flex;
     flex-direction: row;
     height: 300px;
     justify-content: space-between;
 }
+.clubDetailImageWrapper{
+    margin-top: auto;
+    margin-bottom: auto;
+    display: flex;
+    flex-direction: row;
+}
+.imageWrapper{
+    width: 50%;
+
+}
 .detailsImage{
-    margin-top: 25px;
+    /* margin-top: 25px; */
+    box-shadow: 0 0 2px 2px lightgray;
     width: 100%;
     height: 100%;
     border-radius: 50%;
+}
+.name_numMembers{
+    margin-left: 20px;
 }
 .clubDetailHeaderContent{
     width: 30%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    /* justify-content: flex-end; */
     margin-left: 10%;
     align-items: center;
 }
-.clubDetailHeaderContent h2{
-    font-size: 36px;
-}
-.clubDetailHeaderContent p{
-    font-size: 24px;
-}
+
 .joinClubButton{
+    margin-bottom: auto;
+    margin-top: auto;
+    margin-right: 15%;
     border: none;
-    font-size: 24px;
+    font-size: 22px;
     text-decoration: none;
     background-color: #CD4418;
     color: white;
-    width: 160px;
-    height: 60px;
+    width: 180px;
+    height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -49,17 +63,44 @@
     cursor: pointer;
 }
 .clubInformation{
-    margin-left: 15%;
-    margin-right: 15%;
+    margin-left: 22%;
+    margin-right: 22%;
     margin-top: 50px;
     display: flex;
     flex-direction: row;
+    border-bottom: 1px solid #E66752;
 }
 .currentlyReadingWrapper{
     display: flex;
     flex-direction: column;
+    background-color: #F9F4F2;
+    height: 300px;
+    width: 300px;
+    border-radius: 10px;
+    /* border: 1px solid black; */
+    box-shadow: 0 0 1px 1px lightgray;
+    align-items: center;
+    padding: 20px;
+    font-size: 20px;
 }
 .clubInformationContent{
     display: flex;
     flex-direction: column;
+    margin-left: 5%;
+}
+.readingDisplay{
+    margin-top: 0px;
+    display: flex;
+    flex-direction: column;
+}
+.readingDisplay h3{
+    margin-top: 0px;
+    margin-bottom: 5px;
+}
+.readingCoverImage{
+    height: 250px;
+}
+.testingwithcolor{
+    height: 200px;
+    background-color: blue;
 }

@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, session, request, redirect
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import db, BookClub, User_BookClub, BookClub_Book
+from app.models import db, BookClub, User_BookClub, BookClub_Book, Book
 from app.forms import CreateClubForm, UpdateClubForm
 
 
@@ -81,9 +81,13 @@ def findclubBooks(id):
     books = BookClub_Book.query.filter(BookClub_Book.bookclub_id == id).all()
     allBooks = []
     allBooks.extend([i.to_dict() for i in books])
-
-    # print('what is books after query', allBooks)
-    return {'books': allBooks}
+    allBooksDetails = []
+    for book in allBooks:
+        bookDetails = Book.query.filter(Book.id == book['book_id']).first()
+        newBook = bookDetails.to_dict()
+        newBook['status'] = book['status']
+        allBooksDetails.append(newBook)
+    return {'books': allBooksDetails}
 
 
 #create a club

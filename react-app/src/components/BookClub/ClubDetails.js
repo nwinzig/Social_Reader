@@ -55,24 +55,59 @@ function ClubDetails(){
         }
     }
     console.log('do we get completed books list', completedBooks)
+    // console.log(completedBooks.length)
     console.log('do we get planning list', planningBooks)
     console.log('do we get reading list', readingBooks)
+    // let pastbooks = completedBooks.map(book => book)
+    // console.log('what is past books', pastbooks)
+    let readingDisplay;
+    if(readingBooks.length>=1){
+        readingDisplay = (
+            <div className='readingDisplay'>
+                    <h3>{readingBooks[0]?.name}</h3>
+                    <img className='readingCoverImage' src={readingBooks[0]?.cover_image}></img>
+            </div>
+        )
+    } else {
+        readingDisplay = (
+            <div className='readingDisplay'>
+                This club has not started a book
+            </div>
+        )
+    }
+    let pastDisplay;
+    if(completedBooks.length>=1){
+        console.log('this was a truthy value')
+        pastDisplay = (
+            <div className='pastBooksWrapper'>
+                {completedBooks?.map((book) => (
+                    <div key={book?.id}>
+                        <h3>{book?.name}</h3>
+                        <h4>By: {book?.author}</h4>
+                        <img className='readingCoverImage' src={book?.cover_image}></img>
+                    </div>
+                ))}
+            </div>
+        )
+    }
     return (
         <div className='ClubDetailsBody'>
             <div className='ClubDetailsHeader'>
                 <div className='clubDetailImageWrapper'>
-                    <img className='detailsImage' src={bookClub?.clubImage}>
-                    </img>
-                </div>
-                <div className='clubDetailHeaderContent'>
-                    <div>
+                    <div className='imageWrapper'>
+                        <img className='detailsImage' src={bookClub?.clubImage}>
+                        </img>
+                    </div>
+                    <div className='name_numMembers'>
                         <h2>
                             {bookClub?.name}
                         </h2>
                         <p>
-                            Current Members: {numMembers}
+                            {numMembers} members
                         </p>
                     </div>
+                </div>
+                <div className='clubDetailHeaderContent'>
                     <button className='joinClubButton'>
                         Join Club
                     </button>
@@ -80,12 +115,10 @@ function ClubDetails(){
             </div>
             <div className='clubInformation'>
                 <div className='currentlyReadingWrapper'>
-                    <div>
+                    <div style={{borderBottom:'1px solid #E66752'}}>
                         Currently Reading
                     </div>
-                    <div>
-
-                    </div>
+                        {readingDisplay}
                 </div>
                 <div className='clubInformationContent'>
                     <h3>
@@ -96,9 +129,8 @@ function ClubDetails(){
                     </p>
                 </div>
             </div>
-            <div>
-
-            </div>
+            <h3>Books completed by {bookClub?.name}</h3>
+            {pastDisplay}
         </div>
     )
 }
