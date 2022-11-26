@@ -71,22 +71,47 @@ function ClubDetails(){
     } else {
         readingDisplay = (
             <div className='readingDisplay'>
-                This club has not started a book
+                {bookClub?.name} has not selected a book to read.
             </div>
         )
     }
     let pastDisplay;
     if(completedBooks.length>=1){
-        console.log('this was a truthy value')
         pastDisplay = (
-            <div className='pastBooksWrapper'>
+            <div className='pastBooksWrapper' id='addBottomBorder'>
                 {completedBooks?.map((book) => (
-                    <div key={book?.id}>
+                    <div key={book?.id} className='pastBookCard'>
                         <h3>{book?.name}</h3>
                         <h4>By: {book?.author}</h4>
-                        <img className='readingCoverImage' src={book?.cover_image}></img>
+                        <img className='readingCoverImage' src={book?.cover_image} alt='book cover image'></img>
                     </div>
                 ))}
+            </div>
+        )
+    } else {
+        pastDisplay = (
+            <div className='pastBooksWrapper' id='addBottomBorder'>
+                {bookClub?.name} has not completed any books.
+            </div>
+        )
+    }
+    let planningDisplay;
+    if(planningBooks.length>=1){
+        planningDisplay = (
+            <div className='pastBooksWrapper' >
+                {planningBooks?.map((book) => (
+                    <div key={book?.id} className='pastBookCard'>
+                        <h3>{book?.name}</h3>
+                        <h4>By: {book?.author}</h4>
+                        <img src={book?.cover_image} className='readingCoverImage' alt='book cover image'></img>
+                    </div>
+                ))}
+            </div>
+        )
+    } else {
+        planningDisplay = (
+            <div className='pastBooksWrapper' >
+                {bookClub?.name} has not added any books to their planning list.
             </div>
         )
     }
@@ -129,8 +154,10 @@ function ClubDetails(){
                     </p>
                 </div>
             </div>
-            <h3>Books completed by {bookClub?.name}</h3>
+            <h3 className='pastBookTitle'>Books completed by {bookClub?.name}</h3>
             {pastDisplay}
+            <h3 className='pastBookTitle'>{bookClub?.name} plans to read</h3>
+            {planningDisplay}
         </div>
     )
 }
