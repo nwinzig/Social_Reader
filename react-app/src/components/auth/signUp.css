@@ -1,0 +1,71 @@
+.signUpForm{
+    margin-top: 70px;
+    display: flex;
+    height: 600px;
+    width: 100%;
+}
+.signUpImageWrapper{
+    height: 100%;
+    width: 60%;
+}
+.signUpImageWrapper img{
+    height: 100%;
+    width: 100%;
+}
+.formInfoWrapper{
+    width: 40%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.inputField{
+    padding-left: 10px;
+    border: 1px solid lightgray;
+    box-shadow: 0 0 1px 1px lightgray;
+    height: 40px;
+    width: 250px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    border-radius: 25px;
+}
+.inputField:focus{
+    outline-width: 0;
+}
+.SignUpButton{
+    margin-top: 8px;
+    text-decoration: none;
+    background-color: #CD4418;
+    border: none;
+    color: white;
+    width: 125px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 25px;
+    box-shadow: 0 0 2px 2px lightgray;
+    font-size: 18px;
+}
+.SignUpButton:hover{
+    cursor: pointer;
+}
+.alreadyHaveAccountWrapper{
+    margin-top: 5px;
+    display: flex;
+}
+#addRightMargin{
+    margin-right: 5px;
+}
+.loginHere{
+    font-weight: bold;
+    color: black;
+}
+.loginHere:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
+#red{
+    color: red;
+    margin-top: 5px;
+}

@@ -21,10 +21,10 @@ const NavBar = () => {
   } else{
     rightNav = (
       <div className='rightNavWrapper'>
-          <NavLink className='signInButton' to='/sign-up' exact={true} activeClassName='active'>
+          <NavLink className='signInButton' to='/login' exact={true} activeClassName='active'>
             SIGN IN
           </NavLink>
-          <NavLink className='signUpButton' to='/login' exact={true} activeClassName='active'>
+          <NavLink className='signUpButton' to='/sign-up' exact={true} activeClassName='active'>
             SIGN UP
           </NavLink>
       </div>
