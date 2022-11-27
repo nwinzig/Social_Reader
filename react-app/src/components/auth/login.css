@@ -1,0 +1,50 @@
+.loginForm{
+    margin-top: 125px;
+    display: flex;
+    height: 500px;
+    width: 100%;
+    flex-direction: row;
+}
+.loginImageWrapper{
+    height: 100%;
+    width: 50%;
+}
+.loginImageWrapper img{
+    height: 100%;
+    width: 100%;
+}
+.loginInfoWrapper{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.loginButton{
+    margin-top: 8px;
+    text-decoration: none;
+    background-color: #CD4418;
+    border: none;
+    color: white;
+    width: 125px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 25px;
+    box-shadow: 0 0 2px 2px lightgray;
+    font-size: 18px;
+}
+.loginButton:hover{
+    cursor: pointer;
+}
+.dontHaveAccountWrapper{
+    margin-top: 15px;
+    display: flex;
+}
+.signUpHereNavL{
+    margin-left: 5px;
+    color: black;
+    font-weight: bold;
+}

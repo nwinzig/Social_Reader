@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import { login } from '../../store/session';
+import './login.css'
 
 const LoginForm = () => {
   const [errors, setErrors] = useState([]);
@@ -31,33 +32,52 @@ const LoginForm = () => {
   }
 
   return (
-    <form onSubmit={onLogin}>
-      <div>
-        {errors.map((error, ind) => (
-          <div key={ind}>{error}</div>
-        ))}
-      </div>
-      <div>
-        <label htmlFor='email'>Email</label>
-        <input
-          name='email'
-          type='text'
-          placeholder='Email'
-          value={email}
-          onChange={updateEmail}
-        />
-      </div>
-      <div>
-        <label htmlFor='password'>Password</label>
-        <input
-          name='password'
-          type='password'
-          placeholder='Password'
-          value={password}
-          onChange={updatePassword}
-        />
-        <button type='submit'>Login</button>
-      </div>
+    <form onSubmit={onLogin} className='loginForm'>
+        <div className='loginImageWrapper'>
+          <img src='https://res.cloudinary.com/dydhvazpw/image/upload/v1669497841/capstone/reading-statistics_yhivsd.jpg'>
+          </img>
+        </div>
+        <div className='loginInfoWrapper'>
+          <div>
+            {errors.map((error, ind) => (
+              <div key={ind}>{error}</div>
+            ))}
+          </div>
+          <div>
+            <h2>
+              What are you reading today?
+            </h2>
+          </div>
+          <div>
+            <input
+              className='inputField'
+              name='email'
+              type='text'
+              placeholder='Email'
+              value={email}
+              onChange={updateEmail}
+            />
+          </div>
+          <div>
+            <input
+              className='inputField'
+              name='password'
+              type='password'
+              placeholder='Password'
+              value={password}
+              onChange={updatePassword}
+            />
+          </div>
+          <button type='submit' className='loginButton'>Login</button>
+          <div className='dontHaveAccountWrapper'>
+            <div>
+              Don't have an account?
+            </div>
+            <NavLink to='/sign-up' className='signUpHereNavL'>
+              Sign up here
+            </NavLink>
+          </div>
+        </div>
     </form>
   );
 };
