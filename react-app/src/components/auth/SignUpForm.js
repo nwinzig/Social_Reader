@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { Redirect } from 'react-router-dom';
+import { Redirect, NavLink } from 'react-router-dom';
 import { signUp } from '../../store/session';
+import './signUp.css'
 
 const SignUpForm = () => {
   const [errors, setErrors] = useState([]);
@@ -62,79 +63,110 @@ const SignUpForm = () => {
   }
 
   return (
-    <form onSubmit={onSignUp}>
-      <div>
-        {errors.map((error, ind) => (
-          <div key={ind}>{error}</div>
-        ))}
+    <form onSubmit={onSignUp} className='signUpForm'>
+      <div className='signUpImageWrapper'>
+        <img src='https://res.cloudinary.com/dydhvazpw/image/upload/v1669496353/capstone/book-and-reading-statistics-min_prldl6.jpg'>
+        </img>
       </div>
-      {/* adding to signup form */}
-      <div>
-        <label>First Name</label>
-        <input
-          type='text'
-          name='firstName'
-          onChange={(e) => setFirstName(e.target.value)}
-          value={firstName}
-        ></input>
+      <div className='formInfoWrapper'>
+        <div>
+          {errors.map((error, ind) => (
+            <div key={ind} id='red'>{error}</div>
+          ))}
+        </div>
+        {/* adding to signup form */}
+        <div>
+          <h2>
+            Join the community!
+          </h2>
+        </div>
+        <div>
+          <input
+            className='inputField'
+            type='text'
+            name='firstName'
+            onChange={(e) => setFirstName(e.target.value)}
+            value={firstName}
+            placeholder='First Name'
+            required
+          ></input>
+        </div>
+        <div>
+          <input
+            className='inputField'
+            type='text'
+            name='lastName'
+            onChange={(e) => setLastName(e.target.value)}
+            value={lastName}
+            placeholder='Last Name'
+            required
+          ></input>
+        </div>
+        <div>
+          <input
+            className='inputField'
+            type='text'
+            name='profileImage'
+            onChange={(e) => setProfileImage(e.target.value)}
+            value={profileImage}
+            placeholder='Profile Image(optional)'
+          ></input>
+        </div>
+        {/* end addition */}
+        <div>
+          <input
+            className='inputField'
+            type='text'
+            name='username'
+            onChange={updateUsername}
+            value={username}
+            placeholder='Username'
+            required
+          ></input>
+        </div>
+        <div>
+          <input
+            className='inputField'
+            type='text'
+            name='email'
+            onChange={updateEmail}
+            value={email}
+            placeholder='Email'
+            required
+          ></input>
+        </div>
+        <div>
+          <input
+            className='inputField'
+            type='password'
+            name='password'
+            onChange={updatePassword}
+            value={password}
+            placeholder='Password'
+            required
+          ></input>
+        </div>
+        <div>
+          <input
+            className='inputField'
+            type='password'
+            name='repeat_password'
+            onChange={updateRepeatPassword}
+            value={repeatPassword}
+            required={true}
+            placeholder='Re-enter Password'
+          ></input>
+        </div>
+        <button type='submit' className='SignUpButton'>Sign Up</button>
+        <div className='alreadyHaveAccountWrapper'>
+          <div id='addRightMargin'>
+            Already have an account?
+          </div>
+          <NavLink to='/login' exact className='loginHere'>
+            Login here
+          </NavLink>
+        </div>
       </div>
-      <div>
-        <label>Last Name</label>
-        <input
-          type='text'
-          name='lastName'
-          onChange={(e) => setLastName(e.target.value)}
-          value={lastName}
-        ></input>
-      </div>
-      <div>
-        <label>Profile Image</label>
-        <input
-          type='text'
-          name='profileImage'
-          onChange={(e) => setProfileImage(e.target.value)}
-          value={profileImage}
-        ></input>
-      </div>
-      {/* end addition */}
-      <div>
-        <label>User Name</label>
-        <input
-          type='text'
-          name='username'
-          onChange={updateUsername}
-          value={username}
-        ></input>
-      </div>
-      <div>
-        <label>Email</label>
-        <input
-          type='text'
-          name='email'
-          onChange={updateEmail}
-          value={email}
-        ></input>
-      </div>
-      <div>
-        <label>Password</label>
-        <input
-          type='password'
-          name='password'
-          onChange={updatePassword}
-          value={password}
-        ></input>
-      </div>
-      <div>
-        <label>Repeat Password</label>
-        <input
-          type='password'
-          name='repeat_password'
-          onChange={updateRepeatPassword}
-          value={repeatPassword}
-          required={true}
-        ></input>
-      </div>
-      <button type='submit'>Sign Up</button>
     </form>
   );
 };

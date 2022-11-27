@@ -2,35 +2,57 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
-
+import { useDispatch, useSelector } from 'react-redux'
+import './navbar.css'
 const NavBar = () => {
-  return (
-    <nav>
-      <ul>
-        <li>
-          <NavLink to='/' exact={true} activeClassName='active'>
-            Home
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to='/login' exact={true} activeClassName='active'>
-            Login
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to='/sign-up' exact={true} activeClassName='active'>
-            Sign Up
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to='/users' exact={true} activeClassName='active'>
-            Users
-          </NavLink>
-        </li>
-        <li>
+
+  const session = useSelector((state) => state.session.user)
+
+  let rightNav;
+
+  if(session){
+    rightNav = (
+      <div className='rightNavWrapper'>
+        <div>
           <LogoutButton />
-        </li>
-      </ul>
+        </div>
+      </div>
+    )
+  } else{
+    rightNav = (
+      <div className='rightNavWrapper'>
+          <NavLink className='signInButton' to='/login' exact={true} activeClassName='active'>
+            SIGN IN
+          </NavLink>
+          <NavLink className='signUpButton' to='/sign-up' exact={true} activeClassName='active'>
+            SIGN UP
+          </NavLink>
+      </div>
+    )
+  }
+
+  return (
+    <nav className='navWrapper'>
+      <div className='leftNavWrapper'>
+        <div>
+          <NavLink className='logo' to='/' exact={true} activeClassName='active'>
+            Social Reader
+          </NavLink>
+        </div>
+        <div>
+          <NavLink className='joinAClub' to='/findAClub' exact={true} activeClassName='active'>
+            Join A book Club
+          </NavLink>
+        </div>
+        <div>
+          <NavLink className='findABook' to='/' exact={true} activeClassName='active'>
+            Find A Book
+          </NavLink>
+        </div>
+      </div>
+    {rightNav}
+
+
     </nav>
   );
 }

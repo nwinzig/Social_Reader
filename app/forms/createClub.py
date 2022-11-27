@@ -6,4 +6,5 @@ from wtforms.validators import DataRequired
 class CreateClubForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
     description = StringField('Description', validators=[DataRequired()])
+    clubImage = StringField('Image')
     private = BooleanField('Private')

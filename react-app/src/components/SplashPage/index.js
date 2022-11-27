@@ -11,7 +11,6 @@ function SplashPage(){
     const dispatch = useDispatch()
     const session = useSelector((state) => state.session.user)
     const bookClubs = useSelector((state) => state.bookclubs.BookClubs)
-    console.log(bookClubs)
 
     useEffect(() => {
         dispatch(getAllClubs())
@@ -55,7 +54,7 @@ function SplashPage(){
                     </img>
                     <div>
                         <p className='splashIntrotext'>
-                            Join or create a book club to read with old or new friends.
+                            Join or create a book club to read with old and new friends.
                         </p>
                     </div>
                 </div>

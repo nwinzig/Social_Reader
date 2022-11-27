@@ -1,0 +1,97 @@
+.findAClubBody{
+    margin-bottom: 50px;
+}
+.findAClubWrapper{
+    display: flex;
+    flex-direction: column;
+    margin-top: 70px;
+    /* margin-left: 10%;
+    margin-right: 10%; */
+    justify-content: center;
+    background: linear-gradient(.25turn,white, 30%,#F8F0EB );
+}
+
+.findBackgroundImageWrapper{
+    display: flex;
+    flex-direction: row;
+    margin-left: 10%;
+    margin-right: 10%;
+
+}
+.findClubImage{
+    background-image: url("https://res.cloudinary.com/dydhvazpw/image/upload/v1669296929/capstone/banner_jbc2x_tasi53.webp");
+
+    background-size: 100% 100%;
+    justify-content: center;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 400px;
+    width: 400px;
+}
+.findClubContent{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 400px;
+    margin-left: 15%;
+}
+.findClubContentP{
+    margin-top: 0px;
+    font-size: 22px;
+}
+.findClubContentH{
+    font-size: 28px;
+}
+.browseClubsTitle{
+    margin-top: 25px;
+    margin-left: 15%;
+}
+.clubResultsWrapper{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 25px;
+    margin-left: 10%;
+    margin-right: 10%;
+    justify-content: center;
+}
+
+.clubCardWrapper{
+    background-color: #FCFAF9;
+    border-radius: 7px;
+    /* border: 1px solid grey; */
+    box-shadow: 0px 0px 1px 1px lightgrey;
+    display: flex;
+    flex-direction: column;
+    /* width: 250px; */
+    width: 22%;
+    height: 350px;
+    margin-left: 2%;
+    margin-right: 2%;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+.clubImage{
+    margin-top: 25px;
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+}
+
+.viewClubButton{
+    border: none;
+    text-decoration: none;
+    background-color: #CD4418;
+    color: white;
+    width: 100px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 25px;
+    box-shadow: 0 0 2px 2px lightgray;
+}
+.viewClubButton:hover{
+    cursor: pointer;
+}

@@ -44,7 +44,15 @@ export const getAllClubs = () => async dispatch => {
     }
 }
 
+export const getOneClub = (clubId) => async dispatch => {
+    const response = await fetch(`/api/bookclub/${clubId}`)
 
+    if(response.ok){
+        const bookClub = await response.json()
+        dispatch(loadONE(bookClub))
+        return bookClub
+    }
+}
 
 
 let initialState = {}
@@ -52,6 +60,10 @@ const bookClubReducer = (state = initialState, action) => {
     let newState = {}
     switch(action.type){
         case LOAD_BOOKCLUBS: {
+            newState = {...action.data}
+            return newState
+        }
+        case LOAD_ONE_CLUB: {
             newState = {...action.data}
             return newState
         }
