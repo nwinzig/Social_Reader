@@ -42,7 +42,7 @@ function FindAClub(){
                 {bookClubs?.map(club =>(
                     <div className='clubCardWrapper' key={club?.id}>
                         <div>
-                            <img className='clubImage' src={club?.clubImage}></img>
+                            <img className='clubImage' alt='bookclub' src={club?.clubImage}></img>
                         </div>
                         <h3>
                             {club?.name}

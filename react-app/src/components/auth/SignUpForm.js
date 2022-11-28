@@ -65,7 +65,7 @@ const SignUpForm = () => {
   return (
     <form onSubmit={onSignUp} className='signUpForm'>
       <div className='signUpImageWrapper'>
-        <img src='https://res.cloudinary.com/dydhvazpw/image/upload/v1669496353/capstone/book-and-reading-statistics-min_prldl6.jpg'>
+        <img alt='signup' src='https://res.cloudinary.com/dydhvazpw/image/upload/v1669496353/capstone/book-and-reading-statistics-min_prldl6.jpg'>
         </img>
       </div>
       <div className='formInfoWrapper'>
