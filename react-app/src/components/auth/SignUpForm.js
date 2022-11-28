@@ -18,7 +18,7 @@ const SignUpForm = () => {
 
   const onSignUp = async (e) => {
     e.preventDefault();
-    console.log(firstName, lastName)
+    // console.log(firstName, lastName)
     if(!profileImage){
       setProfileImage('https://res.cloudinary.com/dydhvazpw/image/upload/v1669156973/capstone/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714_ts2m47.jpg')
     }

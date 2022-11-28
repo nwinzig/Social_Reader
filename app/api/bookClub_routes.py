@@ -92,20 +92,22 @@ def findclubBooks(id):
 
 #create a club
 @bookClub_routes.route('/newClub', methods=['POST'])
-# @login_required
+@login_required
 def createBookClub():
     """This route will be used to create a new book club """
-    # userId = current_user.id
+    userId = current_user.id
     # user id to test
-    userId = 1
+    # userId = 1
     #end
     form = CreateClubForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
+        print('club image in back', form.data['clubImage'])
         newClub = BookClub(
             name = form.data['name'],
             description = form.data['description'],
+            clubImage = form.data['clubImage'],
             private = form.data['private']
         )
 
@@ -122,9 +124,9 @@ def createBookClub():
         db.session.commit()
 
         clubToReturn = newClub.to_dict()
-        print('what does the new club look like', clubToReturn)
+        # print('what does the new club look like', clubToReturn)
         return {'BookClub': clubToReturn}
-    return {'Message': "Couldn't create Bookclub"}
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
 #update a club
@@ -168,3 +170,17 @@ def deleteClub(id):
         db.session.commit()
         return {'Message': 'Successfully deleted'}
     return 'Bookclub not found'
+
+
+
+
+
+def validation_errors_to_error_messages(validation_errors):
+    """
+    Simple function that turns the WTForms validation errors into a simple list
+    """
+    errorMessages = []
+    for field in validation_errors:
+        for error in validation_errors[field]:
+            errorMessages.append(f'{field} : {error}')
+    return errorMessages

@@ -54,10 +54,10 @@ function ClubDetails(){
             planningBooks.push(books[i])
         }
     }
-    console.log('do we get completed books list', completedBooks)
+    // console.log('do we get completed books list', completedBooks)
     // console.log(completedBooks.length)
-    console.log('do we get planning list', planningBooks)
-    console.log('do we get reading list', readingBooks)
+    // console.log('do we get planning list', planningBooks)
+    // console.log('do we get reading list', readingBooks)
     // let pastbooks = completedBooks.map(book => book)
     // console.log('what is past books', pastbooks)
     let readingDisplay;
