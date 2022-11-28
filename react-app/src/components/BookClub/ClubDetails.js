@@ -11,8 +11,8 @@ function ClubDetails(){
     const bookClub = useSelector((state) => state.bookclubs.BookClub)
 
     const {clubId} = useParams()
-    console.log('this is the user', user)
-    console.log('this is the club', bookClub)
+    // console.log('this is the user', user)
+    // console.log('this is the club', bookClub)
     useEffect(() => {
         dispatch(getOneClub(clubId))
     }, [dispatch, clubId])

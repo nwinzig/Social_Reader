@@ -52,12 +52,12 @@ function App() {
         <Route exact path='/findAclub/newClub'>
           <CreateABookClub />
         </Route>
-        <ProtectedRoute path='/findAClub/:clubId/update'>
-          <UpdateAClub />
-        </ProtectedRoute>
         <Route exact path='/findAClub/:clubId'>
           <ClubDetails />
         </Route>
+        <ProtectedRoute path='/findAClub/:clubId/update'>
+          <UpdateAClub />
+        </ProtectedRoute>
       </Switch>
     </BrowserRouter>
   );

@@ -62,7 +62,7 @@ export const getOneClub = (clubId) => async dispatch => {
 }
 
 export const createNewClub = (newClub) => async dispatch => {
-    console.log('in thunk before response', newClub)
+    // console.log('in thunk before response', newClub)
     const response = await fetch('/api/bookclub/newClub', {
         method: 'POST',
         headers: {'Content-type': 'application/json'},
@@ -70,7 +70,7 @@ export const createNewClub = (newClub) => async dispatch => {
     })
 
     if(response.ok){
-        console.log('respons ok', response)
+        // console.log('respons ok', response)
         const bookClub = await response.json()
         dispatch(createClub(bookClub))
         return bookClub
@@ -118,6 +118,7 @@ const bookClubReducer = (state = initialState, action) => {
         }
         case EDIT_CLUB: {
             newState = {...action.data}
+            return newState
         }
         default:
             return state

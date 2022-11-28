@@ -13,7 +13,6 @@ function UpdateAClub(){
     const [description, setDescription] = useState(bookClub?.description)
     const [clubImage, setClubImage] = useState(bookClub?.clubImage)
     const [restricted, setRestricted] = useState(bookClub?.private)
-    console.log(bookClub?.name)
 
     const {clubId} = useParams()
 
@@ -33,6 +32,7 @@ function UpdateAClub(){
         }
         // console.log('what im sending through dispatch', updatedClub, clubId)
         dispatch(editAClub(updatedClub, clubId))
+        // console.log('do we get here', clubId)
         history.push(`/findAClub/${clubId}`)
     }
     return (
