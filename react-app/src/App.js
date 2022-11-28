@@ -11,7 +11,7 @@ import { authenticate } from './store/session';
 import SplashPage from './components/SplashPage';
 import FindAClub from './components/BookClub/FindBookClub';
 import ClubDetails from './components/BookClub/ClubDetails';
-
+import CreateABookClub from './components/BookClub/CreateClub';
 
 
 function App() {
@@ -47,6 +47,9 @@ function App() {
         </Route>
         <Route exact path='/findAClub'>
           <FindAClub />
+        </Route>
+        <Route exact path='/findAclub/newClub'>
+          <CreateABookClub />
         </Route>
         <Route exact path='/findAClub/:clubId'>
           <ClubDetails />
