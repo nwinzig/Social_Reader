@@ -15,7 +15,7 @@ function ClubDetails(){
 
     useEffect(() => {
         dispatch(getOneClub(clubId))
-    }, [dispatch])
+    }, [dispatch, clubId])
 
 
     const [numMembers, setNumMembers] = useState(1)
@@ -37,7 +37,7 @@ function ClubDetails(){
         }
         fetchClubBooks()
         fetchNumMembers()
-    }, [dispatch])
+    }, [dispatch, clubId])
 
     console.log('testing books', books)
     let completedBooks = []
@@ -45,12 +45,12 @@ function ClubDetails(){
     let planningBooks = []
     for(let i=0; i<books.length; i++){
 
-        if(books[i].status == 'completed'){
+        if(books[i].status === 'completed'){
             completedBooks.push(books[i])
         }
-        else if(books[i].status == 'reading'){
+        else if(books[i].status === 'reading'){
             readingBooks.push(books[i])
-        } else if(books[i].status == 'planning'){
+        } else if(books[i].status === 'planning'){
             planningBooks.push(books[i])
         }
     }
@@ -65,7 +65,7 @@ function ClubDetails(){
         readingDisplay = (
             <div className='readingDisplay'>
                     <h3>{readingBooks[0]?.name}</h3>
-                    <img className='readingCoverImage' src={readingBooks[0]?.cover_image}></img>
+                    <img className='readingCoverImage' alt='book cover' src={readingBooks[0]?.cover_image}></img>
             </div>
         )
     } else {
@@ -83,7 +83,7 @@ function ClubDetails(){
                     <div key={book?.id} className='pastBookCard'>
                         <h3>{book?.name}</h3>
                         <h4>By: {book?.author}</h4>
-                        <img className='readingCoverImage' src={book?.cover_image} alt='book cover image'></img>
+                        <img className='readingCoverImage' src={book?.cover_image} alt='book cover'></img>
                     </div>
                 ))}
             </div>
@@ -103,7 +103,7 @@ function ClubDetails(){
                     <div key={book?.id} className='pastBookCard'>
                         <h3>{book?.name}</h3>
                         <h4>By: {book?.author}</h4>
-                        <img src={book?.cover_image} className='readingCoverImage' alt='book cover image'></img>
+                        <img src={book?.cover_image} className='readingCoverImage' alt='book cover'></img>
                     </div>
                 ))}
             </div>
@@ -120,7 +120,7 @@ function ClubDetails(){
             <div className='ClubDetailsHeader'>
                 <div className='clubDetailImageWrapper'>
                     <div className='imageWrapper'>
-                        <img className='detailsImage' src={bookClub?.clubImage}>
+                        <img className='detailsImage' alt='bookclub' src={bookClub?.clubImage}>
                         </img>
                     </div>
                     <div className='name_numMembers'>

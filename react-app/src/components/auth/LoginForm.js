@@ -34,7 +34,7 @@ const LoginForm = () => {
   return (
     <form onSubmit={onLogin} className='loginForm'>
         <div className='loginImageWrapper'>
-          <img src='https://res.cloudinary.com/dydhvazpw/image/upload/v1669497841/capstone/reading-statistics_yhivsd.jpg'>
+          <img alt='login' src='https://res.cloudinary.com/dydhvazpw/image/upload/v1669497841/capstone/reading-statistics_yhivsd.jpg'>
           </img>
         </div>
         <div className='loginInfoWrapper'>
