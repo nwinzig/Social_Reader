@@ -62,6 +62,14 @@ def getOneClub(id):
 
     wantedClub = bookClub.to_dict()
 
+    clubOwner = User_BookClub.query.filter(User_BookClub.bookclub_id == id and User_BookClub.member_status == owner).first()
+
+    # print('looking for an owner instance', clubOwner.to_dict())
+
+    owner = clubOwner.to_dict()
+
+    wantedClub['ownerId'] = owner['user_id']
+    # print('new wanted club', wantedClub)
     return {'BookClub': wantedClub}
 
 ## getting number of members for a club
@@ -92,20 +100,22 @@ def findclubBooks(id):
 
 #create a club
 @bookClub_routes.route('/newClub', methods=['POST'])
-# @login_required
+@login_required
 def createBookClub():
     """This route will be used to create a new book club """
-    # userId = current_user.id
+    userId = current_user.id
     # user id to test
-    userId = 1
+    # userId = 1
     #end
     form = CreateClubForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
+        print('club image in back', form.data['clubImage'])
         newClub = BookClub(
             name = form.data['name'],
             description = form.data['description'],
+            clubImage = form.data['clubImage'],
             private = form.data['private']
         )
 
@@ -122,14 +132,14 @@ def createBookClub():
         db.session.commit()
 
         clubToReturn = newClub.to_dict()
-        print('what does the new club look like', clubToReturn)
+        # print('what does the new club look like', clubToReturn)
         return {'BookClub': clubToReturn}
-    return {'Message': "Couldn't create Bookclub"}
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
 #update a club
 @bookClub_routes.route('/<int:id>', methods=['PUT'])
-# @login_required
+@login_required
 def updateClub(id):
     """This route will be used to update a club that the user owns """
     #find the owner of the club
@@ -155,16 +165,30 @@ def updateClub(id):
 
 #delete a club
 @bookClub_routes.route('/<int:id>', methods=['DELETE'])
-# @login_required
+@login_required
 def deleteClub(id):
 
     """This route will be used to delete a club that the user owns """
 
     #add check to see if user is the owner either here or on the frontend component
-
+    print('made it here')
     club = BookClub.query.get(id)
     if club is not None:
         db.session.delete(club)
         db.session.commit()
         return {'Message': 'Successfully deleted'}
     return 'Bookclub not found'
+
+
+
+
+
+def validation_errors_to_error_messages(validation_errors):
+    """
+    Simple function that turns the WTForms validation errors into a simple list
+    """
+    errorMessages = []
+    for field in validation_errors:
+        for error in validation_errors[field]:
+            errorMessages.append(f'{field} : {error}')
+    return errorMessages

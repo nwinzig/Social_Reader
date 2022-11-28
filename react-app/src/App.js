@@ -12,6 +12,7 @@ import SplashPage from './components/SplashPage';
 import FindAClub from './components/BookClub/FindBookClub';
 import ClubDetails from './components/BookClub/ClubDetails';
 import CreateABookClub from './components/BookClub/CreateClub';
+import UpdateAClub from './components/BookClub/UpdateAClub';
 
 
 function App() {
@@ -54,6 +55,9 @@ function App() {
         <Route exact path='/findAClub/:clubId'>
           <ClubDetails />
         </Route>
+        <ProtectedRoute path='/findAClub/:clubId/update'>
+          <UpdateAClub />
+        </ProtectedRoute>
       </Switch>
     </BrowserRouter>
   );

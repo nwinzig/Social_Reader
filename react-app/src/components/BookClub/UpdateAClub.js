@@ -1,41 +1,47 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Redirect, useHistory } from 'react-router-dom'
-import './createAclub.css'
-import {createNewClub} from '../../store/bookclub'
+import { Redirect, useHistory, useParams } from 'react-router-dom'
+import { deleteAClub, editAClub, getOneClub } from '../../store/bookclub'
 
-function CreateABookClub(){
+function UpdateAClub(){
+    const bookClub = useSelector((state) => state.bookclubs.BookClub)
     const history = useHistory()
     const dispatch = useDispatch()
     const user = useSelector((state) => state.session.user)
     const [errors, setErrors] = useState([])
-    const [name, setName] = useState('')
-    const [description, setDescription] = useState('')
-    const [clubImage, setClubImage] = useState('')
-    const [restricted, setRestricted] = useState(false)
-    //restricted is used to replace private
+    const [name, setName] = useState(bookClub?.name)
+    const [description, setDescription] = useState(bookClub?.description)
+    const [clubImage, setClubImage] = useState(bookClub?.clubImage)
+    const [restricted, setRestricted] = useState(bookClub?.private)
 
-    const handleSubmit = async (e) => {
+    const {clubId} = useParams()
+
+    useEffect(() => {
+        dispatch(getOneClub(clubId))
+    }, [dispatch, clubId])
+
+    const handleSubmit = (e) => {
         e.preventDefault()
-            let newClub = {
-                'name': name,
-                'description': description,
-                'clubImage': clubImage,
-                'private': restricted
-            }
-            if(!newClub['clubImage']){
-                newClub['clubImage'] = 'https://res.cloudinary.com/dydhvazpw/image/upload/v1669156973/capstone/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714_ts2m47.jpg'
-            }
-            // console.log('club before dispatch', newClub)
-            const data = await dispatch(createNewClub(newClub))
-            // console.log('tho data', data)
-            if(data.length){
-                setErrors(data)
-                return
-            }
-            return history.push(`/findAClub/${data['BookClub']['id']}`)
+        setErrors([])
+        let updatedClub = {
+            'name': name,
+            'description': description,
+            'clubImage': clubImage,
+            'private': restricted
+        }
+        console.log(updatedClub)
+        // console.log('what im sending through dispatch', updatedClub, clubId)
+        dispatch(editAClub(updatedClub, clubId))
+        // console.log('do we get here', clubId)
+        history.push(`/findAClub/${clubId}`)
     }
 
+    const handleDelete = (e) => {
+        e.preventDefault()
+        console.log('in handle delete', clubId)
+        dispatch(deleteAClub(clubId))
+        history.push('/findAClub')
+    }
 
     return (
         <form className='createClubForm' onSubmit={handleSubmit}>
@@ -46,7 +52,7 @@ function CreateABookClub(){
             <div className='formInfoWrapper'>
                 <div>
                     <h2>
-                        Tell us about the club you'll be hosting
+                        Update your club
                     </h2>
                     <div>
                         { errors.map((error, ind) => (
@@ -108,7 +114,12 @@ function CreateABookClub(){
                     </div>
                     <div>
                         <button type='submit'>
-                            Host your club
+                            Update this club
+                        </button>
+                    </div>
+                    <div>
+                        <button onClick={handleDelete}>
+                            Delete your club
                         </button>
                     </div>
                 </div>
@@ -117,4 +128,4 @@ function CreateABookClub(){
     )
 }
 
-export default CreateABookClub
+export default UpdateAClub

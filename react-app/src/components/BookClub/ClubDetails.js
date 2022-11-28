@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Redirect, useHistory, useParams } from 'react-router-dom'
+import { Redirect, useHistory, useParams, NavLink } from 'react-router-dom'
 import './ClubDetails.css'
 import { getOneClub } from '../../store/bookclub'
 
 function ClubDetails(){
     const history = useHistory()
     const dispatch = useDispatch()
-    const session = useSelector((state) => state.session.user)
+    const user = useSelector((state) => state.session.user)
     const bookClub = useSelector((state) => state.bookclubs.BookClub)
 
     const {clubId} = useParams()
-
-
+    // console.log('this is the user', user)
+    // console.log('this is the club', bookClub)
     useEffect(() => {
         dispatch(getOneClub(clubId))
     }, [dispatch, clubId])
@@ -39,7 +39,24 @@ function ClubDetails(){
         fetchNumMembers()
     }, [dispatch, clubId])
 
-    console.log('testing books', books)
+
+
+    let updateComp;
+    if(user?.id === bookClub?.ownerId){
+        updateComp = (
+                <NavLink className='deleteDiv' to={`/findAClub/${clubId}/update`}>
+                    Update Club
+                </NavLink>
+        )
+    } else {
+        updateComp = (
+            <button className='joinClubButton'>
+            Join Club
+            </button>
+        )
+    }
+
+
     let completedBooks = []
     let readingBooks = []
     let planningBooks = []
@@ -54,12 +71,7 @@ function ClubDetails(){
             planningBooks.push(books[i])
         }
     }
-    console.log('do we get completed books list', completedBooks)
-    // console.log(completedBooks.length)
-    console.log('do we get planning list', planningBooks)
-    console.log('do we get reading list', readingBooks)
-    // let pastbooks = completedBooks.map(book => book)
-    // console.log('what is past books', pastbooks)
+
     let readingDisplay;
     if(readingBooks.length>=1){
         readingDisplay = (
@@ -130,12 +142,11 @@ function ClubDetails(){
                         <p>
                             {numMembers} members
                         </p>
+
                     </div>
                 </div>
                 <div className='clubDetailHeaderContent'>
-                    <button className='joinClubButton'>
-                        Join Club
-                    </button>
+                    {updateComp}
                 </div>
             </div>
             <div className='clubInformation'>
