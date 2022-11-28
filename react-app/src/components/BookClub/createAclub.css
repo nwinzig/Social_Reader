@@ -1,0 +1,17 @@
+.createClubForm{
+    margin-top: 70px;
+    display: flex;
+    height: 600px;
+    width: 100%;
+}
+textarea{
+    resize: none;
+}
+.createClubImageWrapper{
+    height: 80%;
+    width: 50%;
+}
+.createClubImageWrapper img{
+    height: 100%;
+    width: 100%;
+}

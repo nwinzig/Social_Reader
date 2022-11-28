@@ -42,9 +42,32 @@
 .findClubContentH{
     font-size: 28px;
 }
+.browseOrCreateWrapper{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
 .browseClubsTitle{
     margin-top: 25px;
     margin-left: 15%;
+}
+.createAClubButton{
+    margin-left: 10px;
+    text-decoration: none;
+    background-color: #CD4418;
+    border: none;
+    color: white;
+    width: auto;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 25px;
+    /* box-shadow: 0 0 2px 2px lightgray; */
+    /* font-size: 18px; */
+}
+.createAClubButton:hover{
+    cursor: pointer;
 }
 .clubResultsWrapper{
     display: flex;

@@ -15,6 +15,19 @@ function FindAClub(){
     }, [dispatch])
 
     // console.log('all bookclubs', bookClubs[0])
+    // console.log(session)
+    let createYourOwn;
+    if(session){
+        createYourOwn = (
+            <div>
+                <button onClick={() => history.push('/findAClub/newClub')} className='createAClubButton'>
+                    <h2>
+                        Create your own
+                    </h2>
+                </button>
+            </div>
+        )
+    }
     return (
         <div className='findAClubBody'>
             <div className='findAClubWrapper'>
@@ -35,9 +48,12 @@ function FindAClub(){
 
                 </div>
             </div>
+            <div className='browseOrCreateWrapper'>
             <h2 className='browseClubsTitle'>
-                Browse current clubs
+                Browse current clubs {session && 'or'}
             </h2>
+            {createYourOwn}
+            </div>
             <div className='clubResultsWrapper'>
                 {bookClubs?.map(club =>(
                     <div className='clubCardWrapper' key={club?.id}>
