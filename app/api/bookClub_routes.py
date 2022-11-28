@@ -62,6 +62,14 @@ def getOneClub(id):
 
     wantedClub = bookClub.to_dict()
 
+    clubOwner = User_BookClub.query.filter(User_BookClub.bookclub_id == id and User_BookClub.member_status == owner).first()
+
+    # print('looking for an owner instance', clubOwner.to_dict())
+
+    owner = clubOwner.to_dict()
+
+    wantedClub['ownerId'] = owner['user_id']
+    # print('new wanted club', wantedClub)
     return {'BookClub': wantedClub}
 
 ## getting number of members for a club
@@ -131,7 +139,7 @@ def createBookClub():
 
 #update a club
 @bookClub_routes.route('/<int:id>', methods=['PUT'])
-# @login_required
+@login_required
 def updateClub(id):
     """This route will be used to update a club that the user owns """
     #find the owner of the club

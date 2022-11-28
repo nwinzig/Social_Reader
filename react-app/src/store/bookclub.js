@@ -3,6 +3,7 @@ const LOAD_BOOKCLUBS = 'bookclubs/LOAD_BOOKCLUBS'
 const LOAD_ONE_CLUB = 'bookclubs/LOAD_ONE_CLUB'
 const CREATE_CLUB = 'bookclubs/CREATE_CLUB'
 const DELETE_CLUB = 'bookclubs/DELETE_CLUB'
+const EDIT_CLUB = 'bookclubs/EDIT_CLUB'
 
 const loadAll = (data) => {
     return {
@@ -32,13 +33,19 @@ const deleteClub = (data) => {
     }
 }
 
+const editClub = (data) => {
+    return {
+        'type': EDIT_CLUB,
+        data
+    }
+}
 
 export const getAllClubs = () => async dispatch => {
     const response = await fetch('/api/bookclub')
-    console.log('resonse in getAllClubs', response)
+    // console.log('resonse in getAllClubs', response)
     if(response.ok){
         const bookClub = await response.json()
-        console.log('bookclub in good response', bookClub)
+        // console.log('bookclub in good response', bookClub)
         dispatch(loadAll(bookClub))
         return bookClub
     }
@@ -74,7 +81,24 @@ export const createNewClub = (newClub) => async dispatch => {
             return data.errors
         }
     }
+}
+
+export const deleteAClub = (id) => async dispatch => {
+
+}
+
+export const editAClub = (club, clubId) => async dispatch => {
+    const response = await fetch(`/api/bookclub/${clubId}`, {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(club)
+    })
+    if(response.ok){
+        const newClub = await response.json()
+        // console.log('new club in reponse ok', newClub)
+        dispatch(editClub(newClub))
     }
+}
 
 let initialState = {}
 const bookClubReducer = (state = initialState, action) => {
@@ -91,6 +115,9 @@ const bookClubReducer = (state = initialState, action) => {
         case CREATE_CLUB: {
             newState = {...action.data}
             return newState
+        }
+        case EDIT_CLUB: {
+            newState = {...action.data}
         }
         default:
             return state
