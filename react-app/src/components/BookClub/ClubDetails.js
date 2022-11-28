@@ -44,14 +44,9 @@ function ClubDetails(){
     let updateComp;
     if(user?.id === bookClub?.ownerId){
         updateComp = (
-            <div className='deleteDiv'>
-                <NavLink to={`/findAClub/${clubId}/update`}>
+                <NavLink className='deleteDiv' to={`/findAClub/${clubId}/update`}>
                     Update Club
                 </NavLink>
-                {/* <button>
-                    Delete Club
-                </button> */}
-            </div>
         )
     } else {
         updateComp = (
@@ -60,7 +55,6 @@ function ClubDetails(){
             </button>
         )
     }
-
 
 
     let completedBooks = []

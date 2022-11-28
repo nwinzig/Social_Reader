@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Redirect, useHistory, useParams } from 'react-router-dom'
-import { editAClub, getOneClub } from '../../store/bookclub'
+import { deleteAClub, editAClub, getOneClub } from '../../store/bookclub'
 
 function UpdateAClub(){
     const bookClub = useSelector((state) => state.bookclubs.BookClub)
@@ -23,18 +23,26 @@ function UpdateAClub(){
     const handleSubmit = (e) => {
         e.preventDefault()
         setErrors([])
-
         let updatedClub = {
             'name': name,
             'description': description,
             'clubImage': clubImage,
             'private': restricted
         }
+        console.log(updatedClub)
         // console.log('what im sending through dispatch', updatedClub, clubId)
         dispatch(editAClub(updatedClub, clubId))
         // console.log('do we get here', clubId)
         history.push(`/findAClub/${clubId}`)
     }
+
+    const handleDelete = (e) => {
+        e.preventDefault()
+        console.log('in handle delete', clubId)
+        dispatch(deleteAClub(clubId))
+        history.push('/findAClub')
+    }
+
     return (
         <form className='createClubForm' onSubmit={handleSubmit}>
             <div className='createClubImageWrapper'>
@@ -106,11 +114,11 @@ function UpdateAClub(){
                     </div>
                     <div>
                         <button type='submit'>
-                            Host your club
+                            Update this club
                         </button>
                     </div>
                     <div>
-                        <button>
+                        <button onClick={handleDelete}>
                             Delete your club
                         </button>
                     </div>

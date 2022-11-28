@@ -84,7 +84,14 @@ export const createNewClub = (newClub) => async dispatch => {
 }
 
 export const deleteAClub = (id) => async dispatch => {
-
+    const response = await fetch(`/api/bookclub/${id}`, {
+        method: 'DELETE'
+    })
+    if(response.ok){
+        dispatch(deleteClub(id))
+        return
+    }
+    return
 }
 
 export const editAClub = (club, clubId) => async dispatch => {
@@ -105,7 +112,7 @@ const bookClubReducer = (state = initialState, action) => {
     let newState = {}
     switch(action.type){
         case LOAD_BOOKCLUBS: {
-            newState = {...action.data}
+            newState = {...state, ...action.data}
             return newState
         }
         case LOAD_ONE_CLUB: {
@@ -117,7 +124,7 @@ const bookClubReducer = (state = initialState, action) => {
             return newState
         }
         case EDIT_CLUB: {
-            newState = {...action.data}
+            newState = {...state, ...action.data}
             return newState
         }
         default:

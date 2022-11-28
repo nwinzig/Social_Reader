@@ -165,13 +165,13 @@ def updateClub(id):
 
 #delete a club
 @bookClub_routes.route('/<int:id>', methods=['DELETE'])
-# @login_required
+@login_required
 def deleteClub(id):
 
     """This route will be used to delete a club that the user owns """
 
     #add check to see if user is the owner either here or on the frontend component
-
+    print('made it here')
     club = BookClub.query.get(id)
     if club is not None:
         db.session.delete(club)
