@@ -17,3 +17,15 @@ def getAllBooks():
     allBooks.extend([i.to_dict() for i in books])
     # print('trying to get all books', allBooks)
     return {'Books': allBooks}
+
+
+#get one book
+@book_routes.route('/<int:id>', methods=['GET'])
+def getOneBook(id):
+    """This route is used to get details of one book by id """
+
+    book = Book.query.get(id)
+
+    wantedBook = book.to_dict()
+
+    return {'Book': wantedBook}
