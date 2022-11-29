@@ -83,6 +83,18 @@ def updateBook(id):
     return {'Message': 'Failed to update'}
 
 
+#delete a book
+@book_routes.route('/<int:id>', methods=['DELETE'])
+@login_required
+def deleteBook(id):
+    """This route is used to delete a book by the user that added it. In the future this will only be accessible to admin """
+
+    book = Book.query.get(id)
+    if book is not None:
+        db.session.delete(book)
+        db.session.commit()
+        return {'Message': 'Successfully deleted'}
+    return 'Book not found'
 
 
 
