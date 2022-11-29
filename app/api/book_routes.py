@@ -31,6 +31,22 @@ def getOneBook(id):
 
     return {'Book': wantedBook}
 
+#get bookclubs reading a specific book
+@book_routes.route('/<int:id>/clubs', methods=['GET'])
+def findClubsReading(id):
+    """This route is used to find clubs reading a book by its id. This will be used in book details page """
+    clubs = BookClub_Book.query.filter(BookClub_Book.book_id == id).all()
+    allclubs = []
+    allclubs.extend([i.to_dict() for i in clubs])
+    allClubDetails = []
+    for club in allclubs:
+        clubDetails = BookClub.query.filter(BookClub.id == club['bookclub_id']).first()
+        newClub = clubDetails.to_dict()
+        newClub['status'] = club['status']
+        allClubDetails.append(newClub)
+    return {'clubs': allClubDetails}
+
+
 # create a book
 @book_routes.route('/newBook', methods=['POST'])
 @login_required
@@ -42,11 +58,12 @@ def createABook():
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
+        pageNumber = int(form.data['page_number'])
         newBook = Book(
             name = form.data['name'],
             author = form.data['author'],
             description = form.data['description'],
-            page_number = form.data['page_number'],
+            page_number = pageNumber,
             cover_image = form.data['cover_image'],
             genre = form.data['genre'],
             added_by = user_id

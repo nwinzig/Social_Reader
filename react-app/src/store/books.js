@@ -61,6 +61,25 @@ export const getOneBook = (id) => async dispatch => {
     }
 }
 
+export const createABook = (newBook) => async dispatch => {
+    const response = await fetch('/api/book/newBook', {
+        method: 'POST',
+        headers: {'Content-type': 'application/json'},
+        body: JSON.stringify(newBook)
+    })
+
+    if(response.ok){
+        const book = await response.json()
+        dispatch(createBook(book))
+        return book
+    } else if(response.status < 500){
+        const data = await response.json()
+        if(data.errors){
+            // console.log(data.errors)
+            return data.errors
+        }
+    }
+}
 
 let initialState = {}
 const bookReducer = (state = initialState, action) => {
@@ -73,6 +92,9 @@ const bookReducer = (state = initialState, action) => {
         case LOAD_ONE_BOOK:{
             newState = {...action.data}
             return newState
+        }
+        case CREATE_BOOK:{
+            newState = {...action.data}
         }
         default:
             return state

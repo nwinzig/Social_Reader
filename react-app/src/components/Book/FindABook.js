@@ -19,7 +19,7 @@ function FindABook(){
     if(session){
         createYourOwn = (
             <div>
-                <button onClick={() => history.push('/findABook/newClub')} className='createAClubButton'>
+                <button onClick={() => history.push('/findABook/newBook')} className='createAClubButton'>
                     <h2>
                         add a book
                     </h2>
