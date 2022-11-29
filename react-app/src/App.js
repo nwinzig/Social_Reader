@@ -16,6 +16,7 @@ import UpdateAClub from './components/BookClub/UpdateAClub';
 import FindABook from './components/Book/FindABook';
 import BookDetails from './components/Book/BookDetails';
 import CreateABook from './components/Book/CreateABook';
+import UpdateABook from './components/Book/UpdateABook';
 
 
 function App() {
@@ -67,9 +68,12 @@ function App() {
         <ProtectedRoute exact path='/findABook/newBook'>
             <CreateABook />
         </ProtectedRoute>
-        <Route path='/findABook/:bookId'>
+        <Route exact path='/findABook/:bookId'>
             <BookDetails />
         </Route>
+        <ProtectedRoute path='/findABook/:bookId/update'>
+          <UpdateABook />
+        </ProtectedRoute>
       </Switch>
     </BrowserRouter>
   );

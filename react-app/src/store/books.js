@@ -81,6 +81,19 @@ export const createABook = (newBook) => async dispatch => {
     }
 }
 
+export const updateABook = (book,bookId) => async dispatch => {
+    const response = await fetch(`/api/book/${bookId}`,{
+        method: 'PUT',
+        headers: {'Content-type': 'application/json'},
+        body: JSON.stringify(book)
+    })
+    if(response.ok){
+        const newBook = await response.json()
+        dispatch(editBook(newBook))
+        return newBook
+    }
+}
+
 let initialState = {}
 const bookReducer = (state = initialState, action) => {
     let newState = {}
@@ -95,6 +108,10 @@ const bookReducer = (state = initialState, action) => {
         }
         case CREATE_BOOK:{
             newState = {...action.data}
+        }
+        case EDIT_BOOK: {
+            newState = {...state, ...action.data}
+            return newState
         }
         default:
             return state

@@ -27,8 +27,25 @@ function BookDetails(){
         }
         fetchAssociatedClubs()
     }, [dispatch, bookId])
-    console.log('this is clubs', clubs)
-    console.log('what is this', clubs[0])
+
+
+    let updateComp;
+    if(user?.id === book?.added_by){
+        updateComp = (
+                <NavLink className='deleteDiv' to={`/findABook/${bookId}/update`}>
+                    Update Book
+                </NavLink>
+        )
+    } else {
+        updateComp = (
+            <button className='joinClubButton'>
+                Add book to your shelf
+            </button>
+        )
+    }
+
+
+
     return (
         <div className='bookDetailWrapper'>
             <div className='bookDetailHeader'>
@@ -44,9 +61,7 @@ function BookDetails(){
                     <div>
                         {book?.description}
                     </div>
-                    <button>
-                        Add to your books
-                    </button>
+                    {updateComp}
                 </div>
             </div>
                 <h3 className='otherClubTitle'>
