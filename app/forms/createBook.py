@@ -17,3 +17,4 @@ class CreateBookForm(FlaskForm):
     page_number = IntegerField('Pages', validators=[DataRequired()])
     cover_image = StringField('Image', validators=[DataRequired()])
     genre = SelectField('genre', validators=[DataRequired()], choices=['Fiction', 'Nonfiction', 'Drama', 'Poetry', 'Folktale'])
+    added_by = IntegerField('AddedBy')

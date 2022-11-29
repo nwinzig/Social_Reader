@@ -37,7 +37,7 @@ def getOneBook(id):
 def createABook():
     """This route is used to add a book to the database """
     # user_id = current_user.id
-
+    user_id = 1
     form = CreateBookForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
@@ -48,7 +48,8 @@ def createABook():
             description = form.data['description'],
             page_number = form.data['page_number'],
             cover_image = form.data['cover_image'],
-            genre = form.data['genre']
+            genre = form.data['genre'],
+            added_by = user_id
         )
         db.session.add(newBook)
         db.session.commit()
@@ -57,7 +58,7 @@ def createABook():
         return {'Book': bookToReturn}
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
-
+#update a book
 
 
 
