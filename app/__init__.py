@@ -8,6 +8,7 @@ from .models import db, User, BookClub, Book, User_BookClub, User_Book, BookClub
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
 from .api.bookClub_routes import bookClub_routes
+from .api.book_routes import book_routes
 from .seeds import seed_commands
 from .config import Config
 
@@ -31,7 +32,7 @@ app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
 
 app.register_blueprint(bookClub_routes, url_prefix='/api/bookclub')
-
+app.register_blueprint(book_routes, url_prefix='/api/book')
 
 
 
