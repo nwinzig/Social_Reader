@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, session, request, redirect
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import db, BookClub, User_BookClub, BookClub_Book, Book
-from app.forms import CreateBookForm
+from app.forms import CreateBookForm, UpdateBookForm
 
 book_routes = Blueprint('book', __name__)
 #/api/book
@@ -33,11 +33,11 @@ def getOneBook(id):
 
 # create a book
 @book_routes.route('/newBook', methods=['POST'])
-# @login_required
+@login_required
 def createABook():
     """This route is used to add a book to the database """
-    # user_id = current_user.id
-    user_id = 1
+    user_id = current_user.id
+    # user_id = 1
     form = CreateBookForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
@@ -59,6 +59,28 @@ def createABook():
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 #update a book
+@book_routes.route('/<int:id>', methods=['PUT'])
+@login_required
+def updateBook(id):
+    """This route is used to update a book if the user was the one to add it. In the future I would like to change the route to only be accessible by an admin user """
+    # user_id = current_user.id
+
+    form = UpdateBookForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+
+        book = Book.query.get(id)
+
+        book.name = form.data['name']
+        book.author = form.data['author']
+        book.description = form.data['description']
+        book.page_number = form.data['page_number']
+        book.cover_image = form.data['cover_image']
+        book.genre = form.data['genre']
+
+        db.session.commit()
+        return book.to_dict()
+    return {'Message': 'Failed to update'}
 
 
 
