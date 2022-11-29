@@ -13,6 +13,8 @@ import FindAClub from './components/BookClub/FindBookClub';
 import ClubDetails from './components/BookClub/ClubDetails';
 import CreateABookClub from './components/BookClub/CreateClub';
 import UpdateAClub from './components/BookClub/UpdateAClub';
+import FindABook from './components/Book/FindABook';
+import BookDetails from './components/Book/BookDetails';
 
 
 function App() {
@@ -58,6 +60,12 @@ function App() {
         <ProtectedRoute path='/findAClub/:clubId/update'>
           <UpdateAClub />
         </ProtectedRoute>
+        <Route exact path='/findABook'>
+            <FindABook />
+        </Route>
+        <Route path='/findABook/:bookId'>
+            <BookDetails />
+        </Route>
       </Switch>
     </BrowserRouter>
   );

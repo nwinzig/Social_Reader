@@ -40,7 +40,7 @@ function FindAClub(){
                             Find your community.
                         </h2>
                         <p className='findClubContentP'>
-                            Do you have a book your enjoyingor are looking for something new? Do you want to find a group of people to share your experiences with? If you answered any of these questions with yes, then you've came to the right place! Check out existing communities or create one of your own!
+                            Do you have a book your enjoying? Maybe your looking for something new? Do you want to find a group of people to share your experiences with? If you answered any of these questions with yes, then you've came to the right place! Check out existing communities or create one of your own!
                         </p>
                     </div>
                 </div>
