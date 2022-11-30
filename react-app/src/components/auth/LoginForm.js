@@ -47,7 +47,7 @@ const LoginForm = () => {
         <div className='loginInfoWrapper'>
           <div>
             {errors.map((error, ind) => (
-              <div key={ind}>{error}</div>
+              <div key={ind} id='red'>{error}</div>
             ))}
           </div>
           <div>

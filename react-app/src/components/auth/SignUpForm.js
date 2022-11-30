@@ -16,13 +16,15 @@ const SignUpForm = () => {
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
 
+
+  const imageCheck = /\.(jpg|jpeg|png|webp|avif|gif|svg)$/
   const onSignUp = async (e) => {
     e.preventDefault();
-    // console.log(firstName, lastName)
-    if(!profileImage){
-      setProfileImage('https://res.cloudinary.com/dydhvazpw/image/upload/v1669156973/capstone/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714_ts2m47.jpg')
+
+    if(profileImage && !profileImage.split('?')[0].match(imageCheck)){
+      setErrors(['Image must be valid: jpg, jpeg, png, webp, avif, gif, svg. Try again or a default image will be given'])
     }
-    if (password === repeatPassword) {
+    else if (password === repeatPassword) {
       const obj = {
         'first_name':firstName,
         'last_name':lastName,
@@ -97,6 +99,9 @@ const SignUpForm = () => {
             value={firstName}
             placeholder='First Name'
             required
+            minLength={2}
+            maxLength={25}
+
           ></input>
         </div>
         <div>
@@ -108,6 +113,8 @@ const SignUpForm = () => {
             value={lastName}
             placeholder='Last Name'
             required
+            minLength={2}
+            maxLength={25}
           ></input>
         </div>
         <div>
@@ -117,7 +124,7 @@ const SignUpForm = () => {
             name='profileImage'
             onChange={(e) => setProfileImage(e.target.value)}
             value={profileImage}
-            placeholder='Profile Image(optional)'
+            placeholder='Profile Image url(optional)'
           ></input>
         </div>
         {/* end addition */}
@@ -130,17 +137,21 @@ const SignUpForm = () => {
             value={username}
             placeholder='Username'
             required
+            minLength={3}
+            maxLength={25}
           ></input>
         </div>
         <div>
           <input
             className='inputField'
-            type='text'
+            type='email'
             name='email'
             onChange={updateEmail}
             value={email}
             placeholder='Email'
             required
+            minLength={3}
+            maxLength={30}
           ></input>
         </div>
         <div>
@@ -152,6 +163,8 @@ const SignUpForm = () => {
             value={password}
             placeholder='Password'
             required
+            minLength={3}
+            maxLength={25}
           ></input>
         </div>
         <div>
@@ -163,6 +176,8 @@ const SignUpForm = () => {
             value={repeatPassword}
             required={true}
             placeholder='Re-enter Password'
+            minLength={3}
+            maxLength={25}
           ></input>
         </div>
         <button type='submit' className='SignUpButton'>Sign Up</button>
