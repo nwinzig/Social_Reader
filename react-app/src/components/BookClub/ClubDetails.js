@@ -198,7 +198,7 @@ function ClubDetails(){
                     </div>
                 </div>
                 <div className='clubDetailHeaderContent'>
-                    {updateComp}
+                    {user && updateComp}
                 </div>
             </div>
             <div className='clubInformation'>

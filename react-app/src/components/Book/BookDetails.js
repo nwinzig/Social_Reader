@@ -36,13 +36,14 @@ function BookDetails(){
                     Update Book
                 </NavLink>
         )
-    } else {
-        updateComp = (
-            <button className='joinClubButton'>
-                Add book to your shelf
-            </button>
-        )
     }
+    // else {
+    //     updateComp = (
+    //         <button className='joinClubButton'>
+    //             Add book to your shelf
+    //         </button>
+    //     )
+    // }
 
 
 
