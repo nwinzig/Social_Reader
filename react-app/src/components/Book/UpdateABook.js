@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Redirect, useHistory, useParams } from 'react-router-dom'
-import { getOneBook, updateABook } from '../../store/books'
+import { deleteABook, getOneBook, updateABook } from '../../store/books'
+import './updateBookForm.css'
 
 function UpdateABook(){
     const book = useSelector((state) => state.books.Book)
@@ -44,8 +45,15 @@ function UpdateABook(){
         return history.push(`/findABook/${bookId}`)
     }
 
+    const handleDelete = (e) => {
+        e.preventDefault()
+        // console.log(bookId)
+        dispatch(deleteABook(bookId))
+        history.push('/findABook')
+    }
+
     return (
-        <form className='createBookForm' onSubmit={handleSubmit}>
+        <form className='updateBookForm' onSubmit={handleSubmit}>
             <div className='createClubImageWrapper'>
                 <img alt='create a club' src='https://res.cloudinary.com/dydhvazpw/image/upload/v1669650776/capstone/CTA_JBC2x_hx3z2c.webp'>
                 </img>
@@ -71,23 +79,23 @@ function UpdateABook(){
                         </input>
                     </div>
                     <div>
-                        <textarea
+                        <input
                         className='inputField'
                         placeholder='Author name'
                         required
                         value={author}
                         onChange={(e) => setAuthor(e.target.value)}
                         >
-                        </textarea>
+                        </input>
                     </div>
                     <div>
-                        <input
-                        className='inputField'
+                        <textarea
+                        className='textareaField'
                         placeholder='Book summary'
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         >
-                        </input>
+                        </textarea>
                     </div>
                     <div>
                     <input
@@ -128,6 +136,11 @@ function UpdateABook(){
                     <div>
                         <button type='submit'>
                             Update this book
+                        </button>
+                    </div>
+                    <div onClick={handleDelete}>
+                        <button>
+                            Delete book
                         </button>
                     </div>
                 </div>

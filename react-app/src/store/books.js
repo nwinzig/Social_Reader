@@ -94,6 +94,18 @@ export const updateABook = (book,bookId) => async dispatch => {
     }
 }
 
+export const deleteABook = (bookId) => async dispatch => {
+
+    const response = await fetch(`/api/book/${bookId}`, {
+        method: 'DELETE'
+    })
+    if(response.ok){
+        dispatch(deleteBook(bookId))
+        return
+    }
+    return
+}
+
 let initialState = {}
 const bookReducer = (state = initialState, action) => {
     let newState = {}

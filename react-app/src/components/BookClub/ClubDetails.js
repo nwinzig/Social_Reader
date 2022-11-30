@@ -18,7 +18,7 @@ function ClubDetails(){
     }, [dispatch, clubId])
 
 
-    const [numMembers, setNumMembers] = useState(1)
+    const [members, setMembers] = useState([])
     const [books, setBooks] = useState([])
     useEffect(() => {
 
@@ -26,8 +26,8 @@ function ClubDetails(){
             // console.log('are we in the function')
             const request = await fetch(`/api/bookclub/numMembers/${clubId}`)
             const newRequest = await request.json()
-            // console.log('what do I get from the new fetch', newRequest.Members)
-            setNumMembers(newRequest.Members)
+            // console.log('what do I get from the new fetch', newRequest)
+            setMembers(newRequest.Members)
         }
         async function fetchClubBooks(){
             const request = await fetch(`/api/bookclub/${clubId}/books`)
@@ -39,8 +39,52 @@ function ClubDetails(){
         fetchNumMembers()
     }, [dispatch, clubId])
 
+    function checkUserStatus(){
+
+        for(let i=0; i<members?.length; i++){
+
+            if(members[i]?.user_id === user?.id && members[i]?.member_status === 'member'){
+                return true
+                // console.log(members[i], 'is already a member')
+            }
+        }
+
+    }
 
 
+
+    const handleJoin = async (e) => {
+        // console.log('trying to join')
+        e.preventDefault()
+        let newMember = {
+            'user_id' : user.id,
+            'bookclub_id' : clubId,
+            'member_status' : 'member'
+        }
+        // console.log('new member on click', newMember)
+        const response = await fetch(`/api/bookclub/${clubId}/join`, {
+            method: 'POST',
+            headers: {'Content-type': 'application/json'},
+            body: JSON.stringify(newMember)
+        })
+        // console.log(response)
+        window.location.reload()
+    }
+
+    // console.log('these are the members', members)
+    const handleLeave = async (e) => {
+        e.preventDefault()
+        const response = await fetch(`/api/bookclub/${clubId}/leave`, {
+            method: 'DELETE'
+        })
+        // console.log(response)
+        if(response.ok){
+            history.push('/findAClub')
+            return
+        }
+    }
+    // console.log('this is the club', bookClub)
+    // console.log(checkUserStatus())
     let updateComp;
     if(user?.id === bookClub?.ownerId){
         updateComp = (
@@ -48,9 +92,17 @@ function ClubDetails(){
                     Update Club
                 </NavLink>
         )
-    } else {
+    }
+    if(checkUserStatus()){
         updateComp = (
-            <button className='joinClubButton'>
+            <button className='joinClubButton' onClick={handleLeave}>
+                Leave Club
+            </button>
+        )
+    }
+    if(!checkUserStatus() && !(user?.id === bookClub?.ownerId)){
+        updateComp = (
+            <button className='joinClubButton' onClick={handleJoin}>
             Join Club
             </button>
         )
@@ -140,7 +192,7 @@ function ClubDetails(){
                             {bookClub?.name}
                         </h2>
                         <p>
-                            {numMembers} members
+                            {members.length} members
                         </p>
 
                     </div>
