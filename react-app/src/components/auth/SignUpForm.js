@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { Redirect, NavLink } from 'react-router-dom';
-import { signUp } from '../../store/session';
+import { signUp, login } from '../../store/session';
 import './signUp.css'
 
 const SignUpForm = () => {
@@ -58,9 +58,17 @@ const SignUpForm = () => {
   };
 
 
+  const handleDemo = async (e) => {
+    e.preventDefault()
+    // email = 'demo@aa.io'
+    // password = 'password'
+    dispatch(login('demo@aa.io', 'password'))
+  }
+
   if (user) {
     return <Redirect to='/' />;
   }
+
 
   return (
     <form onSubmit={onSignUp} className='signUpForm'>
@@ -164,6 +172,14 @@ const SignUpForm = () => {
           </div>
           <NavLink to='/login' exact className='loginHere'>
             Login here
+          </NavLink>
+        </div>
+        <div className='alreadyHaveAccountWrapper'>
+          <div id='addRightMargin'>
+            Test the site here
+          </div>
+          <NavLink to='/' onClick={handleDemo} className='loginHere'>
+            Login as Demo
           </NavLink>
         </div>
       </div>

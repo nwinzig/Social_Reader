@@ -80,9 +80,9 @@ function BookDetails(){
                     {/* <div>
                         {club?.description}
                     </div> */}
-                    <button className='viewClubButton' onClick={() => history.push(`/findAClub/${club?.id}`)}>
+                    <NavLink to={`/findAClub/${club?.id}`}className='viewClubButton' onClick={() => window.scrollTo(0,0)}>
                         View Club
-                    </button>
+                    </NavLink>
                 </div>
                 ))}
             </div>

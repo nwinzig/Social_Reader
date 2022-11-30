@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Redirect, useHistory } from 'react-router-dom'
+import { Redirect, useHistory, NavLink } from 'react-router-dom'
 import './findAClub.css'
 import { getAllClubs } from '../../store/bookclub'
 
@@ -66,9 +66,9 @@ function FindAClub(){
                         {/* <div>
                             {club?.description}
                         </div> */}
-                        <button className='viewClubButton' onClick={() => history.push(`/findAClub/${club?.id}`)}>
+                        <NavLink to={`/findAClub/${club?.id}`} className='viewClubButton' onClick={() => window.scrollTo(0, 0)}>
                             View Club
-                        </button>
+                        </NavLink>
                     </div>
                 ))}
             </div>

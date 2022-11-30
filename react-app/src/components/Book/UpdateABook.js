@@ -19,8 +19,8 @@ function UpdateABook(){
     const [genre, setGenre] = useState(book?.genre)
 
     const {bookId} = useParams()
-    console.log('id', bookId)
-    console.log('should be the book', book)
+    // console.log('id', bookId)
+    // console.log('should be the book', book)
     useEffect(() => {
         dispatch(getOneBook(bookId))
     }, [dispatch, bookId])

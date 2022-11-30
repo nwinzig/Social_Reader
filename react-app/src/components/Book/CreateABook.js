@@ -28,9 +28,9 @@ function CreateABook(){
         if(!newBook['cover_image']){
             newBook['cover_image'] = 'https://res.cloudinary.com/dydhvazpw/image/upload/v1669760728/capstone/No_image_available.svg_qsoxac.png'
         }
-        console.log('newBook', newBook)
+        // console.log('newBook', newBook)
         const data = await dispatch(createABook(newBook))
-        console.log('data after submit', data)
+        // console.log('data after submit', data)
         if(data.length){
             setErrors(data)
             return
