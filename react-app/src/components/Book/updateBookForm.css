@@ -15,12 +15,18 @@
     margin-bottom: 8px;
     border-radius: 25px;
     /* overflow: visible; */
-    overflow-y: auto;
-    overflow-x: hidden;
+    /* overflow-y: auto;
+    overflow-x: hidden; */
 
 
 }
 
 .textareaField:focus{
     outline-width: 0;
+}
+#extraMarginTop{
+    margin-top: 10px;
+}
+#hover:hover{
+    cursor: pointer;
 }

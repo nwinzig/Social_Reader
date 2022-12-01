@@ -45,7 +45,7 @@ function CreateABook(){
     }
 
     return (
-        <form className='createBookForm' onSubmit={handleSubmit}>
+        <form className='createClubForm' onSubmit={handleSubmit}>
             <div className='createClubImageWrapper'>
                 <img alt='create a club' src='https://res.cloudinary.com/dydhvazpw/image/upload/v1669650776/capstone/CTA_JBC2x_hx3z2c.webp'>
                 </img>
@@ -85,15 +85,16 @@ function CreateABook(){
                         </textarea>
                     </div>
                     <div>
-                        <input
+                        <textarea
                         className='inputField'
                         placeholder='Book summary'
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         minLength={5}
                         maxLength={500}
+                        id='textAreaSize'
                         >
-                        </input>
+                        </textarea>
                     </div>
                     <div>
                     <input
@@ -118,15 +119,14 @@ function CreateABook(){
                         </input>
                     </div>
                     <div>
-                        <label>
-                            Genre:
-                        </label>
                         <select
                         value={genre}
                         onChange={(e) => setGenre(e.target.value)}
                         required
+                        className='inputField'
+                        id='hover'
                         >
-                            <option value=''>Please select one</option>
+                            <option value=''>Please select a genre</option>
                             <option value='Fiction'>Fiction</option>
                             <option value='Nonfiction'>Nonfiction</option>
                             <option value='Drama'>Drama</option>
@@ -135,7 +135,7 @@ function CreateABook(){
                         </select>
                     </div>
                     <div>
-                        <button type='submit'>
+                        <button type='submit' className='submitButton'>
                             Add this book
                         </button>
                     </div>

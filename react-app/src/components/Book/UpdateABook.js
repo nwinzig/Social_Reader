@@ -103,12 +103,13 @@ function UpdateABook(){
                     </div>
                     <div>
                         <textarea
-                        className='textareaField'
+                        className='inputField'
                         placeholder='Book summary'
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         minLength={5}
                         maxLength={500}
+                        id='textAreaSize'
                         >
                         </textarea>
                     </div>
@@ -133,16 +134,15 @@ function UpdateABook(){
                         >
                         </input>
                     </div>
-                    <div>
-                        <label>
-                            Genre:
-                        </label>
+                    <div id='extraMarginTop'>
                         <select
                         value={genre}
                         onChange={(e) => setGenre(e.target.value)}
                         required
+                        className='inputField'
+                        id='hover'
                         >
-                            <option value=''>Please select one</option>
+                            <option value=''>Please select a genre</option>
                             <option value='Fiction'>Fiction</option>
                             <option value='Nonfiction'>Nonfiction</option>
                             <option value='Drama'>Drama</option>
@@ -150,15 +150,17 @@ function UpdateABook(){
                             <option value='Folktale'>Folktale</option>
                         </select>
                     </div>
-                    <div>
-                        <button type='submit'>
-                            Update this book
-                        </button>
-                    </div>
-                    <div onClick={handleDelete}>
-                        <button>
-                            Delete book
-                        </button>
+                    <div className='buttonHolder' id='extraMarginTop'>
+                        <div>
+                            <button type='submit' className='submitButton'>
+                                Update this book
+                            </button>
+                        </div>
+                        <div onClick={handleDelete}>
+                            <button className='submitButton'>
+                                Delete this book
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
