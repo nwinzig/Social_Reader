@@ -14,7 +14,9 @@ function CreateABookClub(){
     const [clubImage, setClubImage] = useState('')
     const [restricted, setRestricted] = useState(false)
     //restricted is used to replace private
-
+    if(!user){
+        history.push('/')
+    }
     const imageCheck = /\.(jpg|jpeg|png|webp|avif|gif|svg)$/
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -72,6 +74,7 @@ function CreateABookClub(){
                     <div>
                         <textarea
                         className='inputField'
+                        id='textAreaSize'
                         placeholder='A short description'
                         required
                         value={description}
@@ -115,7 +118,7 @@ function CreateABookClub(){
                         </input>
                     </div> */}
                     <div>
-                        <button type='submit'>
+                        <button type='submit' className='submitButton'>
                             Host your club
                         </button>
                     </div>

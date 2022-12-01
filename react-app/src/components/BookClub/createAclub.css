@@ -15,3 +15,29 @@ textarea{
     height: 100%;
     width: 100%;
 }
+#textAreaSize{
+    height: 100px;
+}
+.submitButton{
+    margin-top: 8px;
+    text-decoration: none;
+    background-color: #CD4418;
+    border: none;
+    color: white;
+    width: 150px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 25px;
+    box-shadow: 0 0 2px 2px lightgray;
+    font-size: 18px;
+}
+.submitButton:hover{
+    cursor: pointer;
+}
+.buttonHolder{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

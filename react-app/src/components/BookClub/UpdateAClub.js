@@ -83,6 +83,7 @@ function UpdateAClub(){
                         className='inputField'
                         placeholder='A short description'
                         required
+                        id='textAreaSize'
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         minLength={5}
@@ -123,15 +124,17 @@ function UpdateAClub(){
                         >
                         </input>
                     </div> */}
-                    <div>
-                        <button type='submit'>
-                            Update this club
-                        </button>
-                    </div>
-                    <div>
-                        <button onClick={handleDelete}>
-                            Delete your club
-                        </button>
+                    <div className='buttonHolder'>
+                        <div>
+                            <button type='submit' className='submitButton'>
+                                Update this club
+                            </button>
+                        </div>
+                        <div>
+                            <button onClick={handleDelete} className='submitButton'>
+                                Delete this club
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
