@@ -15,25 +15,29 @@ function CreateABookClub(){
     const [restricted, setRestricted] = useState(false)
     //restricted is used to replace private
 
+    const imageCheck = /\.(jpg|jpeg|png|webp|avif|gif|svg)$/
     const handleSubmit = async (e) => {
         e.preventDefault()
+
+        if(clubImage && !clubImage.split('?')[0].match(imageCheck)){
+            setErrors(['Image must be valid: jpg, jpeg, png, webp, avif, gif, svg. Try again or a default image will be given'])
+        } else {
+
             let newClub = {
                 'name': name,
                 'description': description,
                 'clubImage': clubImage,
                 'private': restricted
             }
-            if(!newClub['clubImage']){
-                newClub['clubImage'] = 'https://res.cloudinary.com/dydhvazpw/image/upload/v1669156973/capstone/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714_ts2m47.jpg'
-            }
-            // console.log('club before dispatch', newClub)
+
             const data = await dispatch(createNewClub(newClub))
-            // console.log('tho data', data)
+
             if(data.length){
                 setErrors(data)
                 return
             }
             return history.push(`/findAClub/${data['BookClub']['id']}`)
+        }
     }
 
 
@@ -60,6 +64,8 @@ function CreateABookClub(){
                         required
                         value={name}
                         onChange={(e) => setName(e.target.value)}
+                        minLength={3}
+                        maxLength={25}
                         >
                         </input>
                     </div>
@@ -70,19 +76,21 @@ function CreateABookClub(){
                         required
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
+                        minLength={5}
+                        maxLength={200}
                         >
                         </textarea>
                     </div>
                     <div>
                         <input
                         className='inputField'
-                        placeholder='Club image(optional)'
+                        placeholder='Club Image url(optional)'
                         value={clubImage}
                         onChange={(e) => setClubImage(e.target.value)}
                         >
                         </input>
                     </div>
-                    <div>
+                    {/* <div>
                         <label>
                             Public
                         </label>
@@ -105,7 +113,7 @@ function CreateABookClub(){
                         onChange={(e) => setRestricted(true)}
                         >
                         </input>
-                    </div>
+                    </div> */}
                     <div>
                         <button type='submit'>
                             Host your club

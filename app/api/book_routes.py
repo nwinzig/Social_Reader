@@ -58,13 +58,17 @@ def createABook():
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
+        coverImage = form.data['cover_image']
+        if not coverImage:
+            coverImage = 'https://res.cloudinary.com/dydhvazpw/image/upload/v1669760728/capstone/No_image_available.svg_qsoxac.png'
+
         pageNumber = int(form.data['page_number'])
         newBook = Book(
             name = form.data['name'],
             author = form.data['author'],
             description = form.data['description'],
             page_number = pageNumber,
-            cover_image = form.data['cover_image'],
+            cover_image = coverImage,
             genre = form.data['genre'],
             added_by = user_id
         )
@@ -88,11 +92,15 @@ def updateBook(id):
 
         book = Book.query.get(id)
 
+        coverImage = form.data['cover_image']
+        if not coverImage:
+            coverImage = 'https://res.cloudinary.com/dydhvazpw/image/upload/v1669760728/capstone/No_image_available.svg_qsoxac.png'
+
         book.name = form.data['name']
         book.author = form.data['author']
         book.description = form.data['description']
         book.page_number = form.data['page_number']
-        book.cover_image = form.data['cover_image']
+        book.cover_image = coverImage
         book.genre = form.data['genre']
 
         db.session.commit()

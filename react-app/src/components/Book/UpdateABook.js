@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Redirect, useHistory, useParams } from 'react-router-dom'
-import { deleteABook, getOneBook, updateABook } from '../../store/books'
+import { deleteABook, getOneBook, updateABook, getAllBooks } from '../../store/books'
 import './updateBookForm.css'
 
 function UpdateABook(){
@@ -25,30 +25,39 @@ function UpdateABook(){
         dispatch(getOneBook(bookId))
     }, [dispatch, bookId])
 
+    const imageCheck = /\.(jpg|jpeg|png|webp|avif|gif|svg)$/
     const handleSubmit = async (e) => {
         e.preventDefault()
         setErrors([])
-        let newBook = {
-            'name': name,
-            'author': author,
-            'description': description,
-            'page_number': page_number,
-            'cover_image': cover_image,
-            'genre': genre
-        }
 
-        const data = await dispatch(updateABook(newBook, bookId))
-        if(data.length){
-            setErrors(data)
-            return
+        if(cover_image && !cover_image.split('?')[0].match(imageCheck)){
+
+            setErrors(['Image must be valid: jpg, jpeg, png, webp, avif, gif, svg. Try again or a default image will be given'])
+
+        } else {
+
+            let newBook = {
+                'name': name,
+                'author': author,
+                'description': description,
+                'page_number': page_number,
+                'cover_image': cover_image,
+                'genre': genre
+            }
+
+            const data = await dispatch(updateABook(newBook, bookId)).then(() => dispatch(getOneBook(bookId)))
+            if(data.length){
+                setErrors(data)
+                return
+            }
+            return history.push(`/findABook/${bookId}`)
         }
-        return history.push(`/findABook/${bookId}`)
     }
 
-    const handleDelete = (e) => {
+    const handleDelete = async (e) => {
         e.preventDefault()
         // console.log(bookId)
-        dispatch(deleteABook(bookId))
+        dispatch(deleteABook(bookId)).then(() => dispatch(getAllBooks()))
         history.push('/findABook')
     }
 
@@ -75,6 +84,8 @@ function UpdateABook(){
                         required
                         value={name}
                         onChange={(e) => setName(e.target.value)}
+                        minLength={2}
+                        maxLength={25}
                         >
                         </input>
                     </div>
@@ -84,6 +95,8 @@ function UpdateABook(){
                         placeholder='Author name'
                         required
                         value={author}
+                        minLength={2}
+                        maxLength={25}
                         onChange={(e) => setAuthor(e.target.value)}
                         >
                         </input>
@@ -94,6 +107,8 @@ function UpdateABook(){
                         placeholder='Book summary'
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
+                        minLength={5}
+                        maxLength={500}
                         >
                         </textarea>
                     </div>
@@ -104,6 +119,8 @@ function UpdateABook(){
                         value={page_number}
                         type='number'
                         onChange={(e) => setPage_Number(e.target.value)}
+                        min={1}
+                        max={1000}
                         >
                         </input>
                     </div>

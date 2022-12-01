@@ -15,27 +15,33 @@ function CreateABook(){
     const [cover_image, setCover_Image] = useState('')
     const [genre, setGenre] = useState('')
 
+    const imageCheck = /\.(jpg|jpeg|png|webp|avif|gif|svg)$/
     const handleSubmit = async (e) => {
         e.preventDefault()
-        let newBook = {
-            'name': name,
-            'author': author,
-            'description': description,
-            'page_number': page_number,
-            'cover_image': cover_image,
-            'genre': genre
+        if(cover_image && !cover_image.split('?')[0].match(imageCheck)){
+
+            setErrors(['Image must be valid: jpg, jpeg, png, webp, avif, gif, svg. Try again or a default image will be given'])
+
+        } else {
+
+            let newBook = {
+                'name': name,
+                'author': author,
+                'description': description,
+                'page_number': page_number,
+                'cover_image': cover_image,
+                'genre': genre
+            }
+            // console.log('newBook', newBook)
+            const data = await dispatch(createABook(newBook))
+            // console.log('data after submit', data)
+            if(data.length){
+                setErrors(data)
+                return
+            }
+            return history.push(`/findABook/${data['Book']['id']}`)
         }
-        if(!newBook['cover_image']){
-            newBook['cover_image'] = 'https://res.cloudinary.com/dydhvazpw/image/upload/v1669760728/capstone/No_image_available.svg_qsoxac.png'
-        }
-        // console.log('newBook', newBook)
-        const data = await dispatch(createABook(newBook))
-        // console.log('data after submit', data)
-        if(data.length){
-            setErrors(data)
-            return
-        }
-        return history.push(`/findABook/${data['Book']['id']}`)
+
     }
 
     return (
@@ -61,6 +67,8 @@ function CreateABook(){
                         required
                         value={name}
                         onChange={(e) => setName(e.target.value)}
+                        minLength={2}
+                        maxLength={25}
                         >
                         </input>
                     </div>
@@ -71,6 +79,8 @@ function CreateABook(){
                         required
                         value={author}
                         onChange={(e) => setAuthor(e.target.value)}
+                        minLength={2}
+                        maxLength={25}
                         >
                         </textarea>
                     </div>
@@ -80,6 +90,8 @@ function CreateABook(){
                         placeholder='Book summary'
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
+                        minLength={5}
+                        maxLength={500}
                         >
                         </input>
                     </div>
@@ -90,6 +102,9 @@ function CreateABook(){
                         value={page_number}
                         type='number'
                         onChange={(e) => setPage_Number(e.target.value)}
+                        required
+                        min={1}
+                        max={1000}
                         >
                         </input>
                     </div>

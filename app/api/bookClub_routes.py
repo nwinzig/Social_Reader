@@ -115,10 +115,14 @@ def createBookClub():
 
     if form.validate_on_submit():
         # print('club image in back', form.data['clubImage'])
+        bookClubImage = form.data['clubImage']
+        if not bookClubImage:
+            bookClubImage = 'https://res.cloudinary.com/dydhvazpw/image/upload/v1669156973/capstone/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714_ts2m47.jpg'
+
         newClub = BookClub(
             name = form.data['name'],
             description = form.data['description'],
-            clubImage = form.data['clubImage'],
+            clubImage = bookClubImage,
             private = form.data['private']
         )
 
@@ -154,11 +158,17 @@ def updateClub(id):
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
 
+        bookClubImage = form.data['clubImage']
+        if not bookClubImage:
+            bookClubImage = 'https://res.cloudinary.com/dydhvazpw/image/upload/v1669156973/capstone/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714_ts2m47.jpg'
+
+
         #find the club
         club = BookClub.query.get(id)
         club.name = form.data['name']
         club.description = form.data['description']
-        club.private = form.data['private']
+        club.clubImage = bookClubImage
+        # club.private = form.data['private']
 
         db.session.commit()
         return club.to_dict()
