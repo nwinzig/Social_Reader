@@ -17,7 +17,7 @@ import FindABook from './components/Book/FindABook';
 import BookDetails from './components/Book/BookDetails';
 import CreateABook from './components/Book/CreateABook';
 import UpdateABook from './components/Book/UpdateABook';
-
+import Footer from './components/footer/Footer';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -75,6 +75,7 @@ function App() {
           <UpdateABook />
         </ProtectedRoute>
       </Switch>
+      <Footer />
     </BrowserRouter>
   );
 }
