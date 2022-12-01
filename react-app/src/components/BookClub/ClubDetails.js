@@ -88,7 +88,7 @@ function ClubDetails(){
     let updateComp;
     if(user?.id === bookClub?.ownerId){
         updateComp = (
-                <NavLink className='deleteDiv' to={`/findAClub/${clubId}/update`}>
+                <NavLink className='deleteDiv' id='zIndex' to={`/findAClub/${clubId}/update`}>
                     Update Club
                 </NavLink>
         )
@@ -129,13 +129,15 @@ function ClubDetails(){
         readingDisplay = (
             <div className='readingDisplay'>
                     <h3>{readingBooks[0]?.name}</h3>
-                    <img className='readingCoverImage' alt='book cover' src={readingBooks[0]?.cover_image}></img>
+                    <img className='readingCoverImage' alt='book cover' src={readingBooks[0]?.cover_image}
+                    onError={e => { e.currentTarget.src = "https://res.cloudinary.com/dydhvazpw/image/upload/v1669760728/capstone/No_image_available.svg_qsoxac.png"; }}
+                    ></img>
             </div>
         )
     } else {
         readingDisplay = (
             <div className='readingDisplay'>
-                {bookClub?.name} has not selected a book to read.
+                This club has not selected a book to read
             </div>
         )
     }
@@ -147,7 +149,9 @@ function ClubDetails(){
                     <div key={book?.id} className='pastBookCard'>
                         <h3>{book?.name}</h3>
                         <h4>By: {book?.author}</h4>
-                        <img className='readingCoverImage' src={book?.cover_image} alt='book cover'></img>
+                        <img className='readingCoverImage' src={book?.cover_image} alt='book cover'
+                        onError={e => { e.currentTarget.src = "https://res.cloudinary.com/dydhvazpw/image/upload/v1669760728/capstone/No_image_available.svg_qsoxac.png"; }}
+                        ></img>
                     </div>
                 ))}
             </div>
@@ -155,7 +159,7 @@ function ClubDetails(){
     } else {
         pastDisplay = (
             <div className='pastBooksWrapper' id='addBottomBorder'>
-                {bookClub?.name} has not completed any books.
+                This club has not completed any books
             </div>
         )
     }
@@ -167,7 +171,9 @@ function ClubDetails(){
                     <div key={book?.id} className='pastBookCard'>
                         <h3>{book?.name}</h3>
                         <h4>By: {book?.author}</h4>
-                        <img src={book?.cover_image} className='readingCoverImage' alt='book cover'></img>
+                        <img src={book?.cover_image} className='readingCoverImage' alt='book cover'
+                        onError={e => { e.currentTarget.src = "https://res.cloudinary.com/dydhvazpw/image/upload/v1669760728/capstone/No_image_available.svg_qsoxac.png"; }}
+                        ></img>
                     </div>
                 ))}
             </div>
@@ -175,7 +181,7 @@ function ClubDetails(){
     } else {
         planningDisplay = (
             <div className='pastBooksWrapper' >
-                {bookClub?.name} has not added any books to their planning list.
+                This club has not added any books to their planning list
             </div>
         )
     }
@@ -184,7 +190,9 @@ function ClubDetails(){
             <div className='ClubDetailsHeader'>
                 <div className='clubDetailImageWrapper'>
                     <div className='imageWrapper'>
-                        <img className='detailsImage' alt='bookclub' src={bookClub?.clubImage}>
+                        <img className='detailsImage' alt='bookclub' src={bookClub?.clubImage}
+                        onError={e => { e.currentTarget.src = "https://res.cloudinary.com/dydhvazpw/image/upload/v1669760728/capstone/No_image_available.svg_qsoxac.png"; }}
+                        >
                         </img>
                     </div>
                     <div className='name_numMembers'>
@@ -212,7 +220,7 @@ function ClubDetails(){
                     <h3>
                         About: {bookClub?.name}
                     </h3>
-                    <p>
+                    <p id='wordBreak'>
                         {bookClub?.description}
                     </p>
                 </div>

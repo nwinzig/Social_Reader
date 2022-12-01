@@ -58,9 +58,11 @@ function FindAClub(){
                 {bookClubs?.map(club =>(
                     <div className='clubCardWrapper' key={club?.id}>
                         <div>
-                            <img className='clubImage' alt='bookclub' src={club?.clubImage}></img>
+                            <img className='clubImage' alt='bookclub' src={club?.clubImage}
+                            onError={e => { e.currentTarget.src = "https://res.cloudinary.com/dydhvazpw/image/upload/v1669760728/capstone/No_image_available.svg_qsoxac.png"; }}
+                            ></img>
                         </div>
-                        <h3>
+                        <h3 id='wordBreak' className='maxWidth'>
                             {club?.name}
                         </h3>
                         {/* <div>

@@ -69,3 +69,7 @@
     color: red;
     margin-top: 5px;
 }
+#removeMargin{
+    margin-bottom: 5px;
+    margin-top: 10px;
+}

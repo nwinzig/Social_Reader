@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Redirect, useHistory } from 'react-router-dom'
+import { NavLink, Redirect, useHistory } from 'react-router-dom'
 import { getAllBooks } from '../../store/books'
 import './findABook.css'
 
@@ -57,17 +57,19 @@ function FindABook(){
                 {books?.map(book =>(
                         <div className='clubCardWrapper' key={book?.id}>
                             <div>
-                                <img className='clubImage' alt='bookclub' src={book?.cover_image}></img>
+                                <img className='bookImage' alt='bookclub' src={book?.cover_image}
+                                onError={e => { e.currentTarget.src = "https://res.cloudinary.com/dydhvazpw/image/upload/v1669760728/capstone/No_image_available.svg_qsoxac.png"; }}
+                                ></img>
                             </div>
-                            <h3>
+                            <h3 id='wordBreak' className='maxWidth'>
                                 {book?.name}
                             </h3>
-                            <h4>
+                            {/* <h4 id='wordBreak'>
                                 By: {book?.author}
-                            </h4>
-                            <button className='viewClubButton' onClick={() => history.push(`/findABook/${book?.id}`)}>
+                            </h4> */}
+                            <NavLink to={`/findABook/${book?.id}`} className='viewClubButton' onClick={() => window.scrollTo(0, 0)}>
                                 Book details
-                            </button>
+                            </NavLink>
                         </div>
                     ))}
             </div>

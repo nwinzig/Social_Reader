@@ -121,7 +121,7 @@ function UpdateABook(){
                         type='number'
                         onChange={(e) => setPage_Number(e.target.value)}
                         min={1}
-                        max={1000}
+                        max={10000}
                         >
                         </input>
                     </div>
