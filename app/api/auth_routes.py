@@ -62,13 +62,17 @@ def sign_up():
     form = SignUpForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
+        profileImage = form.data['profile_image']
+        if not profileImage:
+            profileImage = 'https://res.cloudinary.com/dydhvazpw/image/upload/v1669156973/capstone/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714_ts2m47.jpg'
+
         user = User(
             username=form.data['username'],
             email=form.data['email'],
             password=form.data['password'],
             first_name=form.data['first_name'],
             last_name=form.data['last_name'],
-            profile_image=form.data['profile_image']
+            profile_image=profileImage
         )
         db.session.add(user)
         db.session.commit()

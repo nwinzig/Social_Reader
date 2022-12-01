@@ -45,7 +45,7 @@ const NavBar = () => {
           </NavLink>
         </div>
         <div>
-          <NavLink className='findABook' to='/' exact={true} activeClassName='active'>
+          <NavLink className='findABook' to='/findABook' exact={true} activeClassName='active'>
             Find A Book
           </NavLink>
         </div>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Redirect, useHistory } from 'react-router-dom'
+import { Redirect, useHistory, NavLink } from 'react-router-dom'
 import './findAClub.css'
 import { getAllClubs } from '../../store/bookclub'
 
@@ -40,7 +40,7 @@ function FindAClub(){
                             Find your community.
                         </h2>
                         <p className='findClubContentP'>
-                            Do you have a book your enjoyingor are looking for something new? Do you want to find a group of people to share your experiences with? If you answered any of these questions with yes, then you've came to the right place! Check out existing communities or create one of your own!
+                            Do you have a book your enjoying? Maybe your looking for something new? Do you want to find a group of people to share your experiences with? If you answered any of these questions with yes, then you've came to the right place! Check out existing communities or create one of your own!
                         </p>
                     </div>
                 </div>
@@ -66,9 +66,9 @@ function FindAClub(){
                         {/* <div>
                             {club?.description}
                         </div> */}
-                        <button className='viewClubButton' onClick={() => history.push(`/findAClub/${club?.id}`)}>
+                        <NavLink to={`/findAClub/${club?.id}`} className='viewClubButton' onClick={() => window.scrollTo(0, 0)}>
                             View Club
-                        </button>
+                        </NavLink>
                     </div>
                 ))}
             </div>

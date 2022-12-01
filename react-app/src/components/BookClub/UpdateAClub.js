@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Redirect, useHistory, useParams } from 'react-router-dom'
-import { deleteAClub, editAClub, getOneClub } from '../../store/bookclub'
+import { deleteAClub, editAClub, getAllClubs, getOneClub } from '../../store/bookclub'
 
 function UpdateAClub(){
     const bookClub = useSelector((state) => state.bookclubs.BookClub)
@@ -20,26 +20,33 @@ function UpdateAClub(){
         dispatch(getOneClub(clubId))
     }, [dispatch, clubId])
 
-    const handleSubmit = (e) => {
+    const imageCheck = /\.(jpg|jpeg|png|webp|avif|gif|svg)$/
+    const handleSubmit = async (e) => {
         e.preventDefault()
         setErrors([])
-        let updatedClub = {
-            'name': name,
-            'description': description,
-            'clubImage': clubImage,
-            'private': restricted
+        if(clubImage && !clubImage.split('?')[0].match(imageCheck)){
+
+            setErrors(['Image must be valid: jpg, jpeg, png, webp, avif, gif, svg. Try again or a default image will be given'])
+
+        } else {
+
+            let updatedClub = {
+                'name': name,
+                'description': description,
+                'clubImage': clubImage,
+                'private': restricted
+            }
+
+            await dispatch(editAClub(updatedClub, clubId)).then(() => dispatch(getOneClub(clubId)))
+
+            history.push(`/findAClub/${clubId}`)
         }
-        console.log(updatedClub)
-        // console.log('what im sending through dispatch', updatedClub, clubId)
-        dispatch(editAClub(updatedClub, clubId))
-        // console.log('do we get here', clubId)
-        history.push(`/findAClub/${clubId}`)
     }
 
-    const handleDelete = (e) => {
+    const handleDelete = async (e) => {
         e.preventDefault()
         console.log('in handle delete', clubId)
-        dispatch(deleteAClub(clubId))
+        await dispatch(deleteAClub(clubId)).then(() => dispatch(getAllClubs()))
         history.push('/findAClub')
     }
 
@@ -66,6 +73,8 @@ function UpdateAClub(){
                         required
                         value={name}
                         onChange={(e) => setName(e.target.value)}
+                        minLength={3}
+                        maxLength={25}
                         >
                         </input>
                     </div>
@@ -74,8 +83,11 @@ function UpdateAClub(){
                         className='inputField'
                         placeholder='A short description'
                         required
+                        id='textAreaSize'
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
+                        minLength={5}
+                        maxLength={200}
                         >
                         </textarea>
                     </div>
@@ -88,7 +100,7 @@ function UpdateAClub(){
                         >
                         </input>
                     </div>
-                    <div>
+                    {/* <div>
                         <label>
                             Public
                         </label>
@@ -111,16 +123,18 @@ function UpdateAClub(){
                         onChange={(e) => setRestricted(true)}
                         >
                         </input>
-                    </div>
-                    <div>
-                        <button type='submit'>
-                            Update this club
-                        </button>
-                    </div>
-                    <div>
-                        <button onClick={handleDelete}>
-                            Delete your club
-                        </button>
+                    </div> */}
+                    <div className='buttonHolder'>
+                        <div>
+                            <button type='submit' className='submitButton'>
+                                Update this club
+                            </button>
+                        </div>
+                        <div>
+                            <button onClick={handleDelete} className='submitButton'>
+                                Delete this club
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

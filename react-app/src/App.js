@@ -13,7 +13,11 @@ import FindAClub from './components/BookClub/FindBookClub';
 import ClubDetails from './components/BookClub/ClubDetails';
 import CreateABookClub from './components/BookClub/CreateClub';
 import UpdateAClub from './components/BookClub/UpdateAClub';
-
+import FindABook from './components/Book/FindABook';
+import BookDetails from './components/Book/BookDetails';
+import CreateABook from './components/Book/CreateABook';
+import UpdateABook from './components/Book/UpdateABook';
+import Footer from './components/footer/Footer';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -58,7 +62,20 @@ function App() {
         <ProtectedRoute path='/findAClub/:clubId/update'>
           <UpdateAClub />
         </ProtectedRoute>
+        <Route exact path='/findABook'>
+            <FindABook />
+        </Route>
+        <ProtectedRoute exact path='/findABook/newBook'>
+            <CreateABook />
+        </ProtectedRoute>
+        <Route exact path='/findABook/:bookId'>
+            <BookDetails />
+        </Route>
+        <ProtectedRoute path='/findABook/:bookId/update'>
+          <UpdateABook />
+        </ProtectedRoute>
       </Switch>
+      <Footer />
     </BrowserRouter>
   );
 }

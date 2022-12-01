@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, session, request, redirect
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import db, BookClub, User_BookClub, BookClub_Book, Book
-from app.forms import CreateClubForm, UpdateClubForm
+from app.forms import CreateClubForm, UpdateClubForm, JoinClubForm
 
 
 
@@ -62,7 +62,7 @@ def getOneClub(id):
 
     wantedClub = bookClub.to_dict()
 
-    clubOwner = User_BookClub.query.filter(User_BookClub.bookclub_id == id and User_BookClub.member_status == owner).first()
+    clubOwner = User_BookClub.query.filter(User_BookClub.bookclub_id == id, User_BookClub.member_status == "owner").first()
 
     # print('looking for an owner instance', clubOwner.to_dict())
 
@@ -78,8 +78,11 @@ def findNumMembers(id):
     """This route is only used incase the number of members for a group is needed """
 
     members = User_BookClub.query.filter(User_BookClub.bookclub_id == id).all()
+    allMembers = []
+    allMembers.extend([i.to_dict() for i in members])
 
-    return {'Members': len(members)}
+    # print('allmembers from numMembers', allMembers)
+    return {'Members': allMembers}
 
 #getting books for the club
 @bookClub_routes.route('/<int:id>/books')
@@ -111,11 +114,15 @@ def createBookClub():
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
-        print('club image in back', form.data['clubImage'])
+        # print('club image in back', form.data['clubImage'])
+        bookClubImage = form.data['clubImage']
+        if not bookClubImage:
+            bookClubImage = 'https://res.cloudinary.com/dydhvazpw/image/upload/v1669156973/capstone/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714_ts2m47.jpg'
+
         newClub = BookClub(
             name = form.data['name'],
             description = form.data['description'],
-            clubImage = form.data['clubImage'],
+            clubImage = bookClubImage,
             private = form.data['private']
         )
 
@@ -151,11 +158,17 @@ def updateClub(id):
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
 
+        bookClubImage = form.data['clubImage']
+        if not bookClubImage:
+            bookClubImage = 'https://res.cloudinary.com/dydhvazpw/image/upload/v1669156973/capstone/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714_ts2m47.jpg'
+
+
         #find the club
         club = BookClub.query.get(id)
         club.name = form.data['name']
         club.description = form.data['description']
-        club.private = form.data['private']
+        club.clubImage = bookClubImage
+        # club.private = form.data['private']
 
         db.session.commit()
         return club.to_dict()
@@ -171,7 +184,7 @@ def deleteClub(id):
     """This route will be used to delete a club that the user owns """
 
     #add check to see if user is the owner either here or on the frontend component
-    print('made it here')
+    # print('made it here')
     club = BookClub.query.get(id)
     if club is not None:
         db.session.delete(club)
@@ -179,6 +192,46 @@ def deleteClub(id):
         return {'Message': 'Successfully deleted'}
     return 'Bookclub not found'
 
+
+
+#become a member of a club
+@bookClub_routes.route('/<int:id>/join', methods=['POST'])
+@login_required
+def joinClub(id):
+    # print('we are in here for a join')
+    userId = current_user.id
+    form = JoinClubForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        newMember = User_BookClub(
+            user_id = userId,
+            bookclub_id = id,
+            member_status = 'member'
+        )
+        db.session.add(newMember)
+        db.session.commit()
+
+        memberToReturn = newMember.to_dict()
+        return {'Member': memberToReturn}
+    return {'errors': 'could not join club'}
+
+
+#remove member from a club
+@bookClub_routes.route('/<int:id>/leave', methods=['DELETE'])
+@login_required
+def leaveClub(id):
+    # print('inside the function!!!!!!!!!!!!!!!!!!!!')
+    userId = current_user.id
+    # print('user Id', userId)
+    # print('should be the club id', id)
+    member = User_BookClub.query.filter(User_BookClub.user_id == userId, User_BookClub.member_status == "member", User_BookClub.bookclub_id == id).first()
+    # newMember = member.to_dict()
+    # print('member from query', newMember)
+    # print('what happens with all', member)
+    db.session.delete(member)
+    db.session.commit()
+    return {'Message': 'Removed from club'}
 
 
 

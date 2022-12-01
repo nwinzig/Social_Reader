@@ -27,6 +27,13 @@ const LoginForm = () => {
     setPassword(e.target.value);
   };
 
+  const handleDemo = async (e) => {
+    e.preventDefault()
+    // email = 'demo@aa.io'
+    // password = 'password'
+    dispatch(login('demo@aa.io', 'password'))
+  }
+
   if (user) {
     return <Redirect to='/' />;
   }
@@ -40,7 +47,7 @@ const LoginForm = () => {
         <div className='loginInfoWrapper'>
           <div>
             {errors.map((error, ind) => (
-              <div key={ind}>{error}</div>
+              <div key={ind} id='red'>{error}</div>
             ))}
           </div>
           <div>
@@ -77,6 +84,14 @@ const LoginForm = () => {
               Sign up here
             </NavLink>
           </div>
+          <div className='alreadyHaveAccountWrapper'>
+          <div id='addRightMargin'>
+            Test the site here
+          </div>
+          <NavLink to='/' onClick={handleDemo} className='loginHere'>
+            Login as Demo
+          </NavLink>
+        </div>
         </div>
     </form>
   );

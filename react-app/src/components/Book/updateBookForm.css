@@ -1,0 +1,32 @@
+.updateBookForm{
+    margin-top: 70px;
+    display: flex;
+    height: 600px;
+    width: 100%;
+}
+.textareaField{
+    padding-top: 10px;
+    padding-left: 10px;
+    border: 1px solid lightgray;
+    box-shadow: 0 0 1px 1px lightgray;
+    height: 125px;
+    width: 250px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    border-radius: 25px;
+    /* overflow: visible; */
+    /* overflow-y: auto;
+    overflow-x: hidden; */
+
+
+}
+
+.textareaField:focus{
+    outline-width: 0;
+}
+#extraMarginTop{
+    margin-top: 10px;
+}
+#hover:hover{
+    cursor: pointer;
+}
