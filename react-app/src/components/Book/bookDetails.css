@@ -1,22 +1,33 @@
 .bookDetailWrapper{
     margin-top: 100px;
+    display: flex;
+    flex-direction: column;
 }
 .bookDetailHeader{
     margin-left: 20%;
     margin-right: 20%;
     display: flex;
     flex-direction: row;
+    /* height: 650px; */
+    height: fit-content;
+    margin-bottom: 50px;
+}
+.updateCompContainer{
+display: flex;
+justify-content: center;
 }
 .bookDetailHeader img{
     height: 400px;
     width: auto;
 }
 .bookDetails{
-    margin-left: 15%;
+    margin-left: 5%;
     border: 1px solid lightgrey;
     padding: 15px;
     border-radius: 25px;
     box-shadow: 0 0 1px 1px lightgray;
+    width: 45%;
+    word-wrap: break-word;
 }
 .otherClubTitle{
     padding-top: 25px;
@@ -24,12 +35,13 @@
     border-top: 1px solid #E66752;
     margin-left: 20%;
     margin-right: 20%;
+    margin-bottom: 0;
 }
 .otherClubsWrapper{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    margin-top: 25px;
+    /* margin-top: 25px; */
     margin-left: 10%;
     margin-right: 10%;
     justify-content: center;

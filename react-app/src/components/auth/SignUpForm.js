@@ -86,7 +86,7 @@ const SignUpForm = () => {
         </div>
         {/* adding to signup form */}
         <div>
-          <h2>
+          <h2 id='removeMargin'>
             Join the community!
           </h2>
         </div>

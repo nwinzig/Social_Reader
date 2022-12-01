@@ -18,10 +18,10 @@
     margin-bottom: auto;
     display: flex;
     flex-direction: row;
+    width: 60%;
 }
 .imageWrapper{
     width: 50%;
-
 }
 .detailsImage{
     /* margin-top: 25px; */
@@ -32,6 +32,11 @@
 }
 .name_numMembers{
     margin-left: 20px;
+    width: 50%;
+}
+.name_numMembers h2{
+    max-width: 100%;
+    word-wrap: break-word;
 }
 .clubDetailHeaderContent{
     width: 30%;
@@ -168,4 +173,7 @@
 
 .deleteDiv:hover{
     cursor: pointer;
+}
+#zIndex{
+    z-index: 1;
 }

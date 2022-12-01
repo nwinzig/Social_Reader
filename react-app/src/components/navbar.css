@@ -10,6 +10,7 @@
     position: fixed;
     top: 0;
     box-shadow: 0 1px lightgray;
+    z-index: 2;
 }
 .leftNavWrapper{
     margin-left: 5%;

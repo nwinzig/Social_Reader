@@ -32,7 +32,7 @@ function BookDetails(){
     let updateComp;
     if(user?.id === book?.added_by){
         updateComp = (
-                <NavLink className='deleteDiv' to={`/findABook/${bookId}/update`}>
+                <NavLink className='deleteDiv' id='zIndex' to={`/findABook/${bookId}/update`}>
                     Update Book
                 </NavLink>
         )
@@ -50,8 +50,15 @@ function BookDetails(){
     return (
         <div className='bookDetailWrapper'>
             <div className='bookDetailHeader'>
-                <img src={book?.cover_image}>
-                </img>
+                <div>
+                    <img src={book?.cover_image}
+                    onError={e => { e.currentTarget.src = "https://res.cloudinary.com/dydhvazpw/image/upload/v1669760728/capstone/No_image_available.svg_qsoxac.png"; }}
+                    >
+                    </img>
+                    <div className='updateCompContainer'>
+                        {updateComp}
+                    </div>
+                </div>
                 <div className='bookDetails'>
                     <h1>
                         {book?.name}
@@ -62,7 +69,6 @@ function BookDetails(){
                     <div>
                         {book?.description}
                     </div>
-                    {updateComp}
                 </div>
             </div>
                 <h3 className='otherClubTitle'>
@@ -72,7 +78,9 @@ function BookDetails(){
                 {clubs?.map(club => (
                     <div className='clubCardWrapper' key={club?.id}>
                     <div>
-                        <img className='clubImage' alt='bookclub' src={club?.clubImage}></img>
+                        <img className='clubImage' alt='bookclub' src={club?.clubImage}
+                        onError={e => { e.currentTarget.src = "https://res.cloudinary.com/dydhvazpw/image/upload/v1669760728/capstone/No_image_available.svg_qsoxac.png"; }}
+                        ></img>
                     </div>
                     <h3>
                         {club?.name}

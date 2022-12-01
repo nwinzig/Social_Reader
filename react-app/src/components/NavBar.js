@@ -21,10 +21,10 @@ const NavBar = () => {
   } else{
     rightNav = (
       <div className='rightNavWrapper'>
-          <NavLink className='signInButton' to='/login' exact={true} activeClassName='active'>
+          <NavLink className='signInButton' to='/login' exact={true} activeClassName='active' onClick={() => window.scrollTo(0, 0)}>
             SIGN IN
           </NavLink>
-          <NavLink className='signUpButton' to='/sign-up' exact={true} activeClassName='active'>
+          <NavLink className='signUpButton' to='/sign-up' exact={true} activeClassName='active' onClick={() => window.scrollTo(0, 0)}>
             SIGN UP
           </NavLink>
       </div>
@@ -35,17 +35,17 @@ const NavBar = () => {
     <nav className='navWrapper'>
       <div className='leftNavWrapper'>
         <div>
-          <NavLink className='logo' to='/' exact={true} activeClassName='active'>
+          <NavLink className='logo' to='/' exact={true} activeClassName='active' onClick={() => window.scrollTo(0, 0)}>
             Social Reader
           </NavLink>
         </div>
         <div>
-          <NavLink className='joinAClub' to='/findAClub' exact={true} activeClassName='active'>
+          <NavLink className='joinAClub' to='/findAClub' exact={true} activeClassName='active' onClick={() => window.scrollTo(0, 0)}>
             Join A book Club
           </NavLink>
         </div>
         <div>
-          <NavLink className='findABook' to='/findABook' exact={true} activeClassName='active'>
+          <NavLink className='findABook' to='/findABook' exact={true} activeClassName='active' onClick={() => window.scrollTo(0, 0)}>
             Find A Book
           </NavLink>
         </div>
