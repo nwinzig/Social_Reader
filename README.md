@@ -1,148 +1,85 @@
-# Flask React Project
+# Social Reader
 
-This is the starter for the Flask React project.
+Social Reader is a clone of [bookclubs.com](https://bookclubs.com/). Social Reader is an application for users to keep track of books and join online communities. The website aims to be useful for users who are want to keep track of a virtual bookshelf. Users who want to share their thoughts on books or join communities to find new books to read will also find use in the application.
 
-## Getting started
-1. Clone this repository (only this branch)
+## Wiki
+For more information on the site and preparation please check out the wiki through these links.
 
-2. Install dependencies
+ - [Database Schema](https://github.com/nwinzig/Social_Reader/wiki/DB-Schema)
 
-      ```bash
-      pipenv install -r requirements.txt
-      ```
+ - [Feature list](https://github.com/nwinzig/Social_Reader/wiki/Feature-List)
 
-3. Create a **.env** file based on the example with proper settings for your
-   development environment
+ - [User stories](https://github.com/nwinzig/Social_Reader/wiki/User-Stories)
 
-4. Make sure the SQLite3 database connection URL is in the **.env** file
+ - [Wireframes](https://github.com/nwinzig/Social_Reader/wiki/Wireframes)
 
-5. This starter organizes all tables inside the `flask_schema` schema, defined
-   by the `SCHEMA` environment variable.  Replace the value for
-   `SCHEMA` with a unique name, **making sure you use the snake_case
-   convention**.
+## Tech Stack
+   - [<img src='https://img.shields.io/badge/-flask-yellow' alt='Javascript Logo'  target='_blank'/>](https://flask.palletsprojects.com/en/2.2.x/)
+   - [<img src='https://img.shields.io/badge/-React-blue' alt='React Logo' target='_blank'/>](https://reactjs.org/)
+   - [<img src='https://img.shields.io/badge/-HTML5-orange' alt='HTML Logo' target='_blank'/>](https://html.com/)
+   - [<img src='https://img.shields.io/badge/-CSS-blue' target='_blank'/>](https://www.w3.org/Style/CSS/Overview.en.html)
+   - [<img src='https://img.shields.io/badge/-postgres-lightgrey' target='_blank'/>](https://www.postgresql.org/)
+   - [<img src='https://img.shields.io/badge/-render-purple' target='_blank'/>](https://render.com/)
+   <!-- - [<img src='https://img.shields.io/badge/-python-blue' target='_blank'/>](https://www.python.org/doc/) -->
 
-6. Get into your pipenv, migrate your database, seed your database, and run your Flask app
+## Getting Started
 
-   ```bash
-   pipenv shell
+### Live Site
+The site is currently being deployed live through render. Follow the below link
+[Social Reader](https://social-reader.onrender.com/)
+
+### Run Locally
+Please follow the directions listed below:
+1. Clone the repo
+   - HTTPS Version:
+   ```
+   git clone https://github.com/nwinzig/Social_Reader.git
+   ```
+2. Create a .env file and set envirnment variables for SECRET_KEY and DATABASE_URL. These can be anything you choose.
+
+3. Install Packages:
+   ```
+   pipenv install
+   cd react-app
+   npm install
    ```
 
-   ```bash
-   flask db upgrade
+4. In the root, migrate and seed files:
    ```
-
-   ```bash
+   flask run db init
+   flask run migrate
    flask seed all
    ```
 
-   ```bash
-   flask run
+5. Run the server and the start the react app(I'd recommend doing this between 2 terminals. One to run flask, the other to start react-app):
+   ```
+   pipenv run flask run
+   cd react-app
+   npm start
    ```
 
-7. To run the React App in development, checkout the [README](./react-app/README.md) inside the `react-app` directory.
+## Usage
+   ### Home Page
+   - This page will give you a first glance of the site. From here you are able to navigate to either the sign in or sign up form(both have functionality to login as a demo user).
+   - You may also navigate directly to pages displaying current books or bookclubs.
 
 
-## Deployment through Render.com
+   ### Join A Book Club
+   - This page is designed to display current bookclubs. To get more details on a specific club use the "View Club" button. If you are a logged in user then there will also be a "Create your own" button that can be used to navigate to a form used to create a new book club.
 
-First, refer to your Render.com deployment articles for more detailed
-instructions about getting started with [Render.com], creating a production
-database, and deployment debugging tips.
 
-From the [Dashboard], click on the "New +" button in the navigation bar, and
-click on "Web Service" to create the application that will be deployed.
+   ### Club Details
+   - The details page for a club will display the club name, number of members, and club image if available. A reading list is also displayed. A logged in user can edit a club if they created it from this page. If the user is not the owner they have the ability to either join or leave the club.
 
-Look for the name of the application you want to deploy, and click the "Connect"
-button to the right of the name.
 
-Now, fill out the form to configure the build and start commands, as well as add
-the environment variables to properly deploy the application.
+   ### Find a Book
+   - On this page all current books will be displayed. Like the Join A Book Club page, book details can be viewed by clicking on the "Book details button". Also if a user is logged in they will have access to the "add a book" button which will bring them to the assocciated form page.
 
-### Part A: Configure the Start and Build Commands
 
-Start by giving your application a name.
+   ### Book Details
+   - Book details will show the title, author, summary, and cover image for a book if available. There will also be a section displaying clubs that are currently reading the book. If the logged in user is the own to have added the book then they will also have access to the "Update Book" button which will navigate them to a form.
 
-Leave the root directory field blank. By default, Render will run commands from
-the root directory.
 
-Make sure the Environment field is set set to "Python 3", the Region is set to
-the location closest to you, and the Branch is set to "main".
-
-Next, add your Build command. This is a script that should include everything
-that needs to happen _before_ starting the server.
-
-For your Flask project, enter the following command into the Build field, all in
-one line:
-
-```shell
-# build command - enter all in one line
-npm install --prefix react-app &&
-npm run build --prefix react-app &&
-pip install -r requirements.txt &&
-pip install psycopg2 &&
-flask db upgrade &&
-flask seed all
-```
-
-This script will install dependencies for the frontend, and run the build
-command in the __package.json__ file for the frontend, which builds the React
-application. Then, it will install the dependencies needed for the Python
-backend, and run the migration and seed files.
-
-Now, add your start command in the Start field:
-
-```shell
-# start script
-gunicorn app:app
-```
-
-_If you are using websockets, use the following start command instead for increased performance:_
-
-`gunicorn --worker-class eventlet -w 1 app:app`
-
-### Part B: Add the Environment Variables
-
-Click on the "Advanced" button at the bottom of the form to configure the
-environment variables your application needs to access to run properly. In the
-development environment, you have been securing these variables in the __.env__
-file, which has been removed from source control. In this step, you will need to
-input the keys and values for the environment variables you need for production
-into the Render GUI.
-
-Click on "Add Environment Variable" to start adding all of the variables you
-need for the production environment.
-
-Add the following keys and values in the Render GUI form:
-
-- SECRET_KEY (click "Generate" to generate a secure secret for production)
-- FLASK_ENV production
-- FLASK_APP app
-- SCHEMA (your unique schema name, in snake_case)
-- REACT_APP_BASE_URL (use render.com url, located at top of page, similar to
-  https://this-application-name.onrender.com)
-
-In a new tab, navigate to your dashboard and click on your Postgres database
-instance.
-
-Add the following keys and values:
-
-- DATABASE_URL (copy value from Internal Database URL field)
-
-_Note: Add any other keys and values that may be present in your local __.env__
-file. As you work to further develop your project, you may need to add more
-environment variables to your local __.env__ file. Make sure you add these
-environment variables to the Render GUI as well for the next deployment._
-
-Next, choose "Yes" for the Auto-Deploy field. This will re-deploy your
-application every time you push to main.
-
-Now, you are finally ready to deploy! Click "Create Web Service" to deploy your
-project. The deployment process will likely take about 10-15 minutes if
-everything works as expected. You can monitor the logs to see your build and
-start commands being executed, and see any errors in the build process.
-
-When deployment is complete, open your deployed site and check to see if you
-successfully deployed your Flask application to Render! You can find the URL for
-your site just below the name of the Web Service at the top of the page.
-
-[Render.com]: https://render.com/
-[Dashboard]: https://dashboard.render.com/
+## Contact Me
+- [GitHub](https://github.com/nwinzig)
+- [Linkedin](https://www.linkedin.com/in/noah-winzig-30588b231/)
