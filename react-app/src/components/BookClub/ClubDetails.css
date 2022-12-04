@@ -4,7 +4,7 @@
 }
 
 .ClubDetailsHeader{
-    border-bottom: 1px solid #E66752;
+    /* border-bottom: 1px solid #E66752; */
     /* margin-top: 100px; */
     margin-left: 22%;
     margin-right: 22%;
@@ -22,6 +22,9 @@
 }
 .imageWrapper{
     width: 50%;
+    /* margin-bottom: 20px; */
+    /* overflow: hidden; */
+    /* padding-bottom: 20px; */
 }
 .detailsImage{
     /* margin-top: 25px; */
@@ -70,12 +73,14 @@
 .clubInformation{
     margin-left: 22%;
     margin-right: 22%;
-    margin-top: 50px;
+    margin-top: 25px;
     display: flex;
     flex-direction: row;
     padding-bottom: 50px;
     border-bottom: 1px solid #E66752;
     margin-bottom: 25px;
+    border-top: 1px solid #E66752;
+    padding-top: 20px;
 }
 .currentlyReadingWrapper{
     display: flex;
