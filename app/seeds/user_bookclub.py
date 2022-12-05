@@ -20,13 +20,16 @@ def seed_userBookClub():
     club6 = User_BookClub(
         user_id=3, bookclub_id=2, member_status='member'
         )
-
+    club7 = User_BookClub(
+        user_id=1, bookclub_id=4, member_status='owner'
+    )
     db.session.add(club1)
     db.session.add(club2)
     db.session.add(club3)
     db.session.add(club4)
     db.session.add(club5)
     db.session.add(club6)
+    db.session.add(club7)
     db.session.commit()
 
 
