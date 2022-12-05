@@ -11,10 +11,15 @@ def seed_bookclubs():
     club3 = BookClub(
         name='Club3', description='This is the third seeder club.', clubImage='https://res.cloudinary.com/dydhvazpw/image/upload/v1669398116/capstone/istockphoto-1260329669-612x612_h3d8na.jpg',private=False
         )
+    club4 = BookClub(
+    name='Club Coffee', description='Theres nothing better than drinking coffee and reading a good book.', clubImage='https://res.cloudinary.com/dydhvazpw/image/upload/v1670203576/capstone/download-1_kdvbij.jpg',private=False
+    )
+
 
     db.session.add(club1)
     db.session.add(club2)
     db.session.add(club3)
+    db.session.add(club4)
     db.session.commit()
 
 
