@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, session, request, redirect
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import db, BookClub, User_BookClub, BookClub_Book, Book
+from app.models import db, BookClub, User_BookClub, BookClub_Book, Book, User_Book
 from app.forms import CreateBookForm, UpdateBookForm
 
 book_routes = Blueprint('book', __name__)
@@ -45,6 +45,23 @@ def findClubsReading(id):
         newClub['status'] = club['status']
         allClubDetails.append(newClub)
     return {'clubs': allClubDetails}
+
+#get books for a specific user
+#'/userId/books'
+@book_routes.route('/<int:id>/books', methods=['GET'])
+# @login_required
+def getUserBooks(id):
+    user_books = User_Book.query.filter(User_Book.user_id == id).all()
+    allbooks = []
+    print('what is user books', user_books)
+    allbooks.extend([i.to_dict() for i in user_books])
+    allBooksDetails = []
+    for book in allbooks:
+        bookDetails = Book.query.filter(Book.id == book['book_id']).first()
+        newBook = bookDetails.to_dict()
+        newBook['status'] = book['status']
+        allBooksDetails.append(newBook)
+    return {'Books':allBooksDetails}
 
 
 # create a book
@@ -120,6 +137,7 @@ def deleteBook(id):
         db.session.commit()
         return {'Message': 'Successfully deleted'}
     return 'Book not found'
+
 
 
 

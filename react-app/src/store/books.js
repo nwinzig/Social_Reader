@@ -51,6 +51,18 @@ export const getAllBooks = () => async dispatch => {
     }
 }
 
+//get books for user reading list
+export const getAllUserBooks = (id) => async dispatch => {
+    const response = await fetch(`/api/book/${id}/books`)
+
+    if(response.ok){
+        const book = await response.json()
+        dispatch(loadAll(book))
+        return book
+    }
+}
+
+
 export const getOneBook = (id) => async dispatch => {
     const response = await fetch(`/api/book/${id}`)
 
