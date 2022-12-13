@@ -18,6 +18,154 @@ function User() {
     dispatch(getUserClubs(userId))
   }, [dispatch])
 
+  // seperate books based on status
+  let completedBooks = []
+  let readingBooks = []
+  let planningBooks = []
+  let favoriteBooks = []
+  for(let i=0; i<books?.length; i++){
+      if(books[i].favorite === true){
+        favoriteBooks.push(books[i])
+      }
+      if(books[i].status === 'completed'){
+          completedBooks.push(books[i])
+      }
+      else if(books[i].status === 'reading'){
+          readingBooks.push(books[i])
+      } else if(books[i].status === 'planning'){
+          planningBooks.push(books[i])
+      }
+  }
+
+//create components for each status list
+let favoriteDisplay;
+if(favoriteBooks.length >= 1){
+  favoriteDisplay = (
+    <div className='pastBooksWrapper' id='addBottomBorder'>
+          {favoriteBooks?.map((book) => (
+              <div key={book?.id} className='pastBookCard'>
+                  <h3>{book?.name}</h3>
+                  <h4>By: {book?.author}</h4>
+                  <img className='readingCoverImage' src={book?.cover_image} alt='book cover'
+                  onError={e => { e.currentTarget.src = "https://res.cloudinary.com/dydhvazpw/image/upload/v1669760728/capstone/No_image_available.svg_qsoxac.png"; }}
+                  ></img>
+              </div>
+          ))}
+      </div>
+  )
+} else {
+  favoriteDisplay = (
+    <div>
+      Showcase your favorite books
+    </div>
+  )
+}
+let pastDisplay;
+if(completedBooks.length>=1){
+  pastDisplay = (
+      <div className='pastBooksWrapper' id='addBottomBorder'>
+          {completedBooks?.map((book) => (
+              <div key={book?.id} className='pastBookCard'>
+                  <h3>{book?.name}</h3>
+                  <h4>By: {book?.author}</h4>
+                  <img className='readingCoverImage' src={book?.cover_image} alt='book cover'
+                  onError={e => { e.currentTarget.src = "https://res.cloudinary.com/dydhvazpw/image/upload/v1669760728/capstone/No_image_available.svg_qsoxac.png"; }}
+                  ></img>
+              </div>
+          ))}
+      </div>
+  )
+} else {
+  pastDisplay = (
+    <div>
+      Let us know when you finish your first book, so we can add it to your shelf.
+    </div>
+  )
+}
+
+let planningDisplay;
+if(planningBooks.length>=1){
+  planningDisplay = (
+      <div className='pastBooksWrapper' >
+          {planningBooks?.map((book) => (
+              <div key={book?.id} className='pastBookCard'>
+                  <h3>{book?.name}</h3>
+                  <h4>By: {book?.author}</h4>
+                  <img src={book?.cover_image} className='readingCoverImage' alt='book cover'
+                  onError={e => { e.currentTarget.src = "https://res.cloudinary.com/dydhvazpw/image/upload/v1669760728/capstone/No_image_available.svg_qsoxac.png"; }}
+                  ></img>
+              </div>
+          ))}
+      </div>
+  )
+} else{
+  planningDisplay = (
+    <div>
+      Set the status of a book to 'planning', to keep track of it on your shelf.
+    </div>
+  )
+}
+
+let readingDisplay;
+if(readingBooks.length>= 1){
+  readingDisplay = (
+    <div className='pastBooksWrapper' >
+    {readingBooks?.map((book) => (
+        <div key={book?.id} className='pastBookCard'>
+            <h3>{book?.name}</h3>
+            <h4>By: {book?.author}</h4>
+            <img src={book?.cover_image} className='readingCoverImage' alt='book cover'
+            onError={e => { e.currentTarget.src = "https://res.cloudinary.com/dydhvazpw/image/upload/v1669760728/capstone/No_image_available.svg_qsoxac.png"; }}
+            ></img>
+        </div>
+    ))}
+</div>
+  )
+} else {
+  readingDisplay = (
+    <div>
+      It's time to start reading!
+    </div>
+  )
+}
+
+
+  const [view, setView] = useState('bookshelf')
+
+  let contentView;
+  if(view === 'bookshelf'){
+    contentView = (
+      <div>
+        <h2>Your Bookshelf</h2>
+        <div>
+          <h3>
+            Favorites
+          </h3>
+          <div>
+            {favoriteDisplay}
+          </div>
+          <h3>
+            Currently Reading
+          </h3>
+          <div>
+            {readingDisplay}
+          </div>
+          <h3>
+            Completed
+          </h3>
+          <div>
+            {pastDisplay}
+          </div>
+          <h3>
+            Planning to Read
+          </h3>
+          <div>
+            {planningDisplay}
+          </div>
+        </div>
+      </div>
+    )
+  }
   return (
     <div className='userDetailsBody'>
       <div className='userPageLeft'>
@@ -25,9 +173,9 @@ function User() {
           <img src={user?.profile_image}
           onError={e => { e.currentTarget.src = "https://res.cloudinary.com/dydhvazpw/image/upload/v1669760728/capstone/No_image_available.svg_qsoxac.png"; }}>
           </img>
-          <h2>
+          <h1>
             {user?.first_name} {user?.last_name}
-          </h2>
+          </h1>
         </div>
         <div className='changeView'>
           <button>
@@ -39,7 +187,9 @@ function User() {
         </div>
       </div>
       <div className='userPageRight'>
-
+        <div className='userPageRightContent'>
+          {contentView}
+        </div>
       </div>
     </div>
   );
