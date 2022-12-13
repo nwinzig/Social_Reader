@@ -23,17 +23,15 @@ def getAllClubs():
 
 
 #get all clubs of the current user
-@bookClub_routes.route('/userClubs', methods=['GET'])
-# @login_required
-def userClubs():
-    """This route will get all bookclubs for the current user. It will NOT filter based on membership status """
+@bookClub_routes.route('/userClubs/<int:id>', methods=['GET'])
+@login_required
+def userClubs(id):
+    """This route will get all bookclubs for the current user. It will NOT filter based on membership status, the argument it recieves is the id of a user """
 
-    #get user id
-    # userId = current_user.id
     #test user id
-    userId = 2
+    # userId = 2
     #find bookclubs in join based on user id
-    userToClub = User_BookClub.query.filter(User_BookClub.user_id == userId).all()
+    userToClub = User_BookClub.query.filter(User_BookClub.user_id == id).all()
 
     clubList = []
     clubList.extend([i.to_dict() for i in userToClub])
@@ -49,7 +47,7 @@ def userClubs():
         detailedClubList.append(myClub)
 
 
-    return {'clubList': detailedClubList}
+    return {'bookClubs': detailedClubList}
 
 
 

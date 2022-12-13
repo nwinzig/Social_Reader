@@ -49,7 +49,7 @@ def findClubsReading(id):
 #get books for a specific user
 #'/userId/books'
 @book_routes.route('/<int:id>/books', methods=['GET'])
-# @login_required
+@login_required
 def getUserBooks(id):
     user_books = User_Book.query.filter(User_Book.user_id == id).all()
     allbooks = []
@@ -60,6 +60,7 @@ def getUserBooks(id):
         bookDetails = Book.query.filter(Book.id == book['book_id']).first()
         newBook = bookDetails.to_dict()
         newBook['status'] = book['status']
+        newBook['favorite'] = book['favorite']
         allBooksDetails.append(newBook)
     return {'Books':allBooksDetails}
 

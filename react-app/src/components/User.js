@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { getUserClubs } from '../store/bookclub';
 import { getAllUserBooks } from '../store/books';
 import './user.css'
 function User() {
   const dispatch = useDispatch()
-  // const bookClubs = useSelector((state) => state.bookClubs.bookClubs)
+  const bookClubs = useSelector((state) => state.bookclubs.bookClubs)
   const books = useSelector((state) => state.books.Books)
   const user = useSelector((state) => state.session.user)
   const userId = user?.id
+  // console.log(bookClubs)
   // console.log('this is session', user)
   // console.log('books', books)
   useEffect(() => {
     dispatch(getAllUserBooks(userId))
+    dispatch(getUserClubs(userId))
   }, [dispatch])
 
   return (
