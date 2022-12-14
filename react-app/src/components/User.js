@@ -164,7 +164,7 @@ let myClubDisplay;
   } else {
     myClubDisplay = (
       <div>
-        Start hosting your first bookclub to find likeminded readers
+        Start hosting your first bookclub to find likeminded readers.
       </div>
     )
   }

@@ -7,12 +7,23 @@ import './navbar.css'
 const NavBar = () => {
 
   const session = useSelector((state) => state.session.user)
+  console.log('this is the user', session)
+  //setting user image with check incase there is a null url
+  let userImage;
+  if(session?.profile_image){
+    userImage = session.profile_image
+  } else{
+    userImage = 'https://res.cloudinary.com/dydhvazpw/image/upload/v1669156973/capstone/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714_ts2m47.jpg'
+  }
 
   let rightNav;
 
   if(session){
     rightNav = (
       <div className='rightNavWrapper'>
+        <div className='navImageWrapper'>
+          <NavLink to={`/user/${session.id}`}><img src={userImage} className='navUserImage'></img></NavLink>
+        </div>
         <div>
           <LogoutButton />
         </div>
