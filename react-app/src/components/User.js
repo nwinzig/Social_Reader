@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, NavLink } from 'react-router-dom';
 import { getUserClubs } from '../store/bookclub';
 import { getAllUserBooks } from '../store/books';
 import './user.css'
@@ -10,9 +10,7 @@ function User() {
   const books = useSelector((state) => state.books.Books)
   const user = useSelector((state) => state.session.user)
   const userId = user?.id
-  // console.log(bookClubs)
-  // console.log('this is session', user)
-  // console.log('books', books)
+
   useEffect(() => {
     dispatch(getAllUserBooks(userId))
     dispatch(getUserClubs(userId))
@@ -130,6 +128,79 @@ if(readingBooks.length>= 1){
 }
 
 
+//seperate clubs by member status
+let ownedClubs = []
+let memberClubs = []
+for(let i = 0; i<bookClubs?.length; i++){
+  if(bookClubs[i].member_status === 'owner'){
+    ownedClubs.push(bookClubs[i])
+  } else if (bookClubs[i].member_status === 'member') {
+    memberClubs.push(bookClubs[i])
+  }
+}
+
+//create component for owned clubs
+let myClubDisplay;
+  if (ownedClubs.length >= 1) {
+    myClubDisplay = (
+      <div className='clubResultsWrapper'>
+        {ownedClubs?.map(club => (
+          <div className='clubCardWrapper' key={club?.id}>
+            <div>
+              <img className='clubImage' alt='bookclub' src={club?.clubImage}
+                onError={e => { e.currentTarget.src = "https://res.cloudinary.com/dydhvazpw/image/upload/v1669760728/capstone/No_image_available.svg_qsoxac.png"; }}
+              ></img>
+            </div>
+            <h3 id='wordBreak' className='maxWidth'>
+              {club?.name}
+            </h3>
+            <NavLink to={`/findAClub/${club?.id}`} className='viewClubButton' onClick={() => window.scrollTo(0, 0)}>
+              View Club
+            </NavLink>
+          </div>
+        ))}
+      </div>
+    )
+  } else {
+    myClubDisplay = (
+      <div>
+        Start hosting your first bookclub to find likeminded readers
+      </div>
+    )
+  }
+
+//create component for clubs the user is a member of
+let memberDisplay;
+if (memberClubs.length >= 1) {
+  memberDisplay = (
+    <div className='clubResultsWrapper'>
+      {memberClubs?.map(club => (
+        <div className='clubCardWrapper' key={club?.id}>
+          <div>
+            <img className='clubImage' alt='bookclub' src={club?.clubImage}
+              onError={e => { e.currentTarget.src = "https://res.cloudinary.com/dydhvazpw/image/upload/v1669760728/capstone/No_image_available.svg_qsoxac.png"; }}
+            ></img>
+          </div>
+          <h3 id='wordBreak' className='maxWidth'>
+            {club?.name}
+          </h3>
+          <NavLink to={`/findAClub/${club?.id}`} className='viewClubButton' onClick={() => window.scrollTo(0, 0)}>
+            View Club
+          </NavLink>
+        </div>
+      ))}
+    </div>
+  )
+} else {
+  memberDisplay = (
+    <div>
+      Find new books and get on a reading schedule by joining a bookclub
+    </div>
+  )
+}
+
+
+
   const [view, setView] = useState('bookshelf')
 
   let contentView;
@@ -165,7 +236,30 @@ if(readingBooks.length>= 1){
         </div>
       </div>
     )
+  } else if (view === 'bookclubs'){
+    contentView = (
+      <div>
+        <h2>
+          Your Bookclubs
+        </h2>
+        <h3>
+          Clubs your Hosting
+        </h3>
+        <div>
+          {myClubDisplay}
+        </div>
+        <h3>
+          Clubs you've joined
+        </h3>
+        <div>
+          {memberDisplay}
+        </div>
+      </div>
+    )
   }
+
+
+
   return (
     <div className='userDetailsBody'>
       <div className='userPageLeft'>
@@ -178,10 +272,10 @@ if(readingBooks.length>= 1){
           </h1>
         </div>
         <div className='changeView'>
-          <button>
+          <button onClick={() => {setView('bookshelf')}}>
             My Bookshelf
           </button>
-          <button>
+          <button onClick={() => {setView('bookclubs')}}>
             My Bookclubs
           </button>
         </div>
