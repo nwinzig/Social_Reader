@@ -25,11 +25,12 @@ def addToShelf():
             isFavorite = False
 
         addBook = User_Book(
-            user_id = form.data['user_Id'],
+            user_id = form.data['user_id'],
             book_id = form.data['book_id'],
             status = form.data['status'],
             favorite = isFavorite
         )
+        print('add book in backend', addBook)
         db.session.add(addBook)
         db.session.commit()
 

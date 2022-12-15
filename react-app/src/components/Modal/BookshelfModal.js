@@ -2,8 +2,14 @@ import React, { useState } from 'react';
 import { Modal } from '../../context/Modal';
 // import User from '../User';
 import './shelfModal.css'
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { addBookToList } from '../../store/readingList';
+
 
 function UserBookshelfModal({book, user}){
+    const dispatch = useDispatch()
+    const history = useHistory()
     const [isModal, setIsModal] = useState(false)
     const [status, setStatus] = useState('')
     console.log('book in modal', book)
@@ -11,7 +17,16 @@ function UserBookshelfModal({book, user}){
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log('button working', status)
+
+        let bookToAdd = {
+            'user_id': user.id,
+            'book_id': book.id,
+            'status': status
+        }
+        console.log('what Im sending', bookToAdd)
+        const data = await dispatch(addBookToList(bookToAdd))
+
+        return setIsModal(false)
     }
     return (
         <div>
