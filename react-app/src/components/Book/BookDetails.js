@@ -44,7 +44,7 @@ function BookDetails(){
     let updateComp;
     if(user?.id === book?.added_by){
         updateComp = (
-                <NavLink className='deleteDiv' id='zIndex' to={`/findABook/${bookId}/update`}>
+                <NavLink className='deleteDiv' to={`/findABook/${bookId}/update`}>
                     Update Book
                 </NavLink>
         )
@@ -59,21 +59,23 @@ function BookDetails(){
                     onError={e => { e.currentTarget.src = "https://res.cloudinary.com/dydhvazpw/image/upload/v1669760728/capstone/No_image_available.svg_qsoxac.png"; }}
                     >
                     </img>
-                    <div className='updateCompContainer'>
-                        {updateComp}
-                    </div>
                     <div className='dropdownButtonContainer'>
                         <button className='dropdownButton' onClick={() => {setDropdown(!dropdown)}}>
                             Add book to a bookshelf
                         </button>
-                        {dropdown && (
-                        <div className='selectListDropdown'>
-                            <ul>
-                                <UserBookshelfModal book={book} user={user}/>
-                                <li>Your Bookclub</li>
-                            </ul>
+                        <div>
+                            {dropdown && (
+                            <div className='selectListDropdown'>
+                                <ul>
+                                    <UserBookshelfModal book={book} user={user}/>
+                                    <li>Your Bookclub</li>
+                                </ul>
+                            </div>
+                            )}
                         </div>
-                        )}
+                    </div>
+                    <div className='updateCompContainer'>
+                        {updateComp}
                     </div>
                 </div>
                 <div className='bookDetails'>

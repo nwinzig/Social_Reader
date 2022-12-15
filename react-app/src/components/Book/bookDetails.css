@@ -53,10 +53,28 @@ justify-content: center;
 .dropdownButtonContainer{
     position: relative;
     display: inline-block;
+    width: 100%;
+
 }
 .dropdownButton{
     font-size: 16px;
+    display: flex;
+    justify-self: center;
+    margin-left: 9%;
+    margin-right: 9%;
+    background-color: white;
+    border: 1px solid grey;
+    border-radius: 5px;
 }
+.dropdownButton:hover{
+    cursor: pointer;
+}
+/* #addCenter{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+} */
 .selectListDropdown{
     position: absolute;
     top: 120%;
@@ -65,6 +83,7 @@ justify-content: center;
     z-index: 2;
     box-shadow: 0 0 1px 1px lightgray;
     background-color: white;
+    margin-right: 10px;
 }
 .selectListDropdown ul{
     list-style: none;
