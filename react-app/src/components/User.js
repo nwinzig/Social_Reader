@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams, NavLink } from 'react-router-dom';
 import { getUserClubs } from '../store/bookclub';
 import { getAllUserBooks } from '../store/books';
+import { removeFromList } from '../store/readingList';
 import './user.css'
 function User() {
   const dispatch = useDispatch()
@@ -15,6 +16,16 @@ function User() {
     dispatch(getAllUserBooks(userId))
     dispatch(getUserClubs(userId))
   }, [dispatch])
+
+  // click to resolve button used to remove a book from user reading list
+  const handleRemove = async (bookId) => {
+    // e.preventDefault()
+    console.log('in remove', bookId)
+    const data = await dispatch(removeFromList(bookId))
+    window.location.reload()
+    return
+  }
+
 
   // seperate books based on status
   let completedBooks = []
@@ -69,6 +80,7 @@ if(completedBooks.length>=1){
                   <img className='readingCoverImage' src={book?.cover_image} alt='book cover'
                   onError={e => { e.currentTarget.src = "https://res.cloudinary.com/dydhvazpw/image/upload/v1669760728/capstone/No_image_available.svg_qsoxac.png"; }}
                   ></img>
+                  <button onClick={() => handleRemove(book?.id)}>Remove from Bookshelf</button>
               </div>
           ))}
       </div>
@@ -92,6 +104,7 @@ if(planningBooks.length>=1){
                   <img src={book?.cover_image} className='readingCoverImage' alt='book cover'
                   onError={e => { e.currentTarget.src = "https://res.cloudinary.com/dydhvazpw/image/upload/v1669760728/capstone/No_image_available.svg_qsoxac.png"; }}
                   ></img>
+                  <button onClick={() => handleRemove(book?.id)}>Remove from Bookshelf</button>
               </div>
           ))}
       </div>
@@ -115,6 +128,7 @@ if(readingBooks.length>= 1){
             <img src={book?.cover_image} className='readingCoverImage' alt='book cover'
             onError={e => { e.currentTarget.src = "https://res.cloudinary.com/dydhvazpw/image/upload/v1669760728/capstone/No_image_available.svg_qsoxac.png"; }}
             ></img>
+            <button onClick={() => {handleRemove(book?.id)}}>Remove from Bookshelf</button>
         </div>
     ))}
 </div>

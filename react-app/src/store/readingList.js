@@ -9,6 +9,14 @@ const addBook = (data) => {
     }
 }
 
+const removeBook = (data) => {
+    return {
+        'type': REMOVE_BOOK_FROM_LIST,
+        data
+    }
+}
+
+
 export const addBookToList = (bookToAdd) => async dispatch => {
     const response = await fetch('/api/readingList/add', {
         method: 'POST',
@@ -28,6 +36,18 @@ export const addBookToList = (bookToAdd) => async dispatch => {
         }
     }
 }
+
+export const removeFromList = (bookId) => async dispatch => {
+    const response = await fetch(`/api/readingList/remove/${bookId}`, {
+        method: 'DELETE'
+    })
+    if(response.ok){
+        dispatch(removeBook(bookId))
+        return
+    }
+    return
+}
+
 
 let initialState = {}
 const readingListReducer = (state = initialState, action) => {

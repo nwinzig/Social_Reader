@@ -30,10 +30,27 @@ def addToShelf():
             status = form.data['status'],
             favorite = isFavorite
         )
-        print('add book in backend', addBook)
+
         db.session.add(addBook)
         db.session.commit()
 
         toReturn = addBook.to_dict()
         return {'Book': toReturn}
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+
+
+#remove book from a users reading list
+@readingList_routes.route('/remove/<int:bookId>', methods=['DELETE'])
+@login_required
+def removeBook(bookId):
+    """This route is used to remove a book from a reading list, this will NOT remove the book from the database """
+    userId = current_user.id
+    print('bookId', bookId, 'user', userId)
+    bookToDelete = User_Book.query.filter(User_Book.book_id == bookId, User_Book.user_id == userId).first()
+    print('trying to delete', bookToDelete)
+    if bookToDelete is not None:
+        db.session.delete(bookToDelete)
+        db.session.commit()
+        return {'Message': 'Removed from list'}
+    return 'Book not found'
