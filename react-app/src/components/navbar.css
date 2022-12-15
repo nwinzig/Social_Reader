@@ -64,3 +64,22 @@
     border-radius: 25px;
     box-shadow: 0 0 2px 2px lightgray;
 }
+.navImageWrapper{
+    margin-right: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+.navUserImage{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 8px;
+    /* margin-right: 5%; */
+    /* border: 1px solid lightgray; */
+    box-shadow: 0 0 2px 2px lightgray;
+}

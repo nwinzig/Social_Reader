@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Redirect, useHistory, useParams, NavLink } from 'react-router-dom'
 import { getOneBook } from '../../store/books'
 import './bookDetails.css'
+import UserBookshelfModal from '../Modal/BookshelfModal'
 
 function BookDetails(){
     const history = useHistory()
@@ -45,7 +46,7 @@ function BookDetails(){
     //     )
     // }
 
-
+    const [dropdown, setDropdown] = useState(false)
 
     return (
         <div className='bookDetailWrapper'>
@@ -57,6 +58,19 @@ function BookDetails(){
                     </img>
                     <div className='updateCompContainer'>
                         {updateComp}
+                    </div>
+                    <div className='dropdownButtonContainer'>
+                        <button className='dropdownButton' onClick={() => {setDropdown(!dropdown)}}>
+                            Add book to a bookshelf
+                        </button>
+                        {dropdown && (
+                        <div className='selectListDropdown'>
+                            <ul>
+                                <UserBookshelfModal book={book} user={user}/>
+                                <li>Your Bookclub</li>
+                            </ul>
+                        </div>
+                        )}
                     </div>
                 </div>
                 <div className='bookDetails'>

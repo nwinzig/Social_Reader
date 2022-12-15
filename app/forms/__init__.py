@@ -5,3 +5,4 @@ from .updateClub import UpdateClubForm
 from .createBook import CreateBookForm
 from .updateBook import UpdateBookForm
 from .joinClubForm import JoinClubForm
+from .addToShelf import addBookToUserShelf

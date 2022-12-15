@@ -45,11 +45,22 @@ export const getAllClubs = () => async dispatch => {
     // console.log('resonse in getAllClubs', response)
     if(response.ok){
         const bookClub = await response.json()
-        // console.log('bookclub in good response', bookClub)
         dispatch(loadAll(bookClub))
         return bookClub
     }
 }
+
+// get user clubs
+export const getUserClubs = (id) => async dispatch => {
+    const response = await fetch(`/api/bookclub/userClubs/${id}`)
+
+    if(response.ok){
+        const bookClub = await response.json()
+        dispatch(loadAll(bookClub))
+        return bookClub
+    }
+}
+
 
 export const getOneClub = (clubId) => async dispatch => {
     const response = await fetch(`/api/bookclub/${clubId}`)

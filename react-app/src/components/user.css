@@ -1,0 +1,26 @@
+.userDetailsBody{
+    margin-top: 70px;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    min-height: 100%;
+}
+.userPageLeft{
+    width: 15%;
+    box-shadow: 1px 0px 0px lightgray;
+    margin-left: 5%;
+    min-height: 100%;
+    /* margin-right: 5%; */
+    padding-right: 5%;
+}
+.userPageRight{
+
+    width: 75%;
+}
+.userPageRightContent{
+    margin-left: 10%;
+}
+.changeView{
+    display: flex;
+    flex-direction: column;
+}
