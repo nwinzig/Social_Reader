@@ -4,18 +4,29 @@ import { Redirect, useHistory, useParams, NavLink } from 'react-router-dom'
 import { getOneBook } from '../../store/books'
 import './bookDetails.css'
 import UserBookshelfModal from '../Modal/BookshelfModal'
+import { getUserBooksList } from '../../store/readingList'
 
 function BookDetails(){
     const history = useHistory()
     const dispatch = useDispatch()
     const user = useSelector((state) => state.session.user)
     const book = useSelector((state) => state.books.Book)
+    const userBookList = useSelector((state) => state.readingList.books)
     const {bookId} = useParams()
+    const [isOnShelf, setIsOnShelf] = useState(false)
 
-    console.log(book)
+    console.log('reading list', userBookList)
+    //is book on shelf
+    // for(let i = 0; i<userBookList?.length; i++){
+    //     if(book.id === userBookList[i].book_id){
+    //         setIsOnShelf(true)
+    //     }
+    // }
+    // console.log('on shelf?', isOnShelf)
 
     useEffect(() => {
         dispatch(getOneBook(bookId))
+        dispatch(getUserBooksList())
     }, [dispatch,bookId])
 
     const [clubs, setClubs] = useState([])
@@ -38,14 +49,6 @@ function BookDetails(){
                 </NavLink>
         )
     }
-    // else {
-    //     updateComp = (
-    //         <button className='joinClubButton'>
-    //             Add book to your shelf
-    //         </button>
-    //     )
-    // }
-
     const [dropdown, setDropdown] = useState(false)
 
     return (

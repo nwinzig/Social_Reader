@@ -20,7 +20,7 @@ function User() {
   // click to resolve button used to remove a book from user reading list
   const handleRemove = async (bookId) => {
     // e.preventDefault()
-    console.log('in remove', bookId)
+
     const data = await dispatch(removeFromList(bookId))
     window.location.reload()
     return

@@ -8,3 +8,10 @@ class addBookToUserShelf(FlaskForm):
     book_id = IntegerField('bookId',validators=[DataRequired()])
     status = StringField('status', validators=[DataRequired()])
     favorite = BooleanField('favorite')
+
+
+class updateBookFromUserShelf(FlaskForm):
+    user_id = IntegerField('userId',validators=[DataRequired()])
+    book_id = IntegerField('bookId',validators=[DataRequired()])
+    status = StringField('status', validators=[DataRequired()])
+    favorite = BooleanField('favorite')
