@@ -4,56 +4,23 @@ import { Modal } from '../../context/Modal';
 import './shelfModal.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { addBookToList, updateBookInList } from '../../store/readingList';
 
-
-function UserBookshelfModal({book, user, dropdown}){
+function ClubBookshelfModal({book,user}){
     const dispatch = useDispatch()
     const history = useHistory()
-    const userBookList = useSelector((state) => state.readingList.books)
     const [isModal, setIsModal] = useState(false)
     const [status, setStatus] = useState('')
     const [isOnShelf, setIsOnShelf] = useState(false)
-    console.log('book in modal', book)
-    console.log('user in modal', user)
-    console.log('user list in modal',userBookList)
-    console.log('do I get a boolean for dropdown, should be true', dropdown)
-    //is book on shelf
-    useEffect(() => {
-        if(userBookList.length){
-            for(let i = 0; i<userBookList?.length; i++){
-                if(book.id === userBookList[i].book_id){
-                    setIsOnShelf(true)
-                }
-            }
-        }
-    },[])
+    const [bookclub, setBookclub] = ('')
+    //need to see if book is already on club reading list
 
-    console.log('on shelf?', isOnShelf)
+    //need to get all user owned bookclubs
 
+    //handle a submit
     const handleSubmit = async (e) => {
         e.preventDefault()
-
-        let bookToAdd = {
-            'user_id': user.id,
-            'book_id': book.id,
-            'status': status
-        }
-        // console.log('what Im sending', bookToAdd)
-
-        //for adding a new book
-        if(!isOnShelf){
-            const data = await dispatch(addBookToList(bookToAdd))
-            setIsModal(false)
-            return history.push(`/user/${user?.id}`)
-        } else{
-        //for updating an existing book
-            const updatedData = await dispatch(updateBookInList(book.id, bookToAdd))
-            setIsModal(false)
-            return history.push(`/user/${user?.id}`)
-        }
-        return
     }
+
     return (
         <div>
             <div
@@ -67,6 +34,14 @@ function UserBookshelfModal({book, user, dropdown}){
                         <h3 className='bookshelfModal'>
                             {book?.name}
                         </h3>
+                        <label>Choose a Bookclub</label>
+                        <select
+                        value={bookclub}
+                        onChange={(e) => setBookclub(e.target.value)}
+                        required
+                        >
+                            {/* need to loop through all user bookclubs as options */}
+                        </select>
                         <label>Add or adjust a status </label>
                         <select className='statusSelect'
                         value={status}
@@ -86,4 +61,4 @@ function UserBookshelfModal({book, user, dropdown}){
     )
 }
 
-export default UserBookshelfModal
+export default ClubBookshelfModal

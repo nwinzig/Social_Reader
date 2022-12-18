@@ -5,6 +5,7 @@ import { getOneBook } from '../../store/books'
 import './bookDetails.css'
 import UserBookshelfModal from '../Modal/BookshelfModal'
 import { getUserBooksList } from '../../store/readingList'
+import ClubBookshelfModal from '../Modal/BookClubModal'
 
 function BookDetails(){
     const history = useHistory()
@@ -51,6 +52,16 @@ function BookDetails(){
     }
     const [dropdown, setDropdown] = useState(false)
 
+    //testing window on click to close drop downs
+    const closeDropdown = function() {
+        if(dropdown === true){
+            setDropdown(false)
+        }
+    }
+    // window.addEventListener('click', function(e){
+    //     closeDropdown()
+    // })
+
     return (
         <div className='bookDetailWrapper'>
             <div className='bookDetailHeader'>
@@ -59,7 +70,7 @@ function BookDetails(){
                     onError={e => { e.currentTarget.src = "https://res.cloudinary.com/dydhvazpw/image/upload/v1669760728/capstone/No_image_available.svg_qsoxac.png"; }}
                     >
                     </img>
-                    <div className='dropdownButtonContainer'>
+                    {user && <div className='dropdownButtonContainer'>
                         <button className='dropdownButton' onClick={() => {setDropdown(!dropdown)}}>
                             Add book to a bookshelf
                         </button>
@@ -67,13 +78,17 @@ function BookDetails(){
                             {dropdown && (
                             <div className='selectListDropdown'>
                                 <ul>
-                                    <UserBookshelfModal book={book} user={user}/>
-                                    <li>Your Bookclub</li>
+                                    <UserBookshelfModal book={book} user={user}
+                                    dropdown={dropdown}/>
+                                    <ClubBookshelfModal
+                                    book = {book}
+                                    user = {user}
+                                    />
                                 </ul>
                             </div>
                             )}
                         </div>
-                    </div>
+                    </div>}
                     <div className='updateCompContainer'>
                         {updateComp}
                     </div>
