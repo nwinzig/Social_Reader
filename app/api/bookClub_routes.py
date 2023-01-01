@@ -28,15 +28,12 @@ def getAllClubs():
 def userClubs(id):
     """This route will get all bookclubs for the current user. It will NOT filter based on membership status, the argument it recieves is the id of a user """
 
-    #test user id
-    # userId = 2
     #find bookclubs in join based on user id
     userToClub = User_BookClub.query.filter(User_BookClub.user_id == id).all()
-
     clubList = []
     clubList.extend([i.to_dict() for i in userToClub])
-
     detailedClubList = []
+
     ##get details for each club
     for club in clubList:
 
@@ -45,9 +42,30 @@ def userClubs(id):
         myClub = desiredClub['BookClub']
         myClub['member_status'] = club['member_status']
         detailedClubList.append(myClub)
-
-
     return {'bookClubs': detailedClubList}
+
+
+#get all clubs that the user owns
+@bookClub_routes.route('/userClubs/<int:id>/owned', methods=['GET'])
+@login_required
+def userOwnedClubs(id):
+    """This route is used to get the clubs that a user owns. It will filter all clubs associated with the user to only return clubs with membership_status of owner."""
+
+    #find clubs from join table
+    userOwnedClubs = User_BookClub.query.filter(User_BookClub.user_id == id, User_BookClub.member_status == 'owner')
+
+    clubList = []
+    clubList.extend([i.to_dict() for i in userOwnedClubs])
+    detailedList = []
+
+    #get details for the clubs to be returned
+    for club in clubList:
+        clubId = club['bookclub_id']
+        desiredClub = getOneClub(clubId)
+        myClub = desiredClub['BookClub']
+        myClub['member_status'] = club['member_status']
+        detailedList.append(myClub)
+    return {'bookClubs': detailedList}
 
 
 

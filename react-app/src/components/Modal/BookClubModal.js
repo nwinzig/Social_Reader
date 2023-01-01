@@ -12,9 +12,23 @@ function ClubBookshelfModal({book,user}){
     const [status, setStatus] = useState('')
     const [isOnShelf, setIsOnShelf] = useState(false)
     const [bookclub, setBookclub] = ('')
-    //need to see if book is already on club reading list
+    const [userClubs, setUserClubs] = useState([])
 
     //need to get all user owned bookclubs
+    useEffect(() => {
+        async function fetchOwnedClubs(){
+            const request = await fetch(`/api/bookclub/userClubs/${user.id}/owned`)
+            const newRequest = await request.json()
+            if(newRequest){
+                setUserClubs(newRequest.bookClubs)
+            }
+        }
+        fetchOwnedClubs()
+    }, [dispatch, user.id])
+
+    console.log('should be owned clubs', userClubs)
+    //need to see if book is already on club reading list
+
 
     //handle a submit
     const handleSubmit = async (e) => {
@@ -27,7 +41,7 @@ function ClubBookshelfModal({book,user}){
                 className='openBookshelfButton'
                 onClick={() => {
                 setIsModal(true)
-                }}>Your Bookshelf</div>
+                }}>Your Bookclubs</div>
             {isModal && (
                 <Modal onClose={() => setIsModal(false)}>
                     <form className='bookshelfModalContent' onSubmit={handleSubmit}>

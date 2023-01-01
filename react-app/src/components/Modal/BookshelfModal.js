@@ -14,10 +14,11 @@ function UserBookshelfModal({book, user, dropdown}){
     const [isModal, setIsModal] = useState(false)
     const [status, setStatus] = useState('')
     const [isOnShelf, setIsOnShelf] = useState(false)
-    console.log('book in modal', book)
-    console.log('user in modal', user)
-    console.log('user list in modal',userBookList)
-    console.log('do I get a boolean for dropdown, should be true', dropdown)
+    // console.log('book in modal', book)
+    // console.log('user in modal', user)
+    // console.log('user list in modal',userBookList)
+    // console.log('do I get a boolean for dropdown, should be true', dropdown)
+
     //is book on shelf
     useEffect(() => {
         if(userBookList.length){
@@ -29,7 +30,7 @@ function UserBookshelfModal({book, user, dropdown}){
         }
     },[])
 
-    console.log('on shelf?', isOnShelf)
+    // console.log('on shelf?', isOnShelf)
 
     const handleSubmit = async (e) => {
         e.preventDefault()
