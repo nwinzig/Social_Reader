@@ -32,7 +32,7 @@ function ClubBookshelfModal({book,user}){
 
     //create component depending on if user owns any clubs
     let ownedClubs
-    if(!userClubs?.length){
+    if(userClubs?.length){
         ownedClubs = (
             <>
                 <label>Choose a Bookclub</label>
@@ -89,7 +89,7 @@ function ClubBookshelfModal({book,user}){
                 }}>Your Bookclubs</div>
             {isModal && (
                 <Modal onClose={() => setIsModal(false)}>
-                    <form className='bookshelfModalContent' onSubmit={handleSubmit}>
+                    <form className='bookClubModalContent' onSubmit={handleSubmit}>
                         <h3 className='bookshelfModal'>
                             {book?.name}
                         </h3>

@@ -17,6 +17,18 @@
     font-size: 26px;
     margin-bottom: 0;
 }
+
+.bookClubModalContent{
+    display: flex;
+    flex-direction: column;
+    width: 19rem;
+    align-items: center;
+    height: 17rem;
+}
+.bookClubModalContent h3{
+    font-size: 1.7rem;
+    margin-bottom: 0;
+}
 .statusSelect{
     margin-top: .5rem;
     margin-bottom: 1rem;
