@@ -46,7 +46,7 @@ function ClubBookshelfModal({book,user}){
                     {userClubs.map(club => (
                         <option
                         key={club?.id}
-
+                        value={club?.id}
                         >{club?.name}</option>
                     ))}
                 </select>
@@ -78,6 +78,8 @@ function ClubBookshelfModal({book,user}){
     //handle a submit
     const handleSubmit = async (e) => {
         e.preventDefault()
+
+        // needs to collect and send book id, bookclub id, status
     }
 
     return (
