@@ -4,12 +4,14 @@ import session from './session'
 import bookClubReducer from './bookclub';
 import bookReducer from './books'
 import readingListReducer from './readingList';
+import clubReadingListReducer from './clubReadingList';
 
 const rootReducer = combineReducers({
   session,
   'bookclubs':bookClubReducer,
   'books': bookReducer,
-  'readingList': readingListReducer
+  'readingList': readingListReducer,
+  'clubReadingList': clubReadingListReducer
 });
 
 

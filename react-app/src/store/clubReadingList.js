@@ -60,6 +60,28 @@ export const addBookToClubList = (clubId, bookToAdd) => async dispatch => {
     }
 }
 
+export const updateBookInClubList = (clubId,bookId, bookToUpdate) => async dispatch => {
+    const response = await fetch(`/api/readingList/bookclub/${clubId}/update/${bookId}`, {
+        method: 'PUT',
+        headers: {'Content-type': 'application/json'},
+        body: JSON.stringify(bookToUpdate)
+    })
+    if(response.ok){
+        const updatedBook = await response.json()
+        dispatch(updateBook(updatedBook))
+        return updatedBook
+    }
+}
+
+export const removeFromClubList = (clubId, bookId) => async dispatch => {
+    const response = await fetch(`/api/readingList/bookclub/${clubId}/remove/${bookId}`, {
+        method:'DELETE'
+    })
+    if(response.ok){
+        dispatch(removeBook(bookId))
+        return
+    }
+}
 
 let initialState = {}
 const clubReadingListReducer = (state = initialState, action) => {
@@ -80,3 +102,4 @@ const clubReadingListReducer = (state = initialState, action) => {
             return state
     }
 }
+export default clubReadingListReducer
