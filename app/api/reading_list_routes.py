@@ -86,3 +86,16 @@ def updateBookStatus(bookId):
 
             db.session.commit()
             return book.to_dict()
+
+
+######################
+#reading list routes for a bookclub's shelf
+#getting books for a club is already done in bookClub_routes.py
+#/api/readingList/bookclub
+######################
+
+#add a book to a clubs shelf
+@readingList_routes.route('/bookclub/<int:clubId>/add', methods = ['POST'])
+@login_required
+def addToClubShelf(clubId):
+    """This route is used to add a book to a specific bookclubs bookshelf """
