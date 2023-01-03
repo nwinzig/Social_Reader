@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Redirect, useHistory, useParams, NavLink } from 'react-router-dom'
 import './ClubDetails.css'
 import { getOneClub } from '../../store/bookclub'
+import { getClubBooksList } from '../../store/clubReadingList'
 
 function ClubDetails(){
     const history = useHistory()
@@ -10,30 +11,22 @@ function ClubDetails(){
     const user = useSelector((state) => state.session.user)
     const bookClub = useSelector((state) => state.bookclubs.BookClub)
 
+    const books = useSelector((state) => state.clubReadingList.books)
+
     const {clubId} = useParams()
     useEffect(() => {
-        dispatch(getOneClub(clubId))
+        dispatch(getOneClub(clubId)).then(dispatch(getClubBooksList(clubId)))
     }, [dispatch, clubId])
-
+    console.log('what do I get from clubbooks', books)
 
     const [members, setMembers] = useState([])
-    const [books, setBooks] = useState([])
     useEffect(() => {
 
         async function fetchNumMembers(){
-            // console.log('are we in the function')
             const request = await fetch(`/api/bookclub/numMembers/${clubId}`)
             const newRequest = await request.json()
-            // console.log('what do I get from the new fetch', newRequest)
             setMembers(newRequest.Members)
         }
-        async function fetchClubBooks(){
-            const request = await fetch(`/api/bookclub/${clubId}/books`)
-            const newRequest = await request.json()
-
-            setBooks(newRequest.books)
-        }
-        fetchClubBooks()
         fetchNumMembers()
     }, [dispatch, clubId])
 
@@ -43,7 +36,6 @@ function ClubDetails(){
 
             if(members[i]?.user_id === user?.id && members[i]?.member_status === 'member'){
                 return true
-                // console.log(members[i], 'is already a member')
             }
         }
 
@@ -110,7 +102,7 @@ function ClubDetails(){
     let completedBooks = []
     let readingBooks = []
     let planningBooks = []
-    for(let i=0; i<books.length; i++){
+    for(let i=0; i<books?.length; i++){
 
         if(books[i].status === 'completed'){
             completedBooks.push(books[i])
