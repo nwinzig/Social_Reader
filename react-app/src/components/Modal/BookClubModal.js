@@ -4,6 +4,7 @@ import { Modal } from '../../context/Modal';
 import './shelfModal.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useHistory } from 'react-router-dom';
+import { getClubBooksList } from '../../store/clubReadingList';
 
 function ClubBookshelfModal({book,user}){
     const dispatch = useDispatch()
@@ -11,7 +12,7 @@ function ClubBookshelfModal({book,user}){
     const [isModal, setIsModal] = useState(false)
     const [status, setStatus] = useState('')
     const [isOnShelf, setIsOnShelf] = useState(false)
-    const [bookclub, setBookclub] = ('')
+    const [bookclub, setBookclub] = useState()
     const [userClubs, setUserClubs] = useState([])
 
     //need to get all user owned bookclubs
@@ -27,7 +28,7 @@ function ClubBookshelfModal({book,user}){
     }, [dispatch, user.id])
 
     console.log('should be owned clubs', userClubs)
-    //need to see if book is already on club reading list
+
 
 
     //create component depending on if user owns any clubs
@@ -75,11 +76,54 @@ function ClubBookshelfModal({book,user}){
         )
     }
 
+
+    const checkShelf = function(){
+        setIsOnShelf(false)
+        if(currentClubBookList?.length){
+            for(let i = 0; i<currentClubBookList?.length; i++){
+                console.log('book id', book.id, 'in list id', currentClubBookList[i].id)
+                if(book.id === currentClubBookList[i].id){
+
+                    return setIsOnShelf(true)
+                }
+            }
+        }
+    }
+    //get list of books for club if selected in dropdown
+    const currentClubBookList = useSelector((state) => state.clubReadingList.books)
+    useEffect(() => {
+        dispatch(getClubBooksList(Number(bookclub))).then(checkShelf())
+    }, [dispatch, bookclub])
+    console.log('do i get a list of books', currentClubBookList)
+
+    console.log('is it on the shelf after function call', isOnShelf)
+    //need to see if book is already on club reading list
+
+    // useEffect(() => {
+    //     if(currentClubBookList?.length){
+    //         for(let i = 0; i<currentClubBookList?.length; i++){
+    //             console.log('book id', book.id, 'in list id', currentClubBookList[i].id)
+    //             if(book.id === currentClubBookList[i].id){
+    //                 console.log('test')
+    //                 setIsOnShelf(true)
+    //             }
+    //         }
+    //     }
+    // }, [bookclub])
+
     //handle a submit
     const handleSubmit = async (e) => {
         e.preventDefault()
+        console.log('this is bookclub', bookclub)
 
         // needs to collect and send book id, bookclub id, status
+        let bookToAdd = {
+            'book_id': book.id,
+            'bookclub_id': Number(bookclub),
+            'status': status
+        }
+        console.log('am i recieving the correct information',bookToAdd)
+        console.log('will submit see that the book is on shelf', isOnShelf)
     }
 
     return (

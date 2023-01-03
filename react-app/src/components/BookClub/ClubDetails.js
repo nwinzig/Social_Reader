@@ -17,7 +17,7 @@ function ClubDetails(){
     useEffect(() => {
         dispatch(getOneClub(clubId)).then(dispatch(getClubBooksList(clubId)))
     }, [dispatch, clubId])
-    console.log('what do I get from clubbooks', books)
+    // console.log('what do I get from clubbooks', books)
 
     const [members, setMembers] = useState([])
     useEffect(() => {
