@@ -4,7 +4,7 @@ import { Modal } from '../../context/Modal';
 import './shelfModal.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useHistory } from 'react-router-dom';
-import { addBookToClubList, getClubBooksList } from '../../store/clubReadingList';
+import { addBookToClubList, getClubBooksList, updateBookInClubList } from '../../store/clubReadingList';
 
 function ClubBookshelfModal({book,user}){
     const dispatch = useDispatch()
@@ -27,9 +27,27 @@ function ClubBookshelfModal({book,user}){
         fetchOwnedClubs()
     }, [dispatch, user.id])
 
-    console.log('should be owned clubs', userClubs)
+    // console.log('should be owned clubs', userClubs)
 
+    // const currentClubBookList = useSelector((state) => state.clubReadingList.books)
 
+    // useEffect(() => {
+    //     dispatch(getClubBooksList(Number(bookclub)))
+    // }, [dispatch, bookclub])
+
+    // console.log('do i get a list of books', currentClubBookList)
+
+    //creating a function to handle change in bookclub choice and get a reading list to try and check if the book is already in the list
+    const [testList, setTestList] = useState([])
+    const checkClubList = async function(clubId){
+        // console.log('this is running', clubId)
+        setBookclub(Number(clubId))
+        const newList = await dispatch(getClubBooksList(Number(clubId)))
+        // console.log('what is newlist', newList)
+        // console.log('do i get a list', testList)
+        return setTestList(newList.books)
+    }
+    console.log('this is a test', testList)
 
     //create component depending on if user owns any clubs
     let ownedClubs
@@ -40,7 +58,7 @@ function ClubBookshelfModal({book,user}){
                 <select
                 className='statusSelect'
                 value={bookclub}
-                onChange={(e) => setBookclub(e.target.value)}
+                onChange={(e) => checkClubList(e.target.value)}
                 required
                 >
                     <option value=''> Please select an option</option>
@@ -76,47 +94,25 @@ function ClubBookshelfModal({book,user}){
         )
     }
 
+    useEffect(() => {
+        if(testList.length){
+            console.log('am i here')
+            for(let i = 0; i<testList.length; i++){
+                console.log('inside for loop', 'book id', book.id, 'test id', testList[i].id)
+                if(book.id == testList[i].id){
+                    console.log('inside conditional sadas')
+                    setIsOnShelf(true)
+                    console.log('is on shelf inside loop', isOnShelf)
+                }
+            }
+        }
+        console.log('if its on shelf im happy', isOnShelf)
+    })
 
-    // const checkShelf = function(){
-    //     setIsOnShelf(false)
-    //     if(currentClubBookList?.length){
-    //         for(let i = 0; i<currentClubBookList?.length; i++){
-    //             console.log('book id', book.id, 'in list id', currentClubBookList[i].id)
-    //             if(book.id === currentClubBookList[i].id){
-
-    //                 return setIsOnShelf(true)
-    //             }
-    //         }
-    //     }
-    // }
-    //get list of books for club if selected in dropdown
-    // const currentClubBookList = useSelector((state) => state.clubReadingList.books)
-
-    // useEffect(() => {
-    //     dispatch(getClubBooksList(Number(bookclub)))
-    // }, [dispatch, bookclub])
-
-    // console.log('do i get a list of books', currentClubBookList)
-
-    // console.log('is it on the shelf after function call', isOnShelf)
-    //need to see if book is already on club reading list
-
-    // useEffect(() => {
-    //     if(currentClubBookList?.length){
-    //         for(let i = 0; i<currentClubBookList?.length; i++){
-    //             console.log('book id', book.id, 'in list id', currentClubBookList[i].id)
-    //             if(book.id === currentClubBookList[i].id){
-    //                 console.log('test')
-    //                 setIsOnShelf(true)
-    //             }
-    //         }
-    //     }
-    // }, [bookclub])
 
     //handle a submit
     const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log('this is bookclub', bookclub)
 
         // needs to collect and send book id, bookclub id, status
         let bookclubId = Number(bookclub)
@@ -126,15 +122,17 @@ function ClubBookshelfModal({book,user}){
             'bookclub_id': bookclubId,
             'status': status
         }
-        console.log('am i recieving the correct information',bookToAdd)
 
         if(!isOnShelf){
             console.log('should be data to add', bookToAdd)
             const data = await dispatch(addBookToClubList(bookclubId, bookToAdd))
             setIsModal(false)
             return history.push(`/findAClub/${bookclubId}`)
+        } else {
+            const updateData = await dispatch(updateBookInClubList(bookclubId, book.id, bookToAdd))
+            setIsModal(false)
+            return history.push(`/findAClub/${bookclubId}`)
         }
-        // console.log('will submit see that the book is on shelf', isOnShelf)
     }
 
     return (

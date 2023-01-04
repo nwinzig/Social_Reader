@@ -144,7 +144,7 @@ def updateBookFromClubList(clubId, bookId):
 
     if form.validate_on_submit():
 
-        book = BookClub_Book.query.filter(BookClub_Book.book_id == bookId, BookClub_Book.bookclub_id == clubId)
+        book = BookClub_Book.query.filter(BookClub_Book.book_id == bookId, BookClub_Book.bookclub_id == clubId).first()
 
         if book is not None:
             book.status = form.data['status']

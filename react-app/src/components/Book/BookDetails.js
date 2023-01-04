@@ -16,7 +16,7 @@ function BookDetails(){
     const {bookId} = useParams()
     const [isOnShelf, setIsOnShelf] = useState(false)
 
-    console.log('reading list', userBookList)
+    // console.log('reading list', userBookList)
     //is book on shelf
     // for(let i = 0; i<userBookList?.length; i++){
     //     if(book.id === userBookList[i].book_id){
