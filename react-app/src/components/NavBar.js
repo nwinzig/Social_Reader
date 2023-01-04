@@ -7,7 +7,7 @@ import './navbar.css'
 const NavBar = () => {
 
   const session = useSelector((state) => state.session.user)
-  console.log('this is the user', session)
+  // console.log('this is the user', session)
   //setting user image with check incase there is a null url
   let userImage;
   if(session?.profile_image){
