@@ -1,39 +1,38 @@
-
-const ADD_BOOK_TO_LIST = '/readingList/add'
-const REMOVE_BOOK_FROM_LIST = '/readingList/remove'
-const GET_BOOKS_LIST = '/readingList/get'
-const UPDATE_BOOK_STATUS = '/readingList/update'
+const ADD_BOOK_TO_CLUB_LIST = '/readingList/bookclub/add'
+const REMOVE_BOOK_FROM_CLUB_LIST = '/readingList/bookclub/remove'
+const GET_CLUB_BOOKS_LIST = 'readingList/bookclub/get'
+const UPDATE_CLUB_BOOK_STATUS = 'readingList/bookclub/update'
 
 const getBooks = (data) => {
     return {
-        'type': GET_BOOKS_LIST,
+        'type': GET_CLUB_BOOKS_LIST,
         data
     }
 }
 
 const addBook = (data) => {
     return {
-        'type': ADD_BOOK_TO_LIST,
+        'type': ADD_BOOK_TO_CLUB_LIST,
         data
     }
 }
 
 const updateBook = (data) => {
     return {
-        'type': UPDATE_BOOK_STATUS,
+        'type': UPDATE_CLUB_BOOK_STATUS,
         data
     }
 }
 
 const removeBook = (data) => {
     return {
-        'type': REMOVE_BOOK_FROM_LIST,
+        'type': REMOVE_BOOK_FROM_CLUB_LIST,
         data
     }
 }
 
-export const getUserBooksList = () => async dispatch => {
-    const response = await fetch('/api/readingList/get')
+export const getClubBooksList = (id) => async dispatch => {
+    const response = await fetch(`/api/bookclub/${id}/books`)
 
     if(response.ok){
         const books = await response.json()
@@ -42,8 +41,9 @@ export const getUserBooksList = () => async dispatch => {
     } return
 }
 
-export const addBookToList = (bookToAdd) => async dispatch => {
-    const response = await fetch('/api/readingList/add', {
+export const addBookToClubList = (clubId, bookToAdd) => async dispatch => {
+
+    const response = await fetch(`/api/readingList/bookclub/${clubId}/add`, {
         method: 'POST',
         headers: {'Content-type': 'application/json'},
         body: JSON.stringify(bookToAdd)
@@ -51,19 +51,18 @@ export const addBookToList = (bookToAdd) => async dispatch => {
 
     if(response.ok){
         const book = await response.json()
-        dispatch(addBook(book))
-        return book
+            dispatch(addBook(book))
+            return book
     } else if(response.status < 500){
         const data = await response.json()
         if(data.errors){
-            // console.log(data.errors)
             return data.errors
         }
     }
 }
 
-export const updateBookInList = (bookId,bookToUpdate) => async dispatch => {
-    const response = await fetch(`/api/readingList/update/status/${bookId}`, {
+export const updateBookInClubList = (clubId,bookId, bookToUpdate) => async dispatch => {
+    const response = await fetch(`/api/readingList/bookclub/${clubId}/update/${bookId}`, {
         method: 'PUT',
         headers: {'Content-type': 'application/json'},
         body: JSON.stringify(bookToUpdate)
@@ -75,35 +74,33 @@ export const updateBookInList = (bookId,bookToUpdate) => async dispatch => {
     }
 }
 
-export const removeFromList = (bookId) => async dispatch => {
-    const response = await fetch(`/api/readingList/remove/${bookId}`, {
-        method: 'DELETE'
+export const removeFromClubList = (clubId, bookId) => async dispatch => {
+    const response = await fetch(`/api/readingList/bookclub/${clubId}/remove/${bookId}`, {
+        method:'DELETE'
     })
     if(response.ok){
         dispatch(removeBook(bookId))
         return
     }
-    return
 }
 
-
 let initialState = {}
-const readingListReducer = (state = initialState, action) => {
+const clubReadingListReducer = (state = initialState, action) => {
     let newState = {}
     switch(action.type){
-        case ADD_BOOK_TO_LIST:{
+        case ADD_BOOK_TO_CLUB_LIST:{
             newState = {...action.data}
-        }
-        case GET_BOOKS_LIST: {
-            newState = {...state,...action.data}
             return newState
         }
-        case UPDATE_BOOK_STATUS: {
+        case GET_CLUB_BOOKS_LIST: {
             newState = {...state, ...action.data}
             return newState
+        }
+        case UPDATE_CLUB_BOOK_STATUS: {
+            newState = {...state, ...action.data}
         }
         default:
             return state
     }
 }
-export default readingListReducer
+export default clubReadingListReducer

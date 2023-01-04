@@ -1,19 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal } from '../../context/Modal';
 // import User from '../User';
 import './shelfModal.css'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { addBookToList } from '../../store/readingList';
+import { addBookToList, updateBookInList } from '../../store/readingList';
 
 
-function UserBookshelfModal({book, user}){
+function UserBookshelfModal({book, user, dropdown}){
     const dispatch = useDispatch()
     const history = useHistory()
+    const userBookList = useSelector((state) => state.readingList.books)
     const [isModal, setIsModal] = useState(false)
     const [status, setStatus] = useState('')
-    console.log('book in modal', book)
-    console.log('user in modal', user)
+    const [isOnShelf, setIsOnShelf] = useState(false)
+    // console.log('book in modal', book)
+    // console.log('user in modal', user)
+    // console.log('user list in modal',userBookList)
+    // console.log('do I get a boolean for dropdown, should be true', dropdown)
+
+    //is book on shelf
+    useEffect(() => {
+        if(userBookList.length){
+            for(let i = 0; i<userBookList?.length; i++){
+                if(book.id === userBookList[i].book_id){
+                    setIsOnShelf(true)
+                }
+            }
+        }
+    },[])
+
+    // console.log('on shelf?', isOnShelf)
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -23,10 +40,20 @@ function UserBookshelfModal({book, user}){
             'book_id': book.id,
             'status': status
         }
-        console.log('what Im sending', bookToAdd)
-        const data = await dispatch(addBookToList(bookToAdd))
+        // console.log('what Im sending', bookToAdd)
 
-        return setIsModal(false)
+        //for adding a new book
+        if(!isOnShelf){
+            const data = await dispatch(addBookToList(bookToAdd))
+            setIsModal(false)
+            return history.push(`/user/${user?.id}`)
+        } else{
+        //for updating an existing book
+            const updatedData = await dispatch(updateBookInList(book.id, bookToAdd))
+            setIsModal(false)
+            return history.push(`/user/${user?.id}`)
+        }
+        return
     }
     return (
         <div>
@@ -41,7 +68,7 @@ function UserBookshelfModal({book, user}){
                         <h3 className='bookshelfModal'>
                             {book?.name}
                         </h3>
-                        <label>Add a status </label>
+                        <label>Add or adjust a status </label>
                         <select className='statusSelect'
                         value={status}
                         onChange={(e) => setStatus(e.target.value)}
@@ -52,7 +79,7 @@ function UserBookshelfModal({book, user}){
                             <option value='completed'>completed</option>
                             <option value='planning'>planning</option>
                         </select>
-                        <button type='submit'>Add to Bookshelf</button>
+                        <button className='submitStatus' type='submit'>Add to Bookshelf</button>
                     </form>
                 </Modal>
             )}

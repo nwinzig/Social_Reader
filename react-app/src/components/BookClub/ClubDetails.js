@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Redirect, useHistory, useParams, NavLink } from 'react-router-dom'
 import './ClubDetails.css'
 import { getOneClub } from '../../store/bookclub'
+import { getClubBooksList, removeFromClubList } from '../../store/clubReadingList'
 
 function ClubDetails(){
     const history = useHistory()
@@ -10,68 +11,48 @@ function ClubDetails(){
     const user = useSelector((state) => state.session.user)
     const bookClub = useSelector((state) => state.bookclubs.BookClub)
 
+    const books = useSelector((state) => state.clubReadingList.books)
+
     const {clubId} = useParams()
-    // console.log('this is the user', user)
-    // console.log('this is the club', bookClub)
     useEffect(() => {
-        dispatch(getOneClub(clubId))
+        dispatch(getOneClub(clubId)).then(dispatch(getClubBooksList(clubId)))
     }, [dispatch, clubId])
 
-
     const [members, setMembers] = useState([])
-    const [books, setBooks] = useState([])
     useEffect(() => {
 
         async function fetchNumMembers(){
-            // console.log('are we in the function')
             const request = await fetch(`/api/bookclub/numMembers/${clubId}`)
             const newRequest = await request.json()
-            // console.log('what do I get from the new fetch', newRequest)
             setMembers(newRequest.Members)
         }
-        async function fetchClubBooks(){
-            const request = await fetch(`/api/bookclub/${clubId}/books`)
-            const newRequest = await request.json()
-
-            setBooks(newRequest.books)
-        }
-        fetchClubBooks()
         fetchNumMembers()
     }, [dispatch, clubId])
 
     function checkUserStatus(){
-
         for(let i=0; i<members?.length; i++){
-
             if(members[i]?.user_id === user?.id && members[i]?.member_status === 'member'){
                 return true
-                // console.log(members[i], 'is already a member')
             }
         }
-
     }
 
-
-
+    //handle functions are used for buttons
     const handleJoin = async (e) => {
-        // console.log('trying to join')
         e.preventDefault()
         let newMember = {
             'user_id' : user.id,
             'bookclub_id' : clubId,
             'member_status' : 'member'
         }
-        // console.log('new member on click', newMember)
         const response = await fetch(`/api/bookclub/${clubId}/join`, {
             method: 'POST',
             headers: {'Content-type': 'application/json'},
             body: JSON.stringify(newMember)
         })
-        // console.log(response)
         window.location.reload()
     }
 
-    // console.log('these are the members', members)
     const handleLeave = async (e) => {
         e.preventDefault()
         const response = await fetch(`/api/bookclub/${clubId}/leave`, {
@@ -83,8 +64,15 @@ function ClubDetails(){
             return
         }
     }
-    // console.log('this is the club', bookClub)
-    // console.log(checkUserStatus())
+
+    const handleRemove = async (bookId) => {
+        // e.preventDefault()
+        const data = await dispatch(removeFromClubList(bookClub.id, bookId))
+        window.location.reload()
+        return
+    }
+
+    // component to render update button if user is the owner, user is a member, or user is not a member
     let updateComp;
     if(user?.id === bookClub?.ownerId){
         updateComp = (
@@ -109,10 +97,11 @@ function ClubDetails(){
     }
 
 
+    //seperate books from reading list into categories
     let completedBooks = []
     let readingBooks = []
     let planningBooks = []
-    for(let i=0; i<books.length; i++){
+    for(let i=0; i<books?.length; i++){
 
         if(books[i].status === 'completed'){
             completedBooks.push(books[i])
@@ -124,6 +113,7 @@ function ClubDetails(){
         }
     }
 
+    //create components that will render each category
     let readingDisplay;
     if(readingBooks.length>=1){
         readingDisplay = (
@@ -132,6 +122,11 @@ function ClubDetails(){
                     <img className='readingCoverImage' alt='book cover' src={readingBooks[0]?.cover_image}
                     onError={e => { e.currentTarget.src = "https://res.cloudinary.com/dydhvazpw/image/upload/v1669760728/capstone/No_image_available.svg_qsoxac.png"; }}
                     ></img>
+                    {user?.id === bookClub?.ownerId && (
+                        <button className='removeFromList' onClick={() => handleRemove(readingBooks[0]?.id)}>
+                            Remove
+                        </button>
+                    )}
             </div>
         )
     } else {
@@ -142,7 +137,7 @@ function ClubDetails(){
         )
     }
     let pastDisplay;
-    if(completedBooks.length>=1){
+    if (completedBooks.length >= 1) {
         pastDisplay = (
             <div className='pastBooksWrapper' id='addBottomBorder'>
                 {completedBooks?.map((book) => (
@@ -150,8 +145,13 @@ function ClubDetails(){
                         <h3>{book?.name}</h3>
                         <h4>By: {book?.author}</h4>
                         <img className='readingCoverImage' src={book?.cover_image} alt='book cover'
-                        onError={e => { e.currentTarget.src = "https://res.cloudinary.com/dydhvazpw/image/upload/v1669760728/capstone/No_image_available.svg_qsoxac.png"; }}
+                            onError={e => { e.currentTarget.src = "https://res.cloudinary.com/dydhvazpw/image/upload/v1669760728/capstone/No_image_available.svg_qsoxac.png"; }}
                         ></img>
+                        {user?.id === bookClub?.ownerId && (
+                            <button className='removeFromList' onClick={() => handleRemove(book?.id)}>
+                                Remove
+                            </button>
+                        )}
                     </div>
                 ))}
             </div>
@@ -174,6 +174,11 @@ function ClubDetails(){
                         <img src={book?.cover_image} className='readingCoverImage' alt='book cover'
                         onError={e => { e.currentTarget.src = "https://res.cloudinary.com/dydhvazpw/image/upload/v1669760728/capstone/No_image_available.svg_qsoxac.png"; }}
                         ></img>
+                        {user?.id === bookClub?.ownerId && (
+                            <button className='removeFromList' onClick={() => handleRemove(book?.id)}>
+                                Remove
+                            </button>
+                        )}
                     </div>
                 ))}
             </div>
@@ -185,6 +190,9 @@ function ClubDetails(){
             </div>
         )
     }
+
+
+
     return (
         <div className='ClubDetailsBody'>
             <div className='ClubDetailsHeader'>

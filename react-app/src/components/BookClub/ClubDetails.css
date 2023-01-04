@@ -86,7 +86,7 @@
     display: flex;
     flex-direction: column;
     background-color: #F9F4F2;
-    height: 325px;
+    height: 21rem;
     width: 300px;
     border-radius: 10px;
     /* border: 1px solid black; */
@@ -111,6 +111,7 @@
 }
 .readingCoverImage{
     height: 250px;
+    margin-bottom: 10px;
 }
 .testingwithcolor{
     height: 200px;
@@ -132,13 +133,14 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #FCFAF9;
+    background-color: #F9F4F2;
     box-shadow: 0 0 1px 1px lightgray;
     width: 30%;
-    height: 325px;
+    height: 21rem;
     margin-bottom: 50px;
     border-radius: 10px;
     padding-bottom: 10px;
+    margin-right: 25px;
 }
 .pastBookCard h3{
     margin: 10px 0 0;
@@ -181,4 +183,14 @@
 }
 #zIndex{
     z-index: 1;
+}
+
+.removeFromList{
+    border: none;
+    background-color: #F9F4F2;
+}
+.removeFromList:hover{
+    cursor: pointer;
+    color: red;
+    text-decoration: underline;
 }

@@ -5,13 +5,28 @@
     width: 100%;
     min-height: 100%;
 }
+.userDisplayChoice{
+    border-radius: 10px;
+    border: 1px solid black;
+    margin-top: 10px;
+    height: 2.25rem;
+    font-size: 1.1rem;
+    width: 9rem;
+    background-color: white;
+}
+.userDisplayChoice:hover{
+    cursor: pointer;
+    font-size: 1.25rem;
+    height: 2.5rem;
+    width: 10rem;
+}
 .userPageLeft{
     width: 15%;
     box-shadow: 1px 0px 0px lightgray;
-    margin-left: 5%;
+    margin-left: 6%;
     min-height: 100%;
     /* margin-right: 5%; */
-    padding-right: 5%;
+    padding-right: 2%;
 }
 .userPageRight{
 
@@ -23,4 +38,42 @@
 .changeView{
     display: flex;
     flex-direction: column;
+}
+.booksListWrapper{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.bookListCard{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #FCFAF9;
+    box-shadow: 0 0 1px 1px lightgray;
+    width: 12rem;
+    height: 18rem;
+    margin-bottom: 25px;
+    border-radius: 10px;
+    margin-right: 25px;
+}
+.listBookName{
+    font-size: 1rem;
+    margin: 0;
+}
+.listCoverImage{
+    height: 13rem;
+}
+.listCoverImage:hover{
+    cursor: pointer;
+}
+.removereadingButton{
+    background-color: white;
+    border: none;
+    margin-top: 5px;
+}
+.removereadingButton:hover{
+    /* margin-top: 5px; */
+    cursor: pointer;
+    text-decoration: underline;
+    color: red;
 }

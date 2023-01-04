@@ -4,18 +4,30 @@ import { Redirect, useHistory, useParams, NavLink } from 'react-router-dom'
 import { getOneBook } from '../../store/books'
 import './bookDetails.css'
 import UserBookshelfModal from '../Modal/BookshelfModal'
+import { getUserBooksList } from '../../store/readingList'
+import ClubBookshelfModal from '../Modal/BookClubModal'
 
 function BookDetails(){
     const history = useHistory()
     const dispatch = useDispatch()
     const user = useSelector((state) => state.session.user)
     const book = useSelector((state) => state.books.Book)
+    const userBookList = useSelector((state) => state.readingList.books)
     const {bookId} = useParams()
+    const [isOnShelf, setIsOnShelf] = useState(false)
 
-    console.log(book)
+    // console.log('reading list', userBookList)
+    //is book on shelf
+    // for(let i = 0; i<userBookList?.length; i++){
+    //     if(book.id === userBookList[i].book_id){
+    //         setIsOnShelf(true)
+    //     }
+    // }
+    // console.log('on shelf?', isOnShelf)
 
     useEffect(() => {
         dispatch(getOneBook(bookId))
+        dispatch(getUserBooksList())
     }, [dispatch,bookId])
 
     const [clubs, setClubs] = useState([])
@@ -33,20 +45,22 @@ function BookDetails(){
     let updateComp;
     if(user?.id === book?.added_by){
         updateComp = (
-                <NavLink className='deleteDiv' id='zIndex' to={`/findABook/${bookId}/update`}>
+                <NavLink className='deleteDiv' to={`/findABook/${bookId}/update`}>
                     Update Book
                 </NavLink>
         )
     }
-    // else {
-    //     updateComp = (
-    //         <button className='joinClubButton'>
-    //             Add book to your shelf
-    //         </button>
-    //     )
-    // }
-
     const [dropdown, setDropdown] = useState(false)
+
+    //testing window on click to close drop downs
+    const closeDropdown = function() {
+        if(dropdown === true){
+            setDropdown(false)
+        }
+    }
+    // window.addEventListener('click', function(e){
+    //     closeDropdown()
+    // })
 
     return (
         <div className='bookDetailWrapper'>
@@ -56,21 +70,27 @@ function BookDetails(){
                     onError={e => { e.currentTarget.src = "https://res.cloudinary.com/dydhvazpw/image/upload/v1669760728/capstone/No_image_available.svg_qsoxac.png"; }}
                     >
                     </img>
-                    <div className='updateCompContainer'>
-                        {updateComp}
-                    </div>
-                    <div className='dropdownButtonContainer'>
+                    {user && <div className='dropdownButtonContainer'>
                         <button className='dropdownButton' onClick={() => {setDropdown(!dropdown)}}>
                             Add book to a bookshelf
                         </button>
-                        {dropdown && (
-                        <div className='selectListDropdown'>
-                            <ul>
-                                <UserBookshelfModal book={book} user={user}/>
-                                <li>Your Bookclub</li>
-                            </ul>
+                        <div>
+                            {dropdown && (
+                            <div className='selectListDropdown'>
+                                <ul>
+                                    <UserBookshelfModal book={book} user={user}
+                                    dropdown={dropdown}/>
+                                    <ClubBookshelfModal
+                                    book = {book}
+                                    user = {user}
+                                    />
+                                </ul>
+                            </div>
+                            )}
                         </div>
-                        )}
+                    </div>}
+                    <div className='updateCompContainer'>
+                        {updateComp}
                     </div>
                 </div>
                 <div className='bookDetails'>

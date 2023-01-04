@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams, NavLink } from 'react-router-dom';
+import { useParams, NavLink, useHistory } from 'react-router-dom';
 import { getUserClubs } from '../store/bookclub';
 import { getAllUserBooks } from '../store/books';
+import { removeFromList } from '../store/readingList';
+
 import './user.css'
 function User() {
+  const history = useHistory()
   const dispatch = useDispatch()
   const bookClubs = useSelector((state) => state.bookclubs.bookClubs)
   const books = useSelector((state) => state.books.Books)
@@ -15,6 +18,16 @@ function User() {
     dispatch(getAllUserBooks(userId))
     dispatch(getUserClubs(userId))
   }, [dispatch])
+
+  // click to resolve button used to remove a book from user reading list
+  const handleRemove = async (bookId) => {
+    // e.preventDefault()
+
+    const data = await dispatch(removeFromList(bookId))
+    window.location.reload()
+    return
+  }
+
 
   // seperate books based on status
   let completedBooks = []
@@ -39,14 +52,16 @@ function User() {
 let favoriteDisplay;
 if(favoriteBooks.length >= 1){
   favoriteDisplay = (
-    <div className='pastBooksWrapper' id='addBottomBorder'>
+    <div className='booksListWrapper'>
           {favoriteBooks?.map((book) => (
-              <div key={book?.id} className='pastBookCard'>
-                  <h3>{book?.name}</h3>
-                  <h4>By: {book?.author}</h4>
-                  <img className='readingCoverImage' src={book?.cover_image} alt='book cover'
-                  onError={e => { e.currentTarget.src = "https://res.cloudinary.com/dydhvazpw/image/upload/v1669760728/capstone/No_image_available.svg_qsoxac.png"; }}
-                  ></img>
+              <div key={book?.id} className='bookListCard'>
+                  <h3 className='listBookName'>{book?.name}</h3>
+                  <h4 className='listBookName'>By: {book?.author}</h4>
+                  <NavLink to={`/findABook/${book?.id}`} onClick={() => window.scrollTo(0, 0)}>
+                    <img className='listCoverImage' src={book?.cover_image} alt='book cover'
+                    onError={e => { e.currentTarget.src = "https://res.cloudinary.com/dydhvazpw/image/upload/v1669760728/capstone/No_image_available.svg_qsoxac.png"; }}
+                    ></img>
+                  </NavLink>
               </div>
           ))}
       </div>
@@ -61,14 +76,17 @@ if(favoriteBooks.length >= 1){
 let pastDisplay;
 if(completedBooks.length>=1){
   pastDisplay = (
-      <div className='pastBooksWrapper' id='addBottomBorder'>
+      <div className='booksListWrapper' >
           {completedBooks?.map((book) => (
-              <div key={book?.id} className='pastBookCard'>
-                  <h3>{book?.name}</h3>
-                  <h4>By: {book?.author}</h4>
-                  <img className='readingCoverImage' src={book?.cover_image} alt='book cover'
-                  onError={e => { e.currentTarget.src = "https://res.cloudinary.com/dydhvazpw/image/upload/v1669760728/capstone/No_image_available.svg_qsoxac.png"; }}
-                  ></img>
+              <div key={book?.id} className='bookListCard'>
+                  <h3 className='listBookName'>{book?.name}</h3>
+                  <h4 className='listBookName'>By: {book?.author}</h4>
+                  <NavLink to={`/findABook/${book?.id}`} onClick={() => window.scrollTo(0, 0)}>
+                    <img className='listCoverImage' src={book?.cover_image} alt='book cover'
+                    onError={e => { e.currentTarget.src = "https://res.cloudinary.com/dydhvazpw/image/upload/v1669760728/capstone/No_image_available.svg_qsoxac.png"; }}
+                    ></img>
+                  </NavLink>
+              <button className='removereadingButton' onClick={() => handleRemove(book?.id)}>Remove from Bookshelf</button>
               </div>
           ))}
       </div>
@@ -84,14 +102,17 @@ if(completedBooks.length>=1){
 let planningDisplay;
 if(planningBooks.length>=1){
   planningDisplay = (
-      <div className='pastBooksWrapper' >
+      <div className='booksListWrapper' >
           {planningBooks?.map((book) => (
-              <div key={book?.id} className='pastBookCard'>
-                  <h3>{book?.name}</h3>
-                  <h4>By: {book?.author}</h4>
-                  <img src={book?.cover_image} className='readingCoverImage' alt='book cover'
-                  onError={e => { e.currentTarget.src = "https://res.cloudinary.com/dydhvazpw/image/upload/v1669760728/capstone/No_image_available.svg_qsoxac.png"; }}
-                  ></img>
+              <div key={book?.id} className='bookListCard'>
+                  <h3 className='listBookName'>{book?.name}</h3>
+                  <h4 className='listBookName'>By: {book?.author}</h4>
+                  <NavLink to={`/findABook/${book?.id}`} onClick={() => window.scrollTo(0, 0)}>
+                    <img src={book?.cover_image} className='listCoverImage' alt='book cover'
+                    onError={e => { e.currentTarget.src = "https://res.cloudinary.com/dydhvazpw/image/upload/v1669760728/capstone/No_image_available.svg_qsoxac.png"; }}
+                    ></img>
+                  </NavLink>
+                  <button className='removereadingButton' onClick={() => handleRemove(book?.id)}>Remove from Bookshelf</button>
               </div>
           ))}
       </div>
@@ -107,14 +128,17 @@ if(planningBooks.length>=1){
 let readingDisplay;
 if(readingBooks.length>= 1){
   readingDisplay = (
-    <div className='pastBooksWrapper' >
+    <div className='booksListWrapper' >
     {readingBooks?.map((book) => (
-        <div key={book?.id} className='pastBookCard'>
-            <h3>{book?.name}</h3>
-            <h4>By: {book?.author}</h4>
-            <img src={book?.cover_image} className='readingCoverImage' alt='book cover'
-            onError={e => { e.currentTarget.src = "https://res.cloudinary.com/dydhvazpw/image/upload/v1669760728/capstone/No_image_available.svg_qsoxac.png"; }}
-            ></img>
+        <div key={book?.id} className='bookListCard'>
+            <h3 className='listBookName'>{book?.name}</h3>
+            <h4 className='listBookName'>By: {book?.author}</h4>
+            <NavLink to={`/findABook/${book?.id}`} onClick={() => window.scrollTo(0, 0)}>
+              <img src={book?.cover_image} className='listCoverImage' alt='book cover'
+              onError={e => { e.currentTarget.src = "https://res.cloudinary.com/dydhvazpw/image/upload/v1669760728/capstone/No_image_available.svg_qsoxac.png"; }}
+              ></img>
+            </NavLink>
+            <button className='removereadingButton' onClick={() => {handleRemove(book?.id)}}>Remove from Bookshelf</button>
         </div>
     ))}
 </div>
@@ -209,12 +233,12 @@ if (memberClubs.length >= 1) {
       <div>
         <h2>Your Bookshelf</h2>
         <div>
-          <h3>
+          {/* <h3>
             Favorites
           </h3>
           <div>
             {favoriteDisplay}
-          </div>
+          </div> */}
           <h3>
             Currently Reading
           </h3>
@@ -272,10 +296,10 @@ if (memberClubs.length >= 1) {
           </h1>
         </div>
         <div className='changeView'>
-          <button onClick={() => {setView('bookshelf')}}>
+          <button className='userDisplayChoice' onClick={() => {setView('bookshelf')}}>
             My Bookshelf
           </button>
-          <button onClick={() => {setView('bookclubs')}}>
+          <button className='userDisplayChoice' onClick={() => {setView('bookclubs')}}>
             My Bookclubs
           </button>
         </div>
