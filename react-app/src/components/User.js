@@ -233,12 +233,12 @@ if (memberClubs.length >= 1) {
       <div>
         <h2>Your Bookshelf</h2>
         <div>
-          <h3>
+          {/* <h3>
             Favorites
           </h3>
           <div>
             {favoriteDisplay}
-          </div>
+          </div> */}
           <h3>
             Currently Reading
           </h3>
