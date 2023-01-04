@@ -42,6 +42,7 @@ export const getClubBooksList = (id) => async dispatch => {
 }
 
 export const addBookToClubList = (clubId, bookToAdd) => async dispatch => {
+
     const response = await fetch(`/api/readingList/bookclub/${clubId}/add`, {
         method: 'POST',
         headers: {'Content-type': 'application/json'},
@@ -50,7 +51,7 @@ export const addBookToClubList = (clubId, bookToAdd) => async dispatch => {
 
     if(response.ok){
         const book = await response.json()
-            dispatch(addBookToClubList(book))
+            dispatch(addBook(book))
             return book
     } else if(response.status < 500){
         const data = await response.json()

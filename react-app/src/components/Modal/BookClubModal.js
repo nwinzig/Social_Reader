@@ -4,7 +4,7 @@ import { Modal } from '../../context/Modal';
 import './shelfModal.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useHistory } from 'react-router-dom';
-import { getClubBooksList } from '../../store/clubReadingList';
+import { addBookToClubList, getClubBooksList } from '../../store/clubReadingList';
 
 function ClubBookshelfModal({book,user}){
     const dispatch = useDispatch()
@@ -77,26 +77,28 @@ function ClubBookshelfModal({book,user}){
     }
 
 
-    const checkShelf = function(){
-        setIsOnShelf(false)
-        if(currentClubBookList?.length){
-            for(let i = 0; i<currentClubBookList?.length; i++){
-                console.log('book id', book.id, 'in list id', currentClubBookList[i].id)
-                if(book.id === currentClubBookList[i].id){
+    // const checkShelf = function(){
+    //     setIsOnShelf(false)
+    //     if(currentClubBookList?.length){
+    //         for(let i = 0; i<currentClubBookList?.length; i++){
+    //             console.log('book id', book.id, 'in list id', currentClubBookList[i].id)
+    //             if(book.id === currentClubBookList[i].id){
 
-                    return setIsOnShelf(true)
-                }
-            }
-        }
-    }
+    //                 return setIsOnShelf(true)
+    //             }
+    //         }
+    //     }
+    // }
     //get list of books for club if selected in dropdown
-    const currentClubBookList = useSelector((state) => state.clubReadingList.books)
-    useEffect(() => {
-        dispatch(getClubBooksList(Number(bookclub))).then(checkShelf())
-    }, [dispatch, bookclub])
-    console.log('do i get a list of books', currentClubBookList)
+    // const currentClubBookList = useSelector((state) => state.clubReadingList.books)
 
-    console.log('is it on the shelf after function call', isOnShelf)
+    // useEffect(() => {
+    //     dispatch(getClubBooksList(Number(bookclub)))
+    // }, [dispatch, bookclub])
+
+    // console.log('do i get a list of books', currentClubBookList)
+
+    // console.log('is it on the shelf after function call', isOnShelf)
     //need to see if book is already on club reading list
 
     // useEffect(() => {
@@ -117,13 +119,22 @@ function ClubBookshelfModal({book,user}){
         console.log('this is bookclub', bookclub)
 
         // needs to collect and send book id, bookclub id, status
+        let bookclubId = Number(bookclub)
+
         let bookToAdd = {
             'book_id': book.id,
-            'bookclub_id': Number(bookclub),
+            'bookclub_id': bookclubId,
             'status': status
         }
         console.log('am i recieving the correct information',bookToAdd)
-        console.log('will submit see that the book is on shelf', isOnShelf)
+
+        if(!isOnShelf){
+            console.log('should be data to add', bookToAdd)
+            const data = await dispatch(addBookToClubList(bookclubId, bookToAdd))
+            setIsModal(false)
+            return history.push(`/findAClub/${bookclubId}`)
+        }
+        // console.log('will submit see that the book is on shelf', isOnShelf)
     }
 
     return (

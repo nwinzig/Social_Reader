@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, session, request, redirect
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import db, BookClub, User_BookClub, BookClub_Book, Book, User_Book
-from app.forms import CreateBookForm, UpdateBookForm, addBookToUserShelf, updateBookFromUserShelf
+from app.forms import CreateBookForm, UpdateBookForm, addBookToUserShelf, updateBookFromUserShelf, addBookToClubShelf, updateBookFromClubShelf
 
 
 readingList_routes = Blueprint('readingList', __name__)
@@ -95,7 +95,24 @@ def updateBookStatus(bookId):
 ######################
 
 #add a book to a clubs shelf
-@readingList_routes.route('/bookclub/<int:clubId>/add', methods = ['POST'])
+@readingList_routes.route('/bookclub/<int:clubId>/add', methods=['POST'])
 @login_required
 def addToClubShelf(clubId):
     """This route is used to add a book to a specific bookclubs bookshelf """
+
+    form = addBookToClubShelf()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        addBook = BookClub_Book(
+            book_id = form.data['book_id'],
+            bookclub_id = form.data['bookclub_id'],
+            status = form.data['status'],
+        )
+        print('in backend', addBook)
+        db.session.add(addBook)
+        db.session.commit()
+
+        toReturn = addBook.to_dict()
+        return {'Book': toReturn}
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
