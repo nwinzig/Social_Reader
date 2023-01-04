@@ -116,3 +116,18 @@ def addToClubShelf(clubId):
         toReturn = addBook.to_dict()
         return {'Book': toReturn}
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+
+#remove a book from a clubs shelf
+@readingList_routes.route('/bookclub/<int:clubId>/remove/<int:bookId>', methods=['DELETE'])
+@login_required
+def removeFromClubShelf(clubId,bookId):
+    """This route is used to delete a book from a clubs reading list. It takes in both a club Id and book Id to correctly find the requested book for removal. """
+
+    bookToRemove = BookClub_Book.query.filter(BookClub_Book.bookclub_id == clubId, BookClub_Book.book_id == bookId).first()
+
+    if bookToRemove is not None:
+        db.session.delete(bookToRemove)
+        db.session.commit()
+        return {'Message': 'Removed from list'}
+    return 'Book not found'
