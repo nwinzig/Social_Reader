@@ -123,7 +123,7 @@ function ClubDetails(){
                     onError={e => { e.currentTarget.src = "https://res.cloudinary.com/dydhvazpw/image/upload/v1669760728/capstone/No_image_available.svg_qsoxac.png"; }}
                     ></img>
                     {user?.id === bookClub?.ownerId && (
-                        <button onClick={() => handleRemove(readingBooks[0]?.id)}>
+                        <button className='removeFromList' onClick={() => handleRemove(readingBooks[0]?.id)}>
                             Remove
                         </button>
                     )}
@@ -148,7 +148,7 @@ function ClubDetails(){
                             onError={e => { e.currentTarget.src = "https://res.cloudinary.com/dydhvazpw/image/upload/v1669760728/capstone/No_image_available.svg_qsoxac.png"; }}
                         ></img>
                         {user?.id === bookClub?.ownerId && (
-                            <button onClick={() => handleRemove(book?.id)}>
+                            <button className='removeFromList' onClick={() => handleRemove(book?.id)}>
                                 Remove
                             </button>
                         )}
@@ -175,7 +175,7 @@ function ClubDetails(){
                         onError={e => { e.currentTarget.src = "https://res.cloudinary.com/dydhvazpw/image/upload/v1669760728/capstone/No_image_available.svg_qsoxac.png"; }}
                         ></img>
                         {user?.id === bookClub?.ownerId && (
-                            <button onClick={() => handleRemove(book?.id)}>
+                            <button className='removeFromList' onClick={() => handleRemove(book?.id)}>
                                 Remove
                             </button>
                         )}
