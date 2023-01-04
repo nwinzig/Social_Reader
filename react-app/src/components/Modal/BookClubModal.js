@@ -47,7 +47,7 @@ function ClubBookshelfModal({book,user}){
         // console.log('do i get a list', testList)
         return setTestList(newList.books)
     }
-    console.log('this is a test', testList)
+    // console.log('this is a test', testList)
 
     //create component depending on if user owns any clubs
     let ownedClubs
@@ -96,17 +96,17 @@ function ClubBookshelfModal({book,user}){
 
     useEffect(() => {
         if(testList.length){
-            console.log('am i here')
+            // console.log('am i here')
             for(let i = 0; i<testList.length; i++){
-                console.log('inside for loop', 'book id', book.id, 'test id', testList[i].id)
+                // console.log('inside for loop', 'book id', book.id, 'test id', testList[i].id)
                 if(book.id == testList[i].id){
-                    console.log('inside conditional sadas')
+                    // console.log('inside conditional sadas')
                     setIsOnShelf(true)
-                    console.log('is on shelf inside loop', isOnShelf)
+                    // console.log('is on shelf inside loop', isOnShelf)
                 }
             }
         }
-        console.log('if its on shelf im happy', isOnShelf)
+        // console.log('if its on shelf im happy', isOnShelf)
     })
 
 
@@ -124,7 +124,7 @@ function ClubBookshelfModal({book,user}){
         }
 
         if(!isOnShelf){
-            console.log('should be data to add', bookToAdd)
+            // console.log('should be data to add', bookToAdd)
             const data = await dispatch(addBookToClubList(bookclubId, bookToAdd))
             setIsModal(false)
             return history.push(`/findAClub/${bookclubId}`)

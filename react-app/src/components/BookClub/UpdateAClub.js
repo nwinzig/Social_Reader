@@ -45,7 +45,7 @@ function UpdateAClub(){
 
     const handleDelete = async (e) => {
         e.preventDefault()
-        console.log('in handle delete', clubId)
+        // console.log('in handle delete', clubId)
         await dispatch(deleteAClub(clubId)).then(() => dispatch(getAllClubs()))
         history.push('/findAClub')
     }

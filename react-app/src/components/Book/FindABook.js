@@ -9,7 +9,7 @@ function FindABook(){
     const dispatch = useDispatch()
     const session = useSelector((state) => state.session.user)
     const books = useSelector((state) => state.books.Books)
-    console.log('what are books', books)
+    // console.log('what are books', books)
 
     useEffect(() => {
         dispatch(getAllBooks())
