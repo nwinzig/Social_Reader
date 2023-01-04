@@ -131,3 +131,23 @@ def removeFromClubShelf(clubId,bookId):
         db.session.commit()
         return {'Message': 'Removed from list'}
     return 'Book not found'
+
+
+#update a book already on a clubs shelf
+@readingList_routes.route('/bookclub/<int:clubId>/update/<int:bookId>', methods=['PUT'])
+@login_required
+def updateBookFromClubList(clubId, bookId):
+    """This route is used to update existing books in a clubs reading list """
+
+    form = updateBookFromClubShelf()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+
+        book = BookClub_Book.query.filter(BookClub_Book.book_id == bookId, BookClub_Book.bookclub_id == clubId)
+
+        if book is not None:
+            book.status = form.data['status']
+
+            db.session.commit()
+            return book.to_dict()
