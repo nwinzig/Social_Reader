@@ -35,6 +35,12 @@ def seed_userBookClub():
     club11 = User_BookClub(
         user_id=1, bookclub_id=6, member_status='member'
     )
+    club12 = User_BookClub(
+        user_id=3, bookclub_id=7, member_status='owner'
+    )
+    club13 = User_BookClub(
+        user_id=1, bookclub_id=8, member_status='owner'
+    )
     db.session.add(club1)
     db.session.add(club2)
     db.session.add(club3)
@@ -46,6 +52,8 @@ def seed_userBookClub():
     db.session.add(club9)
     db.session.add(club10)
     db.session.add(club11)
+    db.session.add(club12)
+    db.session.add(club13)
     db.session.commit()
 
 
