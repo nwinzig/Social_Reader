@@ -24,7 +24,7 @@ def seed_bookclubs():
         name='Lonesome Readers', description='I like to read alone. I bet you do too. Join my club if you want book recommendations but want to continue reading alone.', clubImage='https://res.cloudinary.com/dydhvazpw/image/upload/v1673279460/capstone/download-1_krejnf.jpg',private=False
     )
     club8 = BookClub(
-        name='The Historians', description='History give me history!!', clubImage='https://res.cloudinary.com/dydhvazpw/image/upload/v1673279362/capstone/download_uzxvfi.jpg',private=False
+        name='1 2 3 Action', description='We want books that pack a punch. Movies and TV will never come close to the action in a book.', clubImage='https://res.cloudinary.com/dydhvazpw/image/upload/v1673896156/capstone/download_pkwn34.jpg',private=False
     )
 
     db.session.add(club1)

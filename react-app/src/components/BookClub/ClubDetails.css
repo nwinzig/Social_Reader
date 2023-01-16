@@ -86,13 +86,14 @@
     display: flex;
     flex-direction: column;
     background-color: #F9F4F2;
-    height: 21rem;
+    height: fit-content;
     width: 300px;
     border-radius: 10px;
     /* border: 1px solid black; */
     box-shadow: 0 0 1px 1px lightgray;
     align-items: center;
     padding: 20px;
+    padding-top: 5px;
     font-size: 20px;
 }
 .clubInformationContent{
@@ -105,13 +106,13 @@
     display: flex;
     flex-direction: column;
 }
-.readingDisplay h3{
+.readingDisplay h4{
     margin-top: 0px;
     margin-bottom: 5px;
 }
 .readingCoverImage{
     height: 250px;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 .testingwithcolor{
     height: 200px;
@@ -136,19 +137,24 @@
     background-color: #F9F4F2;
     box-shadow: 0 0 1px 1px lightgray;
     width: 30%;
-    height: 21rem;
+    height: fit-content;
     margin-bottom: 50px;
     border-radius: 10px;
     padding-bottom: 10px;
     margin-right: 25px;
 }
-.pastBookCard h3{
-    margin: 10px 0 0;
-
-}
 .pastBookCard h4{
-    margin: 0;
+    display: flex;
+    align-self: center;
+    /* margin: 10px 0 0; */
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
+/* .pastBookCard h4{
+    margin: 0;
+} */
 .pastBookCard img{
     margin-bottom: 10px;
 }

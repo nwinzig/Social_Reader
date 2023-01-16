@@ -9,10 +9,17 @@ def seed_users():
         username='marnie', email='marnie@aa.io', password='password', first_name='Marnie', last_name='Demo')
     bobbie = User(
         username='bobbie', email='bobbie@aa.io', password='password', first_name='Bobbie', last_name='Demo')
+    lee = User(username='lChild', email='lee@aa.io', password='password', first_name='Lee', last_name='Child')
+    michael = User(username='Chabon', email='michael@aa.io', password='password', first_name='Michael', last_name='Chabon')
+    john = User(username='Jsmith', email='smith@aa.io', password='password', first_name='John', last_name='Smith')
+
 
     db.session.add(demo)
     db.session.add(marnie)
     db.session.add(bobbie)
+    db.session.add(lee)
+    db.session.add(michael)
+    db.session.add(john)
     db.session.commit()
 
 
