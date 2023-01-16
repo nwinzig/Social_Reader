@@ -29,9 +29,14 @@
     margin-bottom: 8px;
     border-radius: 25px;
 }
+.inputField::placeholder{
+    font-family: 'Bodoni Moda', serif;
+    font-size: .95rem;
+}
 .inputField:focus{
     outline-width: 0;
 }
+
 .SignUpButton{
     margin-top: 8px;
     text-decoration: none;

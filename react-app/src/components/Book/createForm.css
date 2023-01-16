@@ -1,0 +1,49 @@
+/* .inputAuthor{
+    padding-left: 10px;
+    border: 1px solid lightgray;
+    box-shadow: 0 0 1px 1px lightgray;
+    height: 40px;
+    width: 300px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    border-radius: 25px;
+} */
+
+.inputSummary{
+    padding-left: 10px;
+    border: 1px solid lightgray;
+    box-shadow: 0 0 1px 1px lightgray;
+    height: 40px;
+    width: 300px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    border-radius: 25px;
+}
+.inputSummary:focus{
+    outline-width: 0;
+}
+.inputSummary::placeholder{
+    font-size: .95rem;
+    font-family: 'Bodoni Moda', serif;
+    padding-top: 10px;
+}
+.inputSummary:invalid{
+    border: 1px solid red;
+}
+/* .inputText{
+    font-family: 'Bodoni Moda', serif;
+    font-size: .95rem;
+} */
+.selectField{
+    padding-left: 10px;
+    border: 1px solid lightgray;
+    box-shadow: 0 0 1px 1px lightgray;
+    height: 40px;
+    width: 100%;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    border-radius: 25px;
+}
+.selectField:focus{
+    outline-width: 0;
+}

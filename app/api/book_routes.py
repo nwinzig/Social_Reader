@@ -78,7 +78,7 @@ def createABook():
     if form.validate_on_submit():
         coverImage = form.data['cover_image']
         if not coverImage:
-            coverImage = 'https://res.cloudinary.com/dydhvazpw/image/upload/v1669760728/capstone/No_image_available.svg_qsoxac.png'
+            coverImage = 'https://res.cloudinary.com/dydhvazpw/image/upload/v1673291086/capstone/040868_hcimnv.jpg'
 
         pageNumber = int(form.data['page_number'])
         newBook = Book(
@@ -112,7 +112,7 @@ def updateBook(id):
 
         coverImage = form.data['cover_image']
         if not coverImage:
-            coverImage = 'https://res.cloudinary.com/dydhvazpw/image/upload/v1669760728/capstone/No_image_available.svg_qsoxac.png'
+            coverImage = 'https://res.cloudinary.com/dydhvazpw/image/upload/v1673291086/capstone/040868_hcimnv.jpg'
 
         book.name = form.data['name']
         book.author = form.data['author']

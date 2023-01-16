@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Redirect, useHistory } from 'react-router-dom'
 import {createABook} from '../../store/books'
+import './createForm.css'
 
 function CreateABook(){
     const history = useHistory()
@@ -63,7 +64,7 @@ function CreateABook(){
                     <div>
                         <input
                         className='inputField'
-                        placeholder='Book title '
+                        placeholder='Title '
                         required
                         value={name}
                         onChange={(e) => setName(e.target.value)}
@@ -73,21 +74,21 @@ function CreateABook(){
                         </input>
                     </div>
                     <div>
-                        <textarea
+                        <input
                         className='inputField'
-                        placeholder='Author name'
+                        placeholder='Author'
                         required
                         value={author}
                         onChange={(e) => setAuthor(e.target.value)}
                         minLength={2}
                         maxLength={25}
                         >
-                        </textarea>
+                        </input>
                     </div>
                     <div>
                         <textarea
-                        className='inputField'
-                        placeholder='Book summary'
+                        className='inputSummary'
+                        placeholder='Summary'
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         minLength={5}
@@ -99,7 +100,7 @@ function CreateABook(){
                     <div>
                     <input
                         className='inputField'
-                        placeholder='Number of pages'
+                        placeholder='Pages'
                         value={page_number}
                         type='number'
                         onChange={(e) => setPage_Number(e.target.value)}
@@ -112,7 +113,7 @@ function CreateABook(){
                     <div>
                     <input
                         className='inputField'
-                        placeholder='Book Cover Image(optional)'
+                        placeholder='Cover Image(optional)'
                         value={cover_image}
                         onChange={(e) => setCover_Image(e.target.value)}
                         >
@@ -123,10 +124,10 @@ function CreateABook(){
                         value={genre}
                         onChange={(e) => setGenre(e.target.value)}
                         required
-                        className='inputField'
+                        className='selectField'
                         id='hover'
                         >
-                            <option value=''>Please select a genre</option>
+                            <option value='' className='inputText'>Please select a genre</option>
                             <option value='Fiction'>Fiction</option>
                             <option value='Nonfiction'>Nonfiction</option>
                             <option value='Drama'>Drama</option>

@@ -52,7 +52,7 @@ const NavBar = () => {
         </div>
         <div>
           <NavLink className='joinAClub' to='/findAClub' exact={true} activeClassName='active' onClick={() => window.scrollTo(0, 0)}>
-            Join A book Club
+            Join A Book Club
           </NavLink>
         </div>
         <div>

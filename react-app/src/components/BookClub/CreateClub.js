@@ -87,7 +87,7 @@ function CreateABookClub(){
                     <div>
                         <input
                         className='inputField'
-                        placeholder='Club Image url(optional)'
+                        placeholder='Image url(optional)'
                         value={clubImage}
                         onChange={(e) => setClubImage(e.target.value)}
                         >

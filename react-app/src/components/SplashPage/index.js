@@ -63,7 +63,7 @@ function SplashPage(){
                     </img>
                     <div>
                         <p className='splashIntrotext'>
-                            Find a book, or add something new to share.
+                            Find a book or add something new to share.
                         </p>
                     </div>
                 </div>
