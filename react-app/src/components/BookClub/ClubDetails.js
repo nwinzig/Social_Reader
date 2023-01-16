@@ -118,7 +118,7 @@ function ClubDetails(){
     if(readingBooks.length>=1){
         readingDisplay = (
             <div className='readingDisplay'>
-                    <h3>{readingBooks[0]?.name}</h3>
+                    <h4>{readingBooks[0]?.name}</h4>
                     <img className='readingCoverImage' alt='book cover' src={readingBooks[0]?.cover_image}
                     onError={e => { e.currentTarget.src = "https://res.cloudinary.com/dydhvazpw/image/upload/v1669760728/capstone/No_image_available.svg_qsoxac.png"; }}
                     ></img>
@@ -142,8 +142,8 @@ function ClubDetails(){
             <div className='pastBooksWrapper' id='addBottomBorder'>
                 {completedBooks?.map((book) => (
                     <div key={book?.id} className='pastBookCard'>
-                        <h3>{book?.name}</h3>
-                        <h4>By: {book?.author}</h4>
+                        <h4>{book?.name}</h4>
+                        {/* <h4>By: {book?.author}</h4> */}
                         <img className='readingCoverImage' src={book?.cover_image} alt='book cover'
                             onError={e => { e.currentTarget.src = "https://res.cloudinary.com/dydhvazpw/image/upload/v1669760728/capstone/No_image_available.svg_qsoxac.png"; }}
                         ></img>
@@ -170,7 +170,7 @@ function ClubDetails(){
                 {planningBooks?.map((book) => (
                     <div key={book?.id} className='pastBookCard'>
                         <h3>{book?.name}</h3>
-                        <h4>By: {book?.author}</h4>
+                        {/* <h4>By: {book?.author}</h4> */}
                         <img src={book?.cover_image} className='readingCoverImage' alt='book cover'
                         onError={e => { e.currentTarget.src = "https://res.cloudinary.com/dydhvazpw/image/upload/v1669760728/capstone/No_image_available.svg_qsoxac.png"; }}
                         ></img>
@@ -219,7 +219,7 @@ function ClubDetails(){
             </div>
             <div className='clubInformation'>
                 <div className='currentlyReadingWrapper'>
-                    <div style={{borderBottom:'1px solid #E66752'}}>
+                    <div style={{borderBottom:'1px solid #E66752', fontSize:'18px'}}>
                         Currently Reading
                     </div>
                         {readingDisplay}
