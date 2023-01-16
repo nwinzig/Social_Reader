@@ -79,7 +79,17 @@ def seed_books():
     db.session.add(book9)
     db.session.add(book10)
     db.session.add(book11)
-    # 12
+    db.session.add(book12)
+    db.session.add(book13)
+    db.session.add(book14)
+    db.session.add(book15)
+    db.session.add(book16)
+    db.session.add(book17)
+    db.session.add(book18)
+    db.session.add(book19)
+    db.session.add(book20)
+    db.session.add(book21)
+    db.session.add(book22)
     db.session.commit()
 
 
