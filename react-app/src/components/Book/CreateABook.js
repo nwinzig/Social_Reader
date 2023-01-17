@@ -92,7 +92,7 @@ function CreateABook(){
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         minLength={5}
-                        maxLength={1500}
+                        maxLength={1750}
                         id='textAreaSize'
                         >
                         </textarea>
